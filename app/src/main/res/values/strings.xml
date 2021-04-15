@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LoLAid</string>
+    <string name="stats_button">Button to show Stats Tab</string>
+    <string name="history_button">Button to show History Tab</string>
+    <string name="recommendations_button">Button to show Recommendations Tab</string>
+    <string name="live_game_button">Button to show Live Game Tab</string>
+    <string name="background_image">Background of the Tabs</string>
 </resources>

@@ -9,42 +9,62 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="105dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/bStats"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="?android:attr/borderlessButtonStyle"
-            android:text="Stats" />
+            android:src="@drawable/stats_button"
+            android:contentDescription="@string/stats_button"
+            android:onClick="changeFragment" />
 
         <ImageButton
             android:id="@+id/bHistory"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="?android:attr/borderlessButtonStyle"
-            android:text="History" />
+            android:src="@drawable/history_button"
+            android:contentDescription="@string/history_button"
+            android:onClick="changeFragment" />
 
         <ImageButton
             android:id="@+id/bRecommendations"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="?android:attr/borderlessButtonStyle"
-            android:text="Recommendations" />
+            android:src="@drawable/recommendations_button"
+            android:contentDescription="@string/recommendations_button"
+            android:onClick="changeFragment" />
 
         <ImageButton
             android:id="@+id/bLiveGame"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="?android:attr/borderlessButtonStyle"
-            android:text="LiveGame" />
+            android:src="@drawable/live_game_button"
+            android:contentDescription="@string/live_game_button"
+            android:onClick="changeFragment" />
 
 
     </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fcvView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
