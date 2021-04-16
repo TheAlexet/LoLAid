@@ -5,4 +5,12 @@
     <string name="recommendations_button">Button to show Recommendations Tab</string>
     <string name="live_game_button">Button to show Live Game Tab</string>
     <string name="background_image">Background of the Tabs</string>
+    <string name="settings_button">Button to access to settings menu</string>
+    <string name="close_button">Button to close the settings menu</string>
+    <string name="welcome_text">Welcome to LoLAid</string>
+    <string name="stats_title">Stats</string>
+    <string name="history_title">History</string>
+    <string name="recommendations_title">Recom.</string>
+    <string name="live_game_title">Live Game</string>
+    <string name="settings_title">Settings</string>
 </resources>
