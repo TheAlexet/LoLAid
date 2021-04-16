@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="languages_list_name">
+        <item>@string/language_english</item>
+        <item>@string/language_spanish</item>
+        <item>@string/language_valencian</item>
+    </string-array>
+    <string-array name="languages_list_value">
+        <item>@string/language_english</item>
+        <item>@string/language_spanish</item>
+        <item>@string/language_valencian</item>
+    </string-array>
+</resources>
