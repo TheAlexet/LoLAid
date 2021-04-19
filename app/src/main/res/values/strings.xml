@@ -14,6 +14,7 @@
     <string name="live_game_title">Live Game</string>
     <string name="settings_title">Settings</string>
     <string name="settings_language_title">Language:</string>
+    <string name="summoner_name_title">Summoner name:</string>
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
     <string name="language_valencian">Valencià</string>
