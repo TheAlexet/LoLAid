@@ -47,26 +47,24 @@
         android:id="@+id/settingsLanguageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/settings_language_title"
         android:textAlignment="textStart"
         android:textColor="#cec92f"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsTitle"
         tools:text="History Tab" />
 
     <Spinner
         android:id="@+id/settingsLanguageSpinner"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        style="@style/spinner_style"
         android:entries="@array/languages_list_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsLanguageTitle" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settingsLanguageTitle"
+        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

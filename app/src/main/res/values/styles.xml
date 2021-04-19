@@ -8,4 +8,12 @@
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:titleTextColor">@color/primary_yellow</item>
     </style>
+
+    <style name="spinner_style">
+        <item name="android:layout_width">180dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/gradient_spinner</item>
+        <item name="android:layout_marginTop">45dp</item>
+        <item name="android:layout_marginStart">40dp</item>
+    </style>
 </resources>
