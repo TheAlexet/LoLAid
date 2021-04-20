@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LoLAid</string>
+    <string name="welcome_text">Bienvenido a LoLAid</string>
+    <string name="stats_title">Estadísticas</string>
+    <string name="history_title">Historial</string>
+    <string name="recommendations_title">Consejos</string>
+    <string name="live_game_title">En vivo</string>
+    <string name="settings_title">Configuración</string>
+    <string name="settings_language_title">Idioma:</string>
+    <string name="summoner_name_title">Nombre de invocador:</string>
+    <string name="language_english">Inglés</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_valencian">Valenciano</string>
+</resources>

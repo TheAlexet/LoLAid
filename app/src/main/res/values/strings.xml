@@ -1,21 +1,24 @@
 <resources>
     <string name="app_name">LoLAid</string>
-    <string name="stats_button">Button to show Stats Tab</string>
-    <string name="history_button">Button to show History Tab</string>
-    <string name="recommendations_button">Button to show Recommendations Tab</string>
-    <string name="live_game_button">Button to show Live Game Tab</string>
-    <string name="background_image">Background of the Tabs</string>
-    <string name="settings_button">Button to access to settings menu</string>
-    <string name="close_button">Button to close the settings menu</string>
+    <string name="stats_button" translatable="false">Button to show Stats Tab</string>
+    <string name="history_button" translatable="false">Button to show History Tab</string>
+    <string name="recommendations_button" translatable="false">Button to show Recommendations Tab</string>
+    <string name="live_game_button" translatable="false">Button to show Live Game Tab</string>
+    <string name="background_image" translatable="false">Background of the Tabs</string>
+    <string name="settings_button" translatable="false">Button to access to settings menu</string>
+    <string name="close_button" translatable="false">Button to close the settings menu</string>
     <string name="welcome_text">Welcome to LoLAid</string>
     <string name="stats_title">Stats</string>
     <string name="history_title">History</string>
-    <string name="recommendations_title">Recom.</string>
+    <string name="recommendations_title">Tips</string>
     <string name="live_game_title">Live Game</string>
     <string name="settings_title">Settings</string>
     <string name="settings_language_title">Language:</string>
     <string name="summoner_name_title">Summoner name:</string>
     <string name="language_english">English</string>
-    <string name="language_spanish">Español</string>
-    <string name="language_valencian">Valencià</string>
+    <string name="language_spanish">Spanish</string>
+    <string name="language_valencian">Valencian</string>
+    <string name="summoner_name_description" translatable="false">This is the Summoner name description</string>
+    <string name="summoner_name_hint" translatable="false"></string>
+    <string name="settings_option" translatable="false"></string>
 </resources>

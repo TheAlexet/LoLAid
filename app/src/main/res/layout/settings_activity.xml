@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/settingsActivityId">
 
     <ImageView
         android:id="@+id/background"
@@ -18,33 +19,6 @@
         app:srcCompat="@drawable/background"
         tools:layout_editor_absoluteX="16dp" />
 
-    <ImageButton
-        android:id="@+id/bClose"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:contentDescription="@string/close_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/close"
-        android:onClick="changeFragment" />
-
-    <TextView
-        android:id="@+id/settingsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_title"
-        android:textAlignment="textStart"
-        android:textSize="50sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:textColor="#cec92f"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="History Tab" />
-
     <TextView
         android:id="@+id/settingsLanguageTitle"
         android:layout_width="wrap_content"
@@ -57,7 +31,7 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle"
+        app:layout_constraintTop_toTopOf="@+id/background"
         tools:text="History Tab:" />
 
     <TextView
@@ -76,7 +50,7 @@
         tools:text="Summoner name:" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/summonerNameBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -91,10 +65,10 @@
     <Spinner
         android:id="@+id/settingsLanguageSpinner"
         style="@style/spinner_style"
+        android:layout_marginStart="30dp"
         android:entries="@array/languages_list_name"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/settingsLanguageTitle"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
+        app:layout_constraintTop_toTopOf="@+id/background" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
