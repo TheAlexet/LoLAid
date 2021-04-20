@@ -15,4 +15,7 @@
     <string name="settings_region_title">Regió:</string>
     <string name="start_button">Començar</string>
     <string name="login_failed">El nom d\'invocador no es correcte. Per favor, comproba\'l.</string>
+    <string name="summoner_level">Nivell:</string>
+    <string name="summoner_level_title">Nivell:</string>
+    <string name="main_champions_title">Campeons principals:</string>
 </resources>

@@ -15,4 +15,7 @@
     <string name="settings_region_title">Region:</string>
     <string name="start_button">Start</string>
     <string name="login_failed">The summoner name is not correct! Please check it.</string>
+    <string name="summoner_level">Level:</string>
+    <string name="summoner_level_title">Level:</string>
+    <string name="main_champions_title">Main champions:</string>
 </resources>

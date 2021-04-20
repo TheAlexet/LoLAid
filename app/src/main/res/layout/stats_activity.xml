@@ -18,4 +18,151 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background" />
 
+    <TextView
+        android:id="@+id/statsSummonerNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/summoner_name_title"
+        android:textAlignment="textStart"
+        android:textColor="#cec92f"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background"
+        tools:text="History Tab:" />
+
+    <TextView
+        android:id="@+id/statsSummonerNameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textColor="#cec92f"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsSummonerNameTitle"
+        tools:text="History Tab:" />
+
+    <TextView
+        android:id="@+id/statsSummonerLevelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/summoner_level_title"
+        android:textAlignment="textStart"
+        android:textColor="#cec92f"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsSummonerNameValue"
+        tools:text="History Tab:" />
+
+    <TextView
+        android:id="@+id/statsSummonerLevelValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textColor="#cec92f"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/statsSummonerLevelTitle"
+        app:layout_constraintTop_toBottomOf="@+id/statsSummonerNameValue"
+        tools:text="History Tab:" />
+
+    <TextView
+        android:id="@+id/statsMainChampionsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/main_champions_title"
+        android:textAlignment="textStart"
+        android:textColor="#cec92f"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsSummonerLevelTitle"
+        tools:text="History Tab:" />
+
+    <ImageView
+        android:id="@+id/statsMainChampion1Image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsMainChampionsTitle" />
+
+    <TextView
+        android:id="@+id/statsMainChampion1Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textColor="#cec92f"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/statsMainChampion1Image"
+        app:layout_constraintTop_toBottomOf="@+id/statsMainChampionsTitle"
+        tools:text="History Tab:" />
+
+    <ImageView
+        android:id="@+id/statsMainChampion2Image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsMainChampion1Image" />
+
+    <TextView
+        android:id="@+id/statsMainChampion2Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="65dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textColor="#cec92f"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/statsMainChampion2Image"
+        app:layout_constraintTop_toBottomOf="@+id/statsMainChampion1Value"
+        tools:text="History Tab:" />
+
+    <ImageView
+        android:id="@+id/statsMainChampion3Image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsMainChampion2Image" />
+
+    <TextView
+        android:id="@+id/statsMainChampion3Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="65dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textColor="#cec92f"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/statsMainChampion3Image"
+        app:layout_constraintTop_toBottomOf="@+id/statsMainChampion2Value"
+        tools:text="History Tab:" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
