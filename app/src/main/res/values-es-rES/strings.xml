@@ -12,4 +12,7 @@
     <string name="language_english">Inglés</string>
     <string name="language_spanish">Español</string>
     <string name="language_valencian">Valenciano</string>
+    <string name="settings_region_title">Región:</string>
+    <string name="start_button">Empezar</string>
+    <string name="login_failed">EL nombre de invocador no es correcto. Por favor, compruébalo.</string>
 </resources>

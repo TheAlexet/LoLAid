@@ -24,7 +24,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private ActionBar actionBar;
-    private SharedPreferences sharedPrefs;
     private Menu menu;
     private boolean showSettingsButton;
     Class<? extends Fragment> fragmentClass = null;
@@ -51,20 +50,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(false);
         showSettingsButton = true;
         setTitle(Html.fromHtml("<font color=\"yellow\">" + getString(R.string.app_name) + "</font>"));
-
-        //Sets language of the app at the starting point based on our sharedprefs
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        switch(sharedPrefs.getInt("language", 0)) {
-            case 0:
-                setLocale(Locale.getDefault().toLanguageTag());
-                break;
-            case 1:
-                setLocale("es");
-                break;
-            case 2:
-                setLocale("ca");
-                break;
-        }
     }
 
     //Action bar buttons set-up
@@ -131,18 +116,22 @@ public class MainActivity extends AppCompatActivity {
         if (view.getId() == R.id.bStats) {
             fragmentClass = StatsActivity.class;
             previousClass = StatsActivity.class;
+            menu.findItem(R.id.settingsOption).setVisible(true);
             setTitle(Html.fromHtml("<font color=\"yellow\">" + getString(R.string.stats_title) + "</font>"));
         } else if(view.getId() == R.id.bHistory) {
             fragmentClass = HistoryActivity.class;
             previousClass = HistoryActivity.class;
+            menu.findItem(R.id.settingsOption).setVisible(true);
             setTitle(Html.fromHtml("<font color=\"yellow\">" + getString(R.string.history_title) + "</font>"));
         } else if(view.getId() == R.id.bRecommendations) {
             fragmentClass = RecommendationsActivity.class;
             previousClass = RecommendationsActivity.class;
+            menu.findItem(R.id.settingsOption).setVisible(true);
             setTitle(Html.fromHtml("<font color=\"yellow\">" + getString(R.string.recommendations_title) + "</font>"));
         } else if(view.getId() == R.id.bLiveGame) {
             fragmentClass = LiveGameActivity.class;
             previousClass = LiveGameActivity.class;
+            menu.findItem(R.id.settingsOption).setVisible(true);
             setTitle(Html.fromHtml("<font color=\"yellow\">" + getString(R.string.live_game_title) + "</font>"));
         }
 
@@ -155,15 +144,5 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.fcvView, fragmentClass, null)
                         .commit();
         }
-    }
-
-    //Sets the language of the application
-    public void setLocale(String lang) {
-        Locale myLocale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
     }
 }
