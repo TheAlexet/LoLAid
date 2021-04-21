@@ -34,6 +34,7 @@ public class SettingsActivity extends Fragment {
     private EditText summonerName;
     private SharedPreferences sharedPrefs;
     private Spinner language;
+    private Spinner region;
 
     public SettingsActivity() {
 
@@ -50,10 +51,12 @@ public class SettingsActivity extends Fragment {
 
         summonerName =  getView().findViewById(R.id.summonerNameBox);
         language = getView().findViewById(R.id.settingsLanguageSpinner);
+        region = getView().findViewById(R.id.settingsRegionSpinner);
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPrefs.edit();
         summonerName.setText(sharedPrefs.getString("summonerName", ""));
         language.setSelection(sharedPrefs.getInt("language", 0));
+        region.setSelection(sharedPrefs.getInt("region", 0));
 
         summonerName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -87,6 +90,34 @@ public class SettingsActivity extends Fragment {
                         break;
                     case 2:
                         setLocale("ca");
+                        break;
+                }
+                //refreshView();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        region.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                editor.putInt("region", position);
+                editor.apply();
+                switch(position) {
+                    case 0:
+                        //Change to EUW
+                        break;
+                    case 1:
+                        //Change to NA
+                        break;
+                    case 2:
+                        //CHange to KR
+                        break;
+                    case 3:
+                        //CHange to CHI
                         break;
                 }
                 //refreshView();

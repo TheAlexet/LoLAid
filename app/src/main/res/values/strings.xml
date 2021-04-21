@@ -14,6 +14,7 @@
     <string name="live_game_title">Live Game</string>
     <string name="settings_title">Settings</string>
     <string name="settings_language_title">Language:</string>
+    <string name="settings_region_title">Region:</string>
     <string name="summoner_name_title">Summoner name:</string>
     <string name="language_english">English</string>
     <string name="language_spanish">Spanish</string>
@@ -21,4 +22,12 @@
     <string name="summoner_name_description" translatable="false">This is the Summoner name description</string>
     <string name="summoner_name_hint" translatable="false"></string>
     <string name="settings_option" translatable="false"></string>
+    <string name="region_euw" translatable="false">EUW</string>
+    <string name="region_na" translatable="false">NA</string>
+    <string name="region_kr" translatable="false">KR</string>
+    <string name="region_chi" translatable="false">CHI</string>
+    <string name="start_button">Start</string>
+    <string name="login_failed">The summoner name is not correct! Please check it.</string>
+    <string name="summoner_level_title">Level:</string>
+    <string name="main_champions_title">Main champions:</string>
 </resources>
