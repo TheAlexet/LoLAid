@@ -23,6 +23,7 @@ import java.util.Locale;
 
 import business_logic.WrapperRiotAPI;
 import business_logic.WrapperRiotApi2;
+import business_logic.services.RiotApiService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,12 +73,18 @@ public class MainActivity extends AppCompatActivity {
         //WrapperRiotAPI riotAPI = new WrapperRiotAPI();
         //riotAPI.printSummonerInfoTest();
         //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
-        new Thread(() -> {
+        /*new Thread(() -> {
             WrapperRiotAPI riotAPI = new WrapperRiotAPI();
             riotAPI.printSummonerInfoTest();
             //riotAPI.printChamps();
             //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
+        }).start();*/
+        new Thread(() ->
+        {
+            RiotApiService riotApiService = new RiotApiService();
+            riotApiService.printSummonerByNameTest();
         }).start();
+
     }
 
     //Action bar buttons set-up
