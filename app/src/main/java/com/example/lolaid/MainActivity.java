@@ -21,6 +21,9 @@ import android.widget.EditText;
 
 import java.util.Locale;
 
+import business_logic.WrapperRiotAPI;
+import business_logic.WrapperRiotApi2;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActionBar actionBar;
@@ -65,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
                 setLocale("ca");
                 break;
         }
+
+        //WrapperRiotAPI riotAPI = new WrapperRiotAPI();
+        //riotAPI.printSummonerInfoTest();
+        //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
+        new Thread(() -> {
+            WrapperRiotAPI riotAPI = new WrapperRiotAPI();
+            riotAPI.printSummonerInfoTest();
+            //riotAPI.printChamps();
+            //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
+        }).start();
     }
 
     //Action bar buttons set-up
