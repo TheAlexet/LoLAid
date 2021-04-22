@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import business_logic.data_models.SummonerDTO;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -39,5 +41,25 @@ public class RiotApiService
         {
             e.printStackTrace();
         }
+    }
+
+    public void printSummonerByNameTestAsync()
+    {
+        Call<SummonerDTO> call = service.getSummonerByName("pabletefest", RIOT_API_KEY);
+
+        call.enqueue(new Callback<SummonerDTO>() {
+            @Override
+            public void onResponse(Call<SummonerDTO> call, Response<SummonerDTO> response) {
+                SummonerDTO summoner = response.body();
+                Log.d("ID", summoner.getId());
+                Log.d("ACCOUNT_ID", summoner.getAccountId());
+                Log.d("LEVEL", summoner.getSummonerLevel() + "");
+            }
+
+            @Override
+            public void onFailure(Call<SummonerDTO> call, Throwable t) {
+
+            }
+        });
     }
 }

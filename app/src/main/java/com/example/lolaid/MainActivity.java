@@ -79,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
             //riotAPI.printChamps();
             //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
         }).start();*/
+
+        //ASYNC WAY (AUTO CREATION CREATION)
+        RiotApiService riotApiServiceAsync = new RiotApiService();
+        riotApiServiceAsync.printSummonerByNameTestAsync();
+
+        //SYNC WAY (MANUAL THREAD CREATION)
         new Thread(() ->
         {
             RiotApiService riotApiService = new RiotApiService();
