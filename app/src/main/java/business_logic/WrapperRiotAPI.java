@@ -15,7 +15,7 @@ import java.io.File;
 
 public class WrapperRiotAPI
 {
-    private static final String RIOT_API_KEY = "RGAPI-433c9e0d-6a22-4908-839a-cbc78d99270";
+    private static final String RIOT_API_KEY = "RGAPI-f617d2ba-cb1e-4cb6-8c93-55ae5cbf7a6e";
 
     public WrapperRiotAPI()
     {
@@ -44,7 +44,7 @@ public class WrapperRiotAPI
         final Summoner summoner = Summoner.named("Tactical").withRegion(Region.NORTH_AMERICA).get();
         summoner.load();
         Log.d("LEVEL: ", summoner.getLevel() + "");
-        Log.d("TIER: ", summoner.getHighestTier(Season.SEASON_9).toString());
+        //Log.d("TIER: ", summoner.getHighestTier(Season.SEASON_9) + "");
         Log.d("ID: ", summoner.getId());
         Log.d("ACCOUNT_ID: ", summoner.getAccountId());
     }
