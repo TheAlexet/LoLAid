@@ -76,12 +76,13 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             WrapperRiotAPI riotAPI = new WrapperRiotAPI();
             riotAPI.printSummonerInfoTest();
-            //riotAPI.printChamps();
+            riotAPI.printChamps();
+            riotAPI.printSummonerSpells();
             //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
         }).start();
-
+        /*
         //ASYNC WAY (AUTO CREATION CREATION)
-        /*RiotApiService riotApiServiceAsync = new RiotApiService();
+        RiotApiService riotApiServiceAsync = new RiotApiService();
         riotApiServiceAsync.printSummonerByNameTestAsync();
 
         //SYNC WAY (MANUAL THREAD CREATION)
@@ -89,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
         {
             RiotApiService riotApiService = new RiotApiService();
             riotApiService.printSummonerByNameTest();
-        }).start();*/
-
+        }).start();
+        */
     }
 
     //Action bar buttons set-up

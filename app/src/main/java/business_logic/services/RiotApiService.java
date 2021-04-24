@@ -13,7 +13,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RiotApiService
 {
-    private static final String RIOT_API_KEY = "RGAPI-f617d2ba-cb1e-4cb6-8c93-55ae5cbf7a6e";
+    private final String RIOT_API_KEY = "RGAPI-68265d1b-ee18-4ec3-8e72-dd0703725ba0";
+    private final String RANKED_SOLO = "RANKED_SOLO_5x5";
+    private final String RANKED_FLEX = "RANKED_FLEX_SR";
+
     private IRiotApiServiceREST service;
 
     public RiotApiService()
@@ -45,11 +48,14 @@ public class RiotApiService
 
     public void printSummonerByNameTestAsync()
     {
+
         Call<SummonerDTO> call = service.getSummonerByName("pabletefest", RIOT_API_KEY);
 
-        call.enqueue(new Callback<SummonerDTO>() {
+        call.enqueue(new Callback<SummonerDTO>()
+        {
             @Override
-            public void onResponse(Call<SummonerDTO> call, Response<SummonerDTO> response) {
+            public void onResponse(Call<SummonerDTO> call, Response<SummonerDTO> response)
+            {
                 SummonerDTO summoner = response.body();
                 Log.d("ID", summoner.getId());
                 Log.d("ACCOUNT_ID", summoner.getAccountId());
@@ -57,7 +63,8 @@ public class RiotApiService
             }
 
             @Override
-            public void onFailure(Call<SummonerDTO> call, Throwable t) {
+            public void onFailure(Call<SummonerDTO> call, Throwable t)
+            {
 
             }
         });

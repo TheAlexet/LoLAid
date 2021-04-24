@@ -6,9 +6,12 @@ import com.merakianalytics.orianna.Orianna;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.common.Region;
 import com.merakianalytics.orianna.types.common.Season;
+import com.merakianalytics.orianna.types.common.Tier;
 import com.merakianalytics.orianna.types.core.staticdata.Champion;
 import com.merakianalytics.orianna.types.core.staticdata.ChampionSpell;
 import com.merakianalytics.orianna.types.core.staticdata.Champions;
+import com.merakianalytics.orianna.types.core.staticdata.SummonerSpell;
+import com.merakianalytics.orianna.types.core.staticdata.SummonerSpells;
 import com.merakianalytics.orianna.types.core.summoner.Summoner;
 
 import java.io.File;
@@ -44,6 +47,7 @@ public class WrapperRiotAPI
         final Summoner summoner = Summoner.named("Tactical").withRegion(Region.NORTH_AMERICA).get();
         summoner.load();
         Log.d("LEVEL: ", summoner.getLevel() + "");
+        //Tier tier = summoner.getHighestTier(Season.SEASON_9);
         //Log.d("TIER: ", summoner.getHighestTier(Season.SEASON_9) + "");
         Log.d("ID: ", summoner.getId());
         Log.d("ACCOUNT_ID: ", summoner.getAccountId());
@@ -54,6 +58,14 @@ public class WrapperRiotAPI
         final Champions champions = Champions.withRegion(Region.NORTH_AMERICA).get();
         for(final Champion champion : champions) {
             Log.d("CHAMP", champion.getName() + " " + champion.getId());
+        }
+    }
+
+    public void printSummonerSpells()
+    {
+        final SummonerSpells summonerSpells = SummonerSpells.withRegion(Region.NORTH_AMERICA).get();
+        for(final SummonerSpell summonerSpell : summonerSpells) {
+            System.out.println(summonerSpell.getName() + " " + summonerSpell.getId() + " " + summonerSpell.getDescription());
         }
     }
 }
