@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import business_logic.services.RiotApiService;
+
 public class RecommendationsActivity extends Fragment {
 
     public RecommendationsActivity() {
@@ -20,5 +22,4 @@ public class RecommendationsActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.recommendations_activity, container, false);
     }
-
 }

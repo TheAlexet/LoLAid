@@ -12,7 +12,7 @@ public class MatchDto
     private List<TeamStatsDto> teams;
     private String platformId;
     private long gameCreation;
-    private int seasonId;
+    //private int seasonId; //Removed in Match-v5, determined based on timestamps
     private String gameVersion;
     private int mapId;
     private String gameMode;
@@ -20,7 +20,7 @@ public class MatchDto
 
     public MatchDto(){}
 
-    public MatchDto(long gameId, List<ParticipantIdentityDto> participantIdentities, int queueId, String gameType, long gameDuration, List<TeamStatsDto> teams, String platformId, long gameCreation, int seasonId, String gameVersion, int mapId, String gameMode, List<ParticipantDto> participants) {
+    public MatchDto(long gameId, List<ParticipantIdentityDto> participantIdentities, int queueId, String gameType, long gameDuration, List<TeamStatsDto> teams, String platformId, long gameCreation, String gameVersion, int mapId, String gameMode, List<ParticipantDto> participants) {
         this.gameId = gameId;
         this.participantIdentities = participantIdentities;
         this.queueId = queueId;
@@ -29,7 +29,7 @@ public class MatchDto
         this.teams = teams;
         this.platformId = platformId;
         this.gameCreation = gameCreation;
-        this.seasonId = seasonId;
+        //this.seasonId = seasonId;
         this.gameVersion = gameVersion;
         this.mapId = mapId;
         this.gameMode = gameMode;
@@ -99,7 +99,7 @@ public class MatchDto
     public void setGameCreation(long gameCreation) {
         this.gameCreation = gameCreation;
     }
-
+    /*
     public int getSeasonId() {
         return seasonId;
     }
@@ -107,7 +107,7 @@ public class MatchDto
     public void setSeasonId(int seasonId) {
         this.seasonId = seasonId;
     }
-
+    */
     public String getGameVersion() {
         return gameVersion;
     }

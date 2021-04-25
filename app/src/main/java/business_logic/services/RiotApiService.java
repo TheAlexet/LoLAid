@@ -1,5 +1,6 @@
 package business_logic.services;
 
+import android.app.Activity;
 import android.util.Log;
 
 import java.io.IOException;
@@ -10,6 +11,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class RiotApiService
 {
@@ -65,6 +68,32 @@ public class RiotApiService
             @Override
             public void onFailure(Call<SummonerDTO> call, Throwable t)
             {
+
+            }
+        });
+    }
+
+    public void getSummonerByName(String summonerName, Activity activity)
+    {
+        Call<SummonerDTO> call = service.getSummonerByName(summonerName, RIOT_API_KEY);
+
+        call.enqueue(new Callback<SummonerDTO>() {
+            @Override
+            public void onResponse(Call<SummonerDTO> call, Response<SummonerDTO> response) {
+                if (response.isSuccessful())
+                {
+                    SummonerDTO summoner = response.body();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SummonerDTO> call, Throwable t) {
 
             }
         });
