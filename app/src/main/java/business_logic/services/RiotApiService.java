@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 
 public class RiotApiService
 {
-    private final String RIOT_API_KEY = "RGAPI-68265d1b-ee18-4ec3-8e72-dd0703725ba0";
+    private final String RIOT_API_KEY = "RGAPI-9b08b83c-d011-4f76-8f9b-0faff1e22781";
     private final String RANKED_SOLO = "RANKED_SOLO_5x5";
     private final String RANKED_FLEX = "RANKED_FLEX_SR";
 
