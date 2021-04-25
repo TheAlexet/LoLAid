@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -25,7 +24,6 @@ import java.util.Locale;
 import business_logic.WrapperRiotAPI;
 import business_logic.WrapperRiotApi2;
 import business_logic.services.RiotApiService;
-import business_logic.services.TestJobIntentService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         //WrapperRiotAPI riotAPI = new WrapperRiotAPI();
         //riotAPI.printSummonerInfoTest();
         //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
-        /*new Thread(() -> {
+        new Thread(() -> {
             WrapperRiotAPI riotAPI = new WrapperRiotAPI();
             riotAPI.printSummonerInfoTest();
             riotAPI.printChamps();
             riotAPI.printSummonerSpells();
             //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
-        }).start();*/
+        }).start();
         /*
         //ASYNC WAY (AUTO CREATION CREATION)
         RiotApiService riotApiServiceAsync = new RiotApiService();
@@ -94,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
             riotApiService.printSummonerByNameTest();
         }).start();
         */
-        Intent intent = new Intent(this, TestJobIntentService.class);
-        startService(intent);
     }
 
     //Action bar buttons set-up
