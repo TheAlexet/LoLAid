@@ -3,12 +3,18 @@ package business_logic.services;
 import android.app.Activity;
 import android.util.Log;
 
+import com.robrua.orianna.type.dto.summoner.Summoner;
+
 import java.io.IOException;
 import java.util.Set;
 
 import business_logic.data_models.LeagueEntryDTO;
 import business_logic.data_models.MatchDto;
 import business_logic.data_models.SummonerDTO;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,7 +25,7 @@ import retrofit2.http.Query;
 
 public class RiotApiService
 {
-    private final String RIOT_API_KEY = "RGAPI-d990f108-b6cb-4ed5-8df1-c41432acc10d";
+    private final String RIOT_API_KEY = "RGAPI-ce8c5460-dc3f-4720-bbde-b9a4f06a3528";
     private final String RANKED_SOLO = "RANKED_SOLO_5x5";
     private final String RANKED_FLEX = "RANKED_FLEX_SR";
 
@@ -38,6 +44,7 @@ public class RiotApiService
         service = retrofit.create(IRiotApiServiceREST.class);
     }
 
+    /*
     public void printSummonerByNameTest()
     {
         Call<SummonerDTO> call = service.getSummonerByName("pabletefest", RIOT_API_KEY);
@@ -146,7 +153,7 @@ public class RiotApiService
 
         service = retrofit.create(IRiotApiServiceREST.class);
 
-        Call<MatchDto> call = service.getMatchByMatchId("EUW1_5244218497", RIOT_API_KEY);
+        Call<MatchDto> call = service = retrofit.create(IRiotApiServiceREST.class);
 
         call.enqueue(new Callback<MatchDto>() {
             @Override
@@ -168,5 +175,19 @@ public class RiotApiService
 
             }
         });
+    }
+    */
+
+    public void printSummonerInfoTest()
+    {
+        Observable<SummonerDTO> summonerObservable = service.getSummonerByName("pabletefest", RIOT_API_KEY);
+
+        summonerObservable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(summoner -> {
+                    Log.d("ID", summoner.getId());
+                    Log.d("ACCOUNT_ID", summoner.getAccountId());
+                    Log.d("LEVEL", summoner.getSummonerLevel() + "");
+                    Log.d("PUUID", summoner.getPuuid());
+                });
     }
 }

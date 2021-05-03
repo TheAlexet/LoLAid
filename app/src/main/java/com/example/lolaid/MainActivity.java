@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -18,14 +16,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import java.util.Locale;
 
-import business_logic.WrapperRiotAPI;
-import business_logic.WrapperRiotApi2;
 import business_logic.services.RiotApiService;
-import business_logic.services.TestJobIntentService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("INFO", "I'm getting called");
         //riotApiService.printSummonerByNameTest();
         //riotApiService.getLeagueEntriesWithSummonerId("");
-        riotApiService.getMatchByMatchId("");
+        //riotApiService.getMatchByMatchId("");
+        riotApiService.printSummonerInfoTest();
         Log.d("INFO", "I got called");
     }
 
