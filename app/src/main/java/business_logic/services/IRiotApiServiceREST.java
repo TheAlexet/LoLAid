@@ -8,6 +8,7 @@ import business_logic.data_models.CurrentGameInfo;
 import business_logic.data_models.LeagueEntryDTO;
 import business_logic.data_models.LeagueListDTO;
 import business_logic.data_models.MatchDto;
+import business_logic.data_models.MatchlistDto;
 import business_logic.data_models.SummonerDTO;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -28,10 +29,10 @@ public interface IRiotApiServiceREST
     @GET("/lol/league/v4/entries/by-summoner/{encryptedSummonerId}")
     Call<Set<LeagueEntryDTO>> getLeagueEntriesWithSummonerId(@Path("encryptedSummonerId") String encryptedSummonerId, @Query("api_key") String apiKey);
 
-    @GET("/lol/match/v5/matches/by-puuid/{puuid}/ids")
-    Call<List<String>> getMatchIdsByPuuid(@Path("puuid") String puuid, @Query("api_key") String apiKey);
+    @GET("/lol/match/v4/matchlists/by-account/{encryptedAccountId}")
+    Call<MatchlistDto> getMatchlistWithEncryptedAccountId(@Path("encryptedAccountId") String encryptedAccountId, @Query("api_key") String apiKey);
 
-    @GET("/lol/match/v5/matches/{matchId}")
+    @GET("/lol/match/v4/matches/{matchId}")
     Call<MatchDto> getMatchByMatchId(@Path("matchId") String matchId, @Query("api_key") String apiKey);
 
     @GET("/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}")

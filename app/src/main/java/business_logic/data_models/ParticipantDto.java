@@ -10,24 +10,24 @@ public class ParticipantDto
     private ParticipantStatsDto stats;
     private int teamId;
     private ParticipantTimelineDto timeline;
-    //private int spell1Id; //old version Match-v4
-    private int summoner1Id;
-    //private int spell2Id; //old version Match-v4
-    private int summoner2Id;
+    private int spell1Id; //old version Match-v4
+    //private int summoner1Id; /Match-v5
+    private int spell2Id; //old version Match-v4
+    //private int summoner2Id; //Match-v5
     private String highestAchievedSeasonTier;
     private List<MasteryDto> masteries;
 
     public ParticipantDto(){}
 
-    public ParticipantDto(int participantId, int championId, List<RuneDto> runes, ParticipantStatsDto stats, int teamId, ParticipantTimelineDto timeline, int summoner1Id, int summoner2Id, String highestAchievedSeasonTier, List<MasteryDto> masteries) {
+    public ParticipantDto(int participantId, int championId, List<RuneDto> runes, ParticipantStatsDto stats, int teamId, ParticipantTimelineDto timeline, int spell1Id, int spell2Id, String highestAchievedSeasonTier, List<MasteryDto> masteries) {
         this.participantId = participantId;
         this.championId = championId;
         this.runes = runes;
         this.stats = stats;
         this.teamId = teamId;
         this.timeline = timeline;
-        this.summoner1Id = summoner1Id;
-        this.summoner2Id = summoner2Id;
+        this.spell1Id = spell1Id;
+        this.spell2Id = spell2Id;
         this.highestAchievedSeasonTier = highestAchievedSeasonTier;
         this.masteries = masteries;
     }
@@ -81,19 +81,19 @@ public class ParticipantDto
     }
 
     public int getSummoner1Id() {
-        return summoner1Id;
+        return spell1Id;
     }
 
-    public void setSummoner1Id(int summoner1Id) {
-        this.summoner1Id = summoner1Id;
+    public void setSummoner1Id(int spell1Id) {
+        this.spell1Id = spell1Id;
     }
 
     public int getSummoner2Id() {
-        return summoner2Id;
+        return spell2Id;
     }
 
-    public void setSummoner2Id(int summoner2Id) {
-        this.summoner2Id = summoner2Id;
+    public void setSummoner2Id(int spell2Id) {
+        this.spell2Id = spell2Id;
     }
 
     public String getHighestAchievedSeasonTier() {

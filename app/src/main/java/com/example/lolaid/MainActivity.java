@@ -94,8 +94,14 @@ public class MainActivity extends AppCompatActivity {
             riotApiService.printSummonerByNameTest();
         }).start();
         */
-        Intent intent = new Intent(this, TestJobIntentService.class);
-        startService(intent);
+        //Intent intent = new Intent(this, TestJobIntentService.class);
+        //startService(intent);
+        RiotApiService riotApiService = new RiotApiService(this);
+        Log.d("INFO", "I'm getting called");
+        //riotApiService.printSummonerByNameTest();
+        //riotApiService.getLeagueEntriesWithSummonerId("");
+        riotApiService.getMatchByMatchId("");
+        Log.d("INFO", "I got called");
     }
 
     //Action bar buttons set-up
