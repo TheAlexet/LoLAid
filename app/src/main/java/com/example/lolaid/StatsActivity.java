@@ -13,17 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import business_logic.data_models.SummonerDTO;
+
 public class StatsActivity extends Fragment {
 
     private SharedPreferences sharedPrefs;
     private TextView summonerName;
     private TextView summonerLevel;
+    private TextView summonerRank;
+    private TextView summonerWinRate;
     private ImageView mainChampion1image;
     private ImageView mainChampion2image;
     private ImageView mainChampion3image;
     private TextView mainChampion1value;
     private TextView mainChampion2value;
     private TextView mainChampion3value;
+
+    private SummonerDTO summonerDTO;
 
 
     public StatsActivity() {
@@ -44,9 +50,23 @@ public class StatsActivity extends Fragment {
         summonerName.setText(sharedPrefs.getString("summonerName", ""));
 
         summonerLevel =  getView().findViewById(R.id.statsSummonerLevelValue);
-        summonerLevel.setText("250");
+        summonerLevel.setText(getPlayerLevel());
+
+        summonerRank =  getView().findViewById(R.id.statsSummonerRankValue);
+        summonerRank.setText("Diamond III (32 LP)");
+
+        summonerWinRate =  getView().findViewById(R.id.statsSummonerWinRateValue);
+        summonerWinRate.setText("61% / 27V 17L");
 
         setMainChampions("ahri", "fizz", "akali");
+    }
+
+    private String getPlayerLevel() {
+        String playerLevel = "1";
+
+        playerLevel = Long.toString(summonerDTO.getSummonerLevel());
+
+        return playerLevel;
     }
 
     private void setMainChampions(String champ1, String champ2, String champ3) {
