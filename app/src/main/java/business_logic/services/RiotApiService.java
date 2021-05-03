@@ -2,8 +2,8 @@ package business_logic.services;
 
 import android.app.Activity;
 import android.util.Log;
-
-import com.robrua.orianna.type.dto.summoner.Summoner;
+//import retrofit2.adapter.rxjava2;
+//import com.robrua.orianna.type.dto.summoner.Summoner;
 
 import java.io.IOException;
 import java.util.Set;
@@ -19,6 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -39,6 +40,7 @@ public class RiotApiService
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://euw1.api.riotgames.com")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         service = retrofit.create(IRiotApiServiceREST.class);
