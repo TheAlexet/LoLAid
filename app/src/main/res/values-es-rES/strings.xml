@@ -25,4 +25,6 @@
     <string name="blue_team">Azul</string>
     <string name="red_team">Rojo</string>
     <string name="runes_title">Runas:</string>
+    <string name="victory_text">Victoria</string>
+    <string name="defeat_text">Derrota</string>
 </resources>

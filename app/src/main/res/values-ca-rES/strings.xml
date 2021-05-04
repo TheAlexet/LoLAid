@@ -25,4 +25,6 @@
     <string name="blue_team">Blau</string>
     <string name="red_team">Roig</string>
     <string name="runes_title">Runes:</string>
+    <string name="victory_text">Victòria</string>
+    <string name="defeat_text">Derrota</string>
 </resources>
