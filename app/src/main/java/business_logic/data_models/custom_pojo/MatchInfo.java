@@ -89,6 +89,8 @@ public class MatchInfo
         this.assists = assists;
     }
 
+    public String getScore(){ return kills + "/" + deaths + "/" + assists;}
+
     public int getChampLevel() {
         return champLevel;
     }
