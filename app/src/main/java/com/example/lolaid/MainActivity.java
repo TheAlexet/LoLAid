@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         //riotApiService.getMatchByMatchId("");
         //riotApiService.getSummonerByName("");
         //riotApiService.getCurrentMatchInfo("pabletefest");
-        riotApiService.getPlayerStats("pabletefest");
+        riotApiService.getPlayerStatsInfo("pabletefest");
         Log.d("INFO", "I got called");
     }
 

@@ -3,7 +3,10 @@ package business_logic.services;
 import android.app.Activity;
 import android.util.Log;
 
+import androidx.core.util.Pair;
+
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -17,8 +20,13 @@ import business_logic.data_models.ChampionMasteryDto;
 import business_logic.data_models.CurrentGameInfo;
 import business_logic.data_models.LeagueEntryDTO;
 import business_logic.data_models.MatchDto;
+import business_logic.data_models.MatchReferenceDto;
+import business_logic.data_models.ParticipantDto;
+import business_logic.data_models.ParticipantIdentityDto;
 import business_logic.data_models.SummonerDTO;
+import business_logic.data_models.TeamStatsDto;
 import business_logic.data_models.custom_pojo.LiveMatchInfo;
+import business_logic.data_models.custom_pojo.MatchInfo;
 import business_logic.data_models.custom_pojo.PlayerStatsInfo;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,11 +47,11 @@ public class RiotApiService
     private final String RANKED_FLEX = "RANKED_FLEX_SR";
 
     private IRiotApiServiceREST service;
-    private Activity activity;
+    private WeakReference<Activity> activityReference;
 
     public RiotApiService(Activity activity)
     {
-        this.activity = activity;
+        this.activityReference = new WeakReference<>(activity);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://euw1.api.riotgames.com")
@@ -207,6 +215,8 @@ public class RiotApiService
 
     public void getCurrentMatchInfo(String summonerName)
     {
+        if (activityReference.get() == null) return;
+
         Observable<SummonerDTO> summonerObservable = getSummonerByNameObservable(summonerName);
 
         //Observable<CurrentGameInfo> currentGameObservable = service.getCurrentGameInfoWithSummonerId(summonerId, RIOT_API_KEY);
@@ -252,8 +262,10 @@ public class RiotApiService
                 });
     }
 
-    public void getPlayerStats(String summonerName)
+    public void getPlayerStatsInfo(String summonerName)
     {
+        if (activityReference.get() == null) return;
+
         Observable<SummonerDTO> summonerObservable = getSummonerByNameObservable(summonerName);
 
         summonerObservable.subscribeOn(Schedulers.io())
@@ -264,7 +276,8 @@ public class RiotApiService
                             subscribeOn(Schedulers.io())
                             .map(leagueEntries -> {
                                 List<LeagueEntryDTO> leagueEntriesList = new ArrayList<>(leagueEntries);
-                                Set<LeagueEntryDTO> leagueEntriesSet = new HashSet<>(leagueEntriesList.stream().filter(leagueEntry -> leagueEntry.getQueueType().equals(RANKED_SOLO)).collect(Collectors.toList()));
+                                Collection filteredCollection = leagueEntriesList.stream().filter(leagueEntry -> leagueEntry.getQueueType().equals(RANKED_SOLO)).collect(Collectors.toList());
+                                Set<LeagueEntryDTO> leagueEntriesSet = new HashSet<>(filteredCollection);
                                 return leagueEntriesSet;
                             });
 
@@ -323,6 +336,95 @@ public class RiotApiService
                     Log.d("SUMMONER_NAME", playerStatsInfo.getSummonerName());
                     Log.d("TIER", playerStatsInfo.getTier());
                     Log.d("RANK", playerStatsInfo.getRank());
+                }, throwable -> {
+                    Log.d("ERROR_REST", "Data not found!");
+                });
+    }
+
+    public void getMatchInfo(String summonerName)
+    {
+        if (activityReference.get() == null) return;
+
+        Observable<SummonerDTO> summonerObservable = getSummonerByNameObservable(summonerName);
+
+        summonerObservable.subscribeOn(Schedulers.io())
+                .flatMap(summoner -> {
+                    String summonerId = summoner.getId();
+                    return service.getMatchlistWithEncryptedAccountId(summonerId, RIOT_API_KEY);
+                })
+                .flatMap(matchlistDto -> {
+                    List<MatchReferenceDto> matches = matchlistDto.getMatches();
+                    return Observable.fromIterable(matches)
+                            .flatMap(matchReferenceDto -> {
+                                Observable<Long> gameIdObservable = Observable.just(matchReferenceDto.getGameId());
+                                Observable<MatchDto> matchObservable = service.getMatchByMatchId(String.valueOf(matchReferenceDto.getGameId()), RIOT_API_KEY);
+
+                                return Observable.zip(gameIdObservable, matchObservable, (gameId, matchDto) -> new Pair<Long, MatchDto>(gameId, matchDto));
+                            }).toList()
+                            .toObservable();
+                })
+                .flatMap(pairsList -> {
+                    List<MatchInfo> matchesInfo = new ArrayList<>();
+                    List<MatchDto> matchesDto = new ArrayList<>();
+
+                    for (Pair pair : pairsList)
+                    {
+                        matchesDto.add((MatchDto) pair.second);
+                    }
+
+                    for (MatchDto matchDto : matchesDto)
+                    {
+                        long gameDuration = matchDto.getGameDuration();
+                        long gameCreation = matchDto.getGameDuration();
+
+                        List<TeamStatsDto> teamStatsToFilter = matchDto.getTeams();
+                        Collection filteredTeamsCollection = teamStatsToFilter.stream().filter(teamStatsDto -> teamStatsDto.getWin().equals("Win")).collect(Collectors.toList());
+                        List<TeamStatsDto> winnerTeamStatsFiltered  = new ArrayList<>(filteredTeamsCollection);
+
+                        List<ParticipantIdentityDto> participantIdentities = matchDto.getParticipantIdentities();
+                        Collection filteredParticipantIdentity = participantIdentities.stream().filter(participantIdentity -> participantIdentity.getPlayer().getSummonerName().equals(summonerName)).collect(Collectors.toList());
+                        List<ParticipantIdentityDto> participantIdentityFiltered  = new ArrayList<>(filteredParticipantIdentity);
+
+                        List<ParticipantDto> participants = matchDto.getParticipants();
+                        Collection filteredParticipantDto = participants.stream().filter(participantDto -> participantDto.getParticipantId() == participantIdentityFiltered.get(0).getParticipantId()).collect(Collectors.toList());
+                        List<ParticipantDto> participantDtoFiltered  = new ArrayList<>(filteredParticipantDto);
+
+                        boolean isWinnerTeam = participantDtoFiltered.stream().anyMatch(filteredParticipant -> filteredParticipant.getTeamId() == winnerTeamStatsFiltered.get(0).getTeamId());
+                        /*boolean isWinnerTeam = participants.stream().anyMatch(participantDto -> participantDto.getTeamId() == winnerTeamStatsFiltered.get(0).getTeamId()
+                                && participantDto.getParticipantId() == participantFiltered.get(0).getParticipantId());*/
+
+                        String winnerTeam = isWinnerTeam ? "WIN" : "LOSE";
+
+                        int championId = participantDtoFiltered.get(0).getChampionId();
+
+                        int kills = participantDtoFiltered.get(0).getStats().getKills();
+                        int deaths = participantDtoFiltered.get(0).getStats().getDeaths();
+                        int assists = participantDtoFiltered.get(0).getStats().getAssists();
+                        int champLevel = participantDtoFiltered.get(0).getStats().getChampLevel();
+                        int goldEarned = participantDtoFiltered.get(0).getStats().getGoldEarned();
+                        int totalMinionsKilled = participantDtoFiltered.get(0).getStats().getTotalMinionsKilled();
+
+                        MatchInfo matchInfo = new MatchInfo(gameDuration, gameCreation, winnerTeam, championId, kills, deaths, assists, champLevel, goldEarned, totalMinionsKilled);
+                        matchesInfo.add(matchInfo);
+                    }
+
+                    return Observable.just(matchesInfo);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(matchesInfo -> {
+                    for (MatchInfo matchInfo : matchesInfo)
+                    {
+                        Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
+                        Log.d("GAME_CREATION", String.valueOf(matchInfo.getGameCreation()));
+                        Log.d("WINNER_TEAM", String.valueOf(matchInfo.getWinnerTeam()));
+                        Log.d("CHAMPION_ID", String.valueOf(matchInfo.getChampionId()));
+                        Log.d("KILLS", String.valueOf(matchInfo.getKills()));
+                        Log.d("DEATHS", String.valueOf(matchInfo.getDeaths()));
+                        Log.d("ASSISTS", String.valueOf(matchInfo.getAssists()));
+                        Log.d("CHAMP_LEVEL", String.valueOf(matchInfo.getChampLevel()));
+                        Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
+                        Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
+                    }
                 }, throwable -> {
                     Log.d("ERROR_REST", "Data not found!");
                 });
