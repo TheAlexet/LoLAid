@@ -15,6 +15,7 @@ import com.example.lolaid.R;
 import java.util.List;
 
 import business_logic.data_models.MatchDto;
+import business_logic.data_models.custom_pojo.MatchInfo;
 
 public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapter.ViewHolder>{
     private List<MatchInfo> matchesList;
@@ -54,7 +55,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
             imChampion = (ImageView) view.findViewById(R.id.iChampion);
 
             view.setOnClickListener((v) -> {
-                itemClick.onItemClickListener(getAdapterPosition());
+                //itemClick.onItemClickListener(getAdapterPosition());
             });
         }
 
