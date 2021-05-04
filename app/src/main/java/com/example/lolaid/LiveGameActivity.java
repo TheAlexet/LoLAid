@@ -9,7 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import adapters.LiveGameAdapter;
+import business_logic.data_models.custom_pojo.LiveMatchInfo;
+import business_logic.services.RiotApiService;
+
 public class LiveGameActivity extends Fragment {
+
+    private RiotApiService apiService;
+    LiveGameAdapter adapter;
 
     public LiveGameActivity() {
 
@@ -18,7 +25,14 @@ public class LiveGameActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.live_game_activity, container, false);
+        View view = inflater.inflate(R.layout.live_game_activity, container, false);
+        apiService = new RiotApiService(getActivity());
+        adapter = new LiveGameAdapter();
+        return view;
+    }
+
+    public void getLiveMatchInfo(LiveMatchInfo matchInfo){
+
     }
 
 }

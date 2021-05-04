@@ -13,13 +13,14 @@ import com.example.lolaid.R;
 import java.util.List;
 
 import business_logic.data_models.CurrentGameParticipant;
+import business_logic.data_models.custom_pojo.LiveMatchInfo;
 
 public class LiveGameAdapter extends RecyclerView.Adapter<LiveGameAdapter.ViewHolder>{
 
-    private static List<CurrentGameParticipant> participantList;
+    private static LiveMatchInfo matchInfo;
 
-    public LiveGameAdapter(List<CurrentGameParticipant> pList){
-        participantList = pList;
+    public LiveGameAdapter(LiveMatchInfo matchInf){
+        this.matchInfo = matchInf;
     }
 
     @Override
@@ -31,12 +32,12 @@ public class LiveGameAdapter extends RecyclerView.Adapter<LiveGameAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        CurrentGameParticipant participant = this.participantList.get(position);
+        CurrentGameParticipant participant = participantList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return participantList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

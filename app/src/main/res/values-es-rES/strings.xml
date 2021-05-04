@@ -19,4 +19,10 @@
     <string name="summoner_level_title">Nivel:</string>
     <string name="main_champions_title">Campeones principales:</string>
     <string name="summoner_winrate_title">Ratio de victoria:</string>
+    <string name="summoner_spells_title">Hechizos de invocador:</string>
+    <string name="game_time_title">Tiempo de juego:</string>
+    <string name="team_title">Equipo:</string>
+    <string name="blue_team">Azul</string>
+    <string name="red_team">Rojo</string>
+    <string name="runes_title">Runas:</string>
 </resources>

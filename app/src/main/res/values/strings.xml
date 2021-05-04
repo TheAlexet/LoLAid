@@ -32,4 +32,10 @@
     <string name="summoner_rank_title">Rank:</string>
     <string name="summoner_winrate_title">WinRate:</string>
     <string name="main_champions_title">Main champions:</string>
+    <string name="summoner_spells_title">Summoner spells:</string>
+    <string name="game_time_title">Game time:</string>
+    <string name="team_title">Team:</string>
+    <string name="blue_team">Blue</string>
+    <string name="red_team">Red</string>
+    <string name="runes_title">Runes:</string>
 </resources>
