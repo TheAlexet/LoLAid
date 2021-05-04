@@ -5,22 +5,24 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "quotation_table")
+import databases.DatabaseContract;
+
+@Entity(tableName = DatabaseContract.CHAMPION_TABLE_NAME)
 public class Champion {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_ID")
+    @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_ID)
     private int id;
 
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONID)
     @NonNull
     private long championId;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONNAME)
     @NonNull
     private String championName;
 
-    @ColumnInfo(name = "icon")
+    @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONICON)
     @NonNull
     private int championIcon;
 

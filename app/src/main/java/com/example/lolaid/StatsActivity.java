@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import business_logic.data_models.SummonerDTO;
 import business_logic.data_models.custom_pojo.PlayerStatsInfo;
 import business_logic.services.RiotApiService;
@@ -42,12 +45,13 @@ public class StatsActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        apiService = new RiotApiService(getActivity());
+        apiService = new RiotApiService();
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        apiService.getPlayerStatsInfo(sharedPrefs.getString("summonerName", ""), this);
         return inflater.inflate(R.layout.stats_activity, container, false);
     }
 
     public void getPlayerStatsRest(PlayerStatsInfo playerInfo) {
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         summonerName =  getView().findViewById(R.id.statsSummonerNameValue);
         summonerName.setText(playerInfo.getSummonerName());
@@ -56,11 +60,15 @@ public class StatsActivity extends Fragment {
         summonerLevel.setText(String.valueOf(playerInfo.getSummonerLevel()));
 
         summonerRank =  getView().findViewById(R.id.statsSummonerRankValue);
-        summonerRank.setText(playerInfo.getTier() + " " + playerInfo.getTier() + " (" + playerInfo.getLeaguePoints() + " lp)");
+        summonerRank.setText(playerInfo.getTier() + " " + playerInfo.getRank() + " (" + playerInfo.getLeaguePoints() + " lp)");
 
         summonerWinRate =  getView().findViewById(R.id.statsSummonerWinRateValue);
-        int winRate = playerInfo.getWins()/playerInfo.getLosses();
-        summonerWinRate.setText(winRate + " %" + playerInfo.getWins() + "V / " + playerInfo.getLosses() + " L");
+
+        float winRate = (float) playerInfo.getWins() / (playerInfo.getWins() + playerInfo.getLosses()) * 100;
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        decimalFormat.setRoundingMode(RoundingMode.UP);
+
+        summonerWinRate.setText(decimalFormat.format(winRate) + "% - " + playerInfo.getWins() + "W / " + playerInfo.getLosses() + "L");
 
         setMainChampions(playerInfo.getTop1ChampPlayed(), playerInfo.getTop2ChampPlayed(), playerInfo.getTop3ChampPlayed());
     }
@@ -68,19 +76,19 @@ public class StatsActivity extends Fragment {
     private void setMainChampions(Long champ1, Long champ2, Long champ3) {
         mainChampion1image = getView().findViewById(R.id.statsMainChampion1Image);
 
-        mainChampion1image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ1));
+        //mainChampion1image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ1));
         mainChampion1value = getView().findViewById(R.id.statsMainChampion1Value);
-        mainChampion1value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ1));
+        //mainChampion1value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ1));
 
         mainChampion2image = getView().findViewById(R.id.statsMainChampion2Image);
-        mainChampion2image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ2));
+        //mainChampion2image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ2));
         mainChampion2value = getView().findViewById(R.id.statsMainChampion2Value);
-        mainChampion2value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ2));
+        //mainChampion2value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ2));
 
         mainChampion3image = getView().findViewById(R.id.statsMainChampion3Image);
-        mainChampion3image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ3));
+        //mainChampion3image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ3));
         mainChampion3value = getView().findViewById(R.id.statsMainChampion3Value);
-        mainChampion3value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ3));
+        //mainChampion3value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ3));
     }
 
     private int selectChampionIcon(String champ) {

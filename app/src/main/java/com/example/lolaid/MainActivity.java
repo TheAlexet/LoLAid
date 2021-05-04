@@ -90,14 +90,15 @@ public class MainActivity extends AppCompatActivity {
         */
         //Intent intent = new Intent(this, TestJobIntentService.class);
         //startService(intent);
-        RiotApiService riotApiService = new RiotApiService(this);
+        RiotApiService riotApiService = new RiotApiService();
         Log.d("INFO", "I'm getting called");
         //riotApiService.printSummonerByNameTest();
         //riotApiService.getLeagueEntriesWithSummonerId("");
         //riotApiService.getMatchByMatchId("");
         //riotApiService.getSummonerByName("");
         //riotApiService.getCurrentMatchInfo("pabletefest");
-        riotApiService.getPlayerStatsInfo("pabletefest");
+        //riotApiService.getPlayerStatsInfo("pabletefest");
+        //riotApiService.getMatchInfo("pabletefest");
         Log.d("INFO", "I got called");
     }
 
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager()
                     .beginTransaction()
                     .setReorderingAllowed(true)
-                    .replace(R.id.fcvView, fragmentClass, null)
+                    .replace(R.id.fcvView, fragmentClass, null, fragmentClass.getSimpleName())
                     .commit();
         }
 

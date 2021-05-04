@@ -12,12 +12,12 @@ import databases.models.SummonerSpell;
 public interface SummonerSpellDAO {
 
     @Insert
-    long addSummonerSpell(SummonerSpell summonerSpell);
+    void insertSummonerSpell(SummonerSpell summonerSpell);
 
     @Query("SELECT * FROM " + DatabaseContract.SUMMONER_SPELL_TABLE_NAME)
     List<SummonerSpell> getSummonerSpellList();
 
     @Query("SELECT * FROM " + DatabaseContract.SUMMONER_SPELL_TABLE_NAME + " WHERE " + DatabaseContract.SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLICON + "= :summonerSpellId")
-    int getSummonerSpellIcon(long summonerSpellId);
+    SummonerSpell getSummonerSpell(long summonerSpellId);
 
 }

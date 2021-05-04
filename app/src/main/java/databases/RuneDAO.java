@@ -12,12 +12,12 @@ import databases.models.Rune;
 public interface RuneDAO {
 
     @Insert
-    long addRune(Rune rune);
+    void insertRune(Rune rune);
 
     @Query("SELECT * FROM " + DatabaseContract.RUNE_TABLE_NAME)
     List<Rune> getRuneList();
 
     @Query("SELECT * FROM " + DatabaseContract.RUNE_TABLE_NAME + " WHERE " + DatabaseContract.RUNE_COLUMN_NAME_RUNEICON + "= :runeId")
-    int getRuneIcon(long runeId);
+    Rune getRune(long runeId);
 
 }

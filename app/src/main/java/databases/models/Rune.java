@@ -5,18 +5,20 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "quotation_table")
+import databases.DatabaseContract;
+
+@Entity(tableName = DatabaseContract.RUNE_TABLE_NAME)
 public class Rune {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_ID")
+    @ColumnInfo(name = DatabaseContract.RUNE_COLUMN_NAME_ID)
     private int id;
 
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = DatabaseContract.RUNE_COLUMN_NAME_RUNEID)
     @NonNull
     private long runeId;
 
-    @ColumnInfo(name = "icon", typeAffinity = ColumnInfo.BLOB)
+    @ColumnInfo(name = DatabaseContract.RUNE_COLUMN_NAME_RUNEICON)
     @NonNull
     private int runeIcon;
 

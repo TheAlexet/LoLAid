@@ -46,7 +46,7 @@ public class LiveGameActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.live_game__one_player_activity, container, false);
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        apiService = new RiotApiService(getActivity());
+        apiService = new RiotApiService();
         championIcon = view.findViewById(R.id.championIcon);
         summSpell1 = view.findViewById(R.id.summonerSpell1);
         summSpell2 = view.findViewById(R.id.summonerSpell2);
@@ -57,7 +57,7 @@ public class LiveGameActivity extends Fragment {
         gameTime = view.findViewById(R.id.gameTime);
         team = view.findViewById(R.id.TeamLive);
         summName = sharedPrefs.getString("summonerName", "Jose");
-        apiService.getCurrentMatchInfo(summName);
+        apiService.getCurrentMatchInfo(summName, this);
         return view;
     }
 

@@ -12,15 +12,11 @@ import databases.models.Champion;
 public interface ChampionDAO {
 
     @Insert
-    long addChampion(Champion champion);
+    void insertChampion(Champion champion);
 
     @Query("SELECT * FROM " + DatabaseContract.CHAMPION_TABLE_NAME)
     List<Champion> getChampionList();
 
     @Query("SELECT * FROM " + DatabaseContract.CHAMPION_TABLE_NAME + " WHERE " + DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONID + "= :championId")
-    String getChampionName(long championId);
-
-    @Query("SELECT * FROM " + DatabaseContract.CHAMPION_TABLE_NAME + " WHERE " + DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONICON + "= :championId")
-    int getChampionIcon(long championId);
-
+    Champion getChampionName(long championId);
 }

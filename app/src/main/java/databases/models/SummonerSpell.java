@@ -5,18 +5,20 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "quotation_table")
+import databases.DatabaseContract;
+
+@Entity(tableName = DatabaseContract.SUMMONER_SPELL_TABLE_NAME)
 public class SummonerSpell {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_ID")
+    @ColumnInfo(name = DatabaseContract.SUMMONER_SPELL_COLUMN_NAME_ID)
     private int id;
 
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = DatabaseContract.SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLID)
     @NonNull
     private long summonerSpellId;
 
-    @ColumnInfo(name = "icon", typeAffinity = ColumnInfo.BLOB)
+    @ColumnInfo(name = DatabaseContract.SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLICON)
     @NonNull
     private int summonerSpellIcon;
 

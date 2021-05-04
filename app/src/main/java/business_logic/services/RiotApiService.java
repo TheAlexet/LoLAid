@@ -1,18 +1,29 @@
 package business_logic.services;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.util.Log;
 
 import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
+import com.example.lolaid.HistoryActivity;
+import com.example.lolaid.LiveGameActivity;
+import com.example.lolaid.R;
+import com.example.lolaid.RecommendationsActivity;
+import com.example.lolaid.StatsActivity;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -30,6 +41,7 @@ import business_logic.data_models.custom_pojo.MatchInfo;
 import business_logic.data_models.custom_pojo.PlayerStatsInfo;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,16 +54,34 @@ import retrofit2.http.Query;
 
 public class RiotApiService
 {
-    private final String RIOT_API_KEY = "RGAPI-ce8c5460-dc3f-4720-bbde-b9a4f06a3528";
+    private final String RIOT_API_KEY = "RGAPI-dd40453a-6fd7-4c94-a7b2-ceb068600754";
     private final String RANKED_SOLO = "RANKED_SOLO_5x5";
     private final String RANKED_FLEX = "RANKED_FLEX_SR";
 
     private IRiotApiServiceREST service;
-    private WeakReference<Activity> activityReference;
+    //private WeakReference<FragmentActivity> activityReference;
+    private WeakReference<LiveGameActivity> liveGameFragmentReference;
+    private WeakReference<StatsActivity> statsFragmentReference;
+    private WeakReference<HistoryActivity> historyFragmentReference;
+    private WeakReference<RecommendationsActivity> recomendationsFragmentReference;
 
-    public RiotApiService(Activity activity)
+    public RiotApiService()
     {
-        this.activityReference = new WeakReference<>(activity);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://euw1.api.riotgames.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        service = retrofit.create(IRiotApiServiceREST.class);
+    }
+    /*
+    public RiotApiService(LiveGameActivity liveGameFragment, StatsActivity statsFragment, HistoryActivity historyFragment, RecommendationsActivity recommendationsFragment)
+    {
+        this.liveGameFragmentReference = new WeakReference<>(liveGameFragment);
+        this.statsFragmentReference = new WeakReference<>(statsFragment);
+        this.historyFragmentReference = new WeakReference<>(historyFragment);
+        this.recomendationsFragmentReference = new WeakReference<>(recommendationsFragment);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://euw1.api.riotgames.com")
@@ -61,6 +91,7 @@ public class RiotApiService
 
         service = retrofit.create(IRiotApiServiceREST.class);
     }
+    */
 
     /*
     public void printSummonerByNameTest()
@@ -213,13 +244,13 @@ public class RiotApiService
         return summonerObservable;
     }
 
-    public void getCurrentMatchInfo(String summonerName)
+
+    @SuppressLint("CheckResult")
+    public void getCurrentMatchInfo(String summonerName, LiveGameActivity fragment)
     {
-        if (activityReference.get() == null) return;
+        //if (liveGameFragmentReference.get() == null) return;
 
         Observable<SummonerDTO> summonerObservable = getSummonerByNameObservable(summonerName);
-
-        //Observable<CurrentGameInfo> currentGameObservable = service.getCurrentGameInfoWithSummonerId(summonerId, RIOT_API_KEY);
 
         summonerObservable.subscribeOn(Schedulers.io())
                 .flatMap(summoner -> {
@@ -250,21 +281,25 @@ public class RiotApiService
                     return Observable.just(liveMatch);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(liveMatchInfo -> {
+                .subscribe(liveMatchInfo -> fragment.getLiveMatchInfo(liveMatchInfo)
+                        /*
+                        liveMatchInfo -> {
                     Log.d("NAME", liveMatchInfo.getSummonerName());
                     Log.d("CHAMPION_ID", String.valueOf(liveMatchInfo.getChampionId()));
                     Log.d("SPELL1_ID", String.valueOf(liveMatchInfo.getSpell1Id()));
                     Log.d("SPEEL2_ID", String.valueOf(liveMatchInfo.getSpell2Id()));
                     Log.d("PERKS_STYLE", String.valueOf(liveMatchInfo.getPerkStyle()));
                     Log.d("PERKS_SUBSTYLE", String.valueOf(liveMatchInfo.getPerkSubStyle()));
-                }, throwable -> {
+                }*/
+                , throwable -> {
                     Log.d("ERROR_REST", "Data not found!");
                 });
     }
 
-    public void getPlayerStatsInfo(String summonerName)
+    @SuppressLint("CheckResult")
+    public void getPlayerStatsInfo(String summonerName, StatsActivity fragment)
     {
-        if (activityReference.get() == null) return;
+        //if (statsFragmentReference.get() == null) return;
 
         Observable<SummonerDTO> summonerObservable = getSummonerByNameObservable(summonerName);
 
@@ -326,7 +361,8 @@ public class RiotApiService
                     return playerStatsObservable;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(playerStatsInfo -> {
+                .subscribe(fragment::getPlayerStatsRest
+                        /*playerStatsInfo -> {
                     Log.d("TOP1_CHAMP_PLAYED", String.valueOf(playerStatsInfo.getTop1ChampPlayed()));
                     Log.d("TOP2_CHAMP_PLAYED", String.valueOf(playerStatsInfo.getTop2ChampPlayed()));
                     Log.d("TOP3_CHAMP_PLAYED", String.valueOf(playerStatsInfo.getTop3ChampPlayed()));
@@ -336,43 +372,46 @@ public class RiotApiService
                     Log.d("SUMMONER_NAME", playerStatsInfo.getSummonerName());
                     Log.d("TIER", playerStatsInfo.getTier());
                     Log.d("RANK", playerStatsInfo.getRank());
-                }, throwable -> {
+                }*/, throwable -> {
                     Log.d("ERROR_REST", "Data not found!");
                 });
     }
 
-    public void getMatchInfo(String summonerName)
+    @SuppressLint("CheckResult")
+    public void getMatchInfo(String summonerName, HistoryActivity fragment)
     {
-        if (activityReference.get() == null) return;
-
         Observable<SummonerDTO> summonerObservable = getSummonerByNameObservable(summonerName);
 
         summonerObservable.subscribeOn(Schedulers.io())
                 .flatMap(summoner -> {
-                    String summonerId = summoner.getId();
-                    return service.getMatchlistWithEncryptedAccountId(summonerId, RIOT_API_KEY);
+                    String summonerAccountId = summoner.getAccountId();
+                    return service.getMatchlistWithEncryptedAccountId(summonerAccountId, RIOT_API_KEY);
                 })
-                .flatMap(matchlistDto -> {
-                    List<MatchReferenceDto> matches = matchlistDto.getMatches();
+                .flatMap(matchListDto -> {
+                    List<MatchReferenceDto> matches = matchListDto.getMatches();
                     return Observable.fromIterable(matches)
+                            //.delay(20, TimeUnit.MILLISECONDS)
                             .flatMap(matchReferenceDto -> {
-                                Observable<Long> gameIdObservable = Observable.just(matchReferenceDto.getGameId());
-                                Observable<MatchDto> matchObservable = service.getMatchByMatchId(String.valueOf(matchReferenceDto.getGameId()), RIOT_API_KEY);
-
-                                return Observable.zip(gameIdObservable, matchObservable, (gameId, matchDto) -> new Pair<Long, MatchDto>(gameId, matchDto));
+                                //Observable<Long> gameIdObservable = Observable.just(matchReferenceDto.getGameId());
+                                Observable<MatchDto> matchObservable = service.getMatchByMatchId(String.valueOf(matchReferenceDto.getGameId()), RIOT_API_KEY).delay(20, TimeUnit.MILLISECONDS);
+                                return matchObservable;
+                                //return Observable.zip(gameIdObservable, matchObservable, (gameId, matchDto) -> new Pair<Long, MatchDto>(gameId, matchDto));
                             }).toList()
                             .toObservable();
                 })
-                .flatMap(pairsList -> {
+                .flatMap(matchesList -> {
                     List<MatchInfo> matchesInfo = new ArrayList<>();
-                    List<MatchDto> matchesDto = new ArrayList<>();
-
+                    //List<MatchDto> matchesDto = new ArrayList<>();
+                    /*
                     for (Pair pair : pairsList)
                     {
+                        Log.d("SECOND_PAIR", pair.second.toString());
                         matchesDto.add((MatchDto) pair.second);
                     }
+                    */
 
-                    for (MatchDto matchDto : matchesDto)
+
+                    for (MatchDto matchDto : matchesList)
                     {
                         long gameDuration = matchDto.getGameDuration();
                         long gameCreation = matchDto.getGameDuration();
@@ -405,6 +444,7 @@ public class RiotApiService
                         int totalMinionsKilled = participantDtoFiltered.get(0).getStats().getTotalMinionsKilled();
 
                         MatchInfo matchInfo = new MatchInfo(gameDuration, gameCreation, winnerTeam, championId, kills, deaths, assists, champLevel, goldEarned, totalMinionsKilled);
+                        Log.d("MATCH_INFO", matchInfo.toString());
                         matchesInfo.add(matchInfo);
                     }
 
@@ -412,6 +452,19 @@ public class RiotApiService
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(matchesInfo -> {
+
+                    Log.d("GAME_DURATION", String.valueOf(matchesInfo.get(0).getGameDuration()));
+                    Log.d("GAME_CREATION", String.valueOf(matchesInfo.get(0).getGameCreation()));
+                    Log.d("WINNER_TEAM", String.valueOf(matchesInfo.get(0).getWinnerTeam()));
+                    Log.d("CHAMPION_ID", String.valueOf(matchesInfo.get(0).getChampionId()));
+                    Log.d("KILLS", String.valueOf(matchesInfo.get(0).getKills()));
+                    Log.d("DEATHS", String.valueOf(matchesInfo.get(0).getDeaths()));
+                    Log.d("ASSISTS", String.valueOf(matchesInfo.get(0).getAssists()));
+                    Log.d("CHAMP_LEVEL", String.valueOf(matchesInfo.get(0).getChampLevel()));
+                    Log.d("GOLD_EARNED", String.valueOf(matchesInfo.get(0).getGoldEarned()));
+                    Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchesInfo.get(0).getTotalMinionsKilled()));
+
+                    /*
                     for (MatchInfo matchInfo : matchesInfo)
                     {
                         Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
@@ -425,8 +478,8 @@ public class RiotApiService
                         Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
                         Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
                     }
-                }, throwable -> {
-                    Log.d("ERROR_REST", "Data not found!");
+                    */
+
                 });
     }
 }
