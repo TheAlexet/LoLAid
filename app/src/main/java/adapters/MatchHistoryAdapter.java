@@ -14,6 +14,7 @@ import com.example.lolaid.R;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
 import java.util.List;
 
 import business_logic.data_models.MatchDto;
@@ -40,13 +41,21 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MatchHistoryAdapter.ViewHolder holder, int position) {
-        holder.tvDuration.setText((int) matchesList.get(position).getGameDuration());
+        int gameMinutes = (int) (matchesList.get(position).getGameDuration()/1000)/60;
+        int gameSeconds = (int) (matchesList.get(position).getGameDuration()/1000)%60;
+        String gameDuration = gameMinutes + ":" + gameSeconds;
+        holder.tvDuration.setText(gameDuration);
         holder.tvScore.setText(matchesList.get(position).getScore());
         holder.tvLevel.setText(matchesList.get(position).getChampLevel());
         holder.tvGold.setText(matchesList.get(position).getGoldEarned());
         holder.tvMinions.setText(matchesList.get(position).getTotalMinionsKilled());
-        holder.tvWin.setText(matchesList.get(position).getWinnerTeam());
-        holder.tvDate.setText((int) matchesList.get(position).getGameCreation());
+        if(matchesList.get(position).getWinnerTeam().equals("Win")){
+            holder.tvWin.setText(R.string.victory_text);
+        } else{
+            holder.tvWin.setText(R.string.defeat_text);
+        }
+        Date date = new Date(matchesList.get(position).getGameCreation());
+        holder.tvDate.setText(date.toString());
         //holder.imChampion.setImageResource();
     }
 
