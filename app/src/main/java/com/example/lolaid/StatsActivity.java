@@ -59,8 +59,8 @@ public class StatsActivity extends Fragment {
         summonerRank.setText(playerInfo.getTier() + " " + playerInfo.getTier() + " (" + playerInfo.getLeaguePoints() + " lp)");
 
         summonerWinRate =  getView().findViewById(R.id.statsSummonerWinRateValue);
-        int winrate = playerInfo.getWins()/playerInfo.getLosses();
-        summonerWinRate.setText(winrate + " %" + playerInfo.getWins() + "V / " + playerInfo.getLosses() + " L");
+        int winRate = playerInfo.getWins()/playerInfo.getLosses();
+        summonerWinRate.setText(winRate + " %" + playerInfo.getWins() + "V / " + playerInfo.getLosses() + " L");
 
         setMainChampions(playerInfo.getTop1ChampPlayed(), playerInfo.getTop2ChampPlayed(), playerInfo.getTop3ChampPlayed());
     }
