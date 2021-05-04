@@ -25,9 +25,8 @@ public class LiveGameActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.live_game_activity, container, false);
+        View view = inflater.inflate(R.layout.live_game__one_player_activity, container, false);
         apiService = new RiotApiService(getActivity());
-        adapter = new LiveGameAdapter();
         return view;
     }
 

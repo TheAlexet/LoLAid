@@ -32,12 +32,12 @@ public class LiveGameAdapter extends RecyclerView.Adapter<LiveGameAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        CurrentGameParticipant participant = participantList.get(position);
+        //CurrentGameParticipant participant = participantList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return participantList.size();
+        return 10;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
