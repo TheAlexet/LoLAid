@@ -35,7 +35,8 @@ public class HistoryActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_activity, container, false);
-
+        riotApiService = new RiotApiService();
+        riotApiService.getMatchInfo("pabletefest", this);
         matchHistoryAdapter = new MatchHistoryAdapter(matchesList);
 
         RecyclerView recycler = view.findViewById(R.id.rvMatchHistory);

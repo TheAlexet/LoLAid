@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Locale;
 
+import databases.LoLAidDatabase;
+
 
 public class LoginActivity  extends AppCompatActivity {
 
@@ -31,8 +33,6 @@ public class LoginActivity  extends AppCompatActivity {
         summonerName = findViewById(R.id.loginSummonerNameBox);
         region = findViewById(R.id.loginRegionSpinner);
 
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         //Sets language of the app at the starting point based on our sharedprefs
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         switch(sharedPrefs.getInt("language", 0)) {
@@ -46,6 +46,15 @@ public class LoginActivity  extends AppCompatActivity {
                 setLocale("ca");
                 break;
         }
+
+        int dbPopulatedID = sharedPrefs.getInt("dbPopulatedID", 0);
+
+        if (dbPopulatedID == 0)
+        {
+            populateDataBase();
+            sharedPrefs.edit().putInt("dbPopulatedID", 1);
+        }
+
     }
 
     public void startButtonHandler(View v) {
@@ -74,6 +83,12 @@ public class LoginActivity  extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
+    }
+
+    private void populateDataBase()
+    {
+        //R.id.background;
+        //LoLAidDatabase.getInstance(this).ChampionDAO().
     }
 
 }

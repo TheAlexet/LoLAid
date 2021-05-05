@@ -42,6 +42,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.2.6'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
     testImplementation 'androidx.room:room-testing:2.2.6'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.0.1'
     //implementation "com.merakianalytics.orianna:orianna-android:4.0.0-rc7"
     //implementation 'com.robrua:orianna-android:2.4.3'
     //implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.12.13'

@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import databases.DatabaseContract;
 
 @Entity(tableName = DatabaseContract.CHAMPION_TABLE_NAME)
@@ -16,14 +18,17 @@ public class Champion {
 
     @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONID)
     @NonNull
+    @JsonProperty("key")
     private long championId;
 
     @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONNAME)
     @NonNull
+    @JsonProperty("name")
     private String championName;
 
     @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONICON)
     @NonNull
+    @JsonProperty("posted_by")
     private int championIcon;
 
     public Champion() {
