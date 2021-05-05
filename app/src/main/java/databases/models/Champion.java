@@ -14,60 +14,61 @@ public class Champion {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_ID)
-    private int id;
+    private int _ID;
 
     @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONID)
     @NonNull
-    @JsonProperty("key")
-    private long championId;
+    private long key;
 
     @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONNAME)
     @NonNull
-    @JsonProperty("name")
-    private String championName;
+    private String name;
 
     @ColumnInfo(name = DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONICON)
     @NonNull
-    @JsonProperty("posted_by")
-    private int championIcon;
+    private int championIconId;
 
     public Champion() {
 
     }
 
-    public Champion(int championId, String championName, int championIcon) {
-        this.championId = championId;
-        this.championName = championName;
-        this.championIcon = championIcon;
+    public Champion(int _ID, long key, @NonNull String name, int championIconId) {
+        this._ID = _ID;
+        this.key = key;
+        this.name = name;
+        this.championIconId = championIconId;
     }
 
-    public int getId() {
-        return id;
+    public int get_ID() {
+        return _ID;
     }
 
-    public void setId(int newId) {
-        id = newId;
+    public void set_ID(int _ID) {
+        this._ID = _ID;
     }
 
-    public long getChampionId() {
-        return championId;
+    public long getKey() {
+        return key;
     }
 
-    public void setChampionId(long newChampionId) {
-        championId = newChampionId;
+    public void setKey(long key) {
+        this.key = key;
     }
 
-    public String getChampionName() {
-        return championName;
+    @NonNull
+    public String getName() {
+        return name;
     }
 
-    public void setChampionName(String newChampionName) {
-        championName = newChampionName;
+    public void setName(@NonNull String name) {
+        this.name = name;
     }
 
-    public int getChampionIcon() {
-        return championIcon;
+    public int getChampionIconId() {
+        return championIconId;
     }
 
-    public void setChampionIcon(int newChampionIcon) { championIcon = newChampionIcon; }
+    public void setChampionIconId(int championIconId) {
+        this.championIconId = championIconId;
+    }
 }

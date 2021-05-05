@@ -18,5 +18,5 @@ public interface ChampionDAO {
     List<Champion> getChampionList();
 
     @Query("SELECT * FROM " + DatabaseContract.CHAMPION_TABLE_NAME + " WHERE " + DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONID + "= :championId")
-    Champion getChampionName(long championId);
+    Champion getChampion(long championId);
 }

@@ -1,10 +1,9 @@
 package com.example.lolaid;
 
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,10 @@ import androidx.fragment.app.Fragment;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import business_logic.data_models.SummonerDTO;
 import business_logic.data_models.custom_pojo.PlayerStatsInfo;
 import business_logic.services.RiotApiService;
 import databases.LoLAidDatabase;
+import databases.models.Champion;
 
 public class StatsActivity extends Fragment {
 
@@ -73,22 +72,30 @@ public class StatsActivity extends Fragment {
         setMainChampions(playerInfo.getTop1ChampPlayed(), playerInfo.getTop2ChampPlayed(), playerInfo.getTop3ChampPlayed());
     }
 
-    private void setMainChampions(Long champ1, Long champ2, Long champ3) {
+    private void setMainChampions(Long champ1, Long champ2, Long champ3)
+    {
+        Log.d("CHAMP1", champ1 + "");
+        Log.d("CHAMP2", champ2 + "");
+        Log.d("CHAMP3", champ3 + "");
+        Champion championTop1 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ1);
+        Champion championTop2 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ2);
+        Champion championTop3 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ3);
+
         mainChampion1image = getView().findViewById(R.id.statsMainChampion1Image);
 
-        //mainChampion1image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ1));
+        mainChampion1image.setImageResource(championTop1.getChampionIconId());
         mainChampion1value = getView().findViewById(R.id.statsMainChampion1Value);
-        //mainChampion1value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ1));
+        mainChampion1value.setText(championTop1.getName());
 
         mainChampion2image = getView().findViewById(R.id.statsMainChampion2Image);
-        //mainChampion2image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ2));
+        mainChampion2image.setImageResource(championTop2.getChampionIconId());
         mainChampion2value = getView().findViewById(R.id.statsMainChampion2Value);
-        //mainChampion2value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ2));
+        mainChampion2value.setText(championTop2.getName());
 
         mainChampion3image = getView().findViewById(R.id.statsMainChampion3Image);
-        //mainChampion3image.setImageResource(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionIcon(champ3));
+        mainChampion3image.setImageResource(championTop3.getChampionIconId());
         mainChampion3value = getView().findViewById(R.id.statsMainChampion3Value);
-        //mainChampion3value.setText(LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampionName(champ3));
+        mainChampion3value.setText(championTop3.getName());
     }
 
     private int selectChampionIcon(String champ) {
@@ -149,7 +156,7 @@ public class StatsActivity extends Fragment {
                 icon = R.drawable.cassiopeia;
                 break;
             case "chogath":
-                icon = R.drawable.chogath;
+                icon = R.drawable.cho_gath;
                 break;
             case "corki":
                 icon = R.drawable.corki;
@@ -266,7 +273,7 @@ public class StatsActivity extends Fragment {
                 icon = R.drawable.kennen;
                 break;
             case "khazix":
-                icon = R.drawable.khazix;
+                icon = R.drawable.kha_zix;
                 break;
             case "kindred":
                 icon = R.drawable.kindred;
@@ -275,7 +282,7 @@ public class StatsActivity extends Fragment {
                 icon = R.drawable.kled;
                 break;
             case "kogmaw":
-                icon = R.drawable.kogmaw;
+                icon = R.drawable.kog_maw;
                 break;
             case "leblanc":
                 icon = R.drawable.leblanc;
@@ -323,7 +330,7 @@ public class StatsActivity extends Fragment {
                 icon = R.drawable.morgana;
                 break;
             case "mundo":
-                icon = R.drawable.mundo;
+                icon = R.drawable.dr_mundo;
                 break;
             case "nami":
                 icon = R.drawable.nami;
@@ -488,7 +495,7 @@ public class StatsActivity extends Fragment {
                 icon = R.drawable.veigar;
                 break;
             case "velkoz":
-                icon = R.drawable.velkoz;
+                icon = R.drawable.vel_koz;
                 break;
             case "vi":
                 icon = R.drawable.vi;
