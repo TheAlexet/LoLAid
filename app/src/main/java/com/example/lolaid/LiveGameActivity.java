@@ -77,6 +77,11 @@ public class LiveGameActivity extends Fragment {
             teamName = getString(R.string.red_team);
         }
         team.setText(teamName);
+        //championIcon.setImageResource();
+        //summSpell1.setImageResource();
+        //summSpell2.setImageResource();
+        //mainRune.setImageResource();
+        //subRune.setImageResource();
     }
 
 }

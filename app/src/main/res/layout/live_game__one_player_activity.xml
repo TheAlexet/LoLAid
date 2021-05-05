@@ -24,86 +24,47 @@
         android:id="@+id/championIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/background"
         app:srcCompat="@drawable/aatrox" />
 
     <TextView
-        android:id="@+id/championName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="90dp"
-        android:text="Aatrox"
-        android:textColor="#cec92f"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/championIcon"
-        app:layout_constraintTop_toTopOf="@+id/background" />
-
-    <TextView
-        android:id="@+id/summonerSpells"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/summoner_spells_title"
-        android:textColor="#cec92f"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/gameTime" />
-
-    <TextView
-        android:id="@+id/RunesTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/runes_title"
-        android:textColor="#cec92f"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/summonerSpells" />
-
-    <TextView
-        android:id="@+id/gameTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/game_time_title"
-        android:textColor="#cec92f"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/TeamTitleLive" />
-
-    <TextView
         android:id="@+id/summonerNameTitleLive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
         android:text="@string/summoner_name_title"
-        android:textColor="#cec92f"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/championIcon" />
+
+    <TextView
+        android:id="@+id/summonerNameLive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        android:text="garferm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/summonerNameTitleLive"
         app:layout_constraintTop_toBottomOf="@+id/championIcon" />
 
     <TextView
         android:id="@+id/TeamTitleLive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="44dp"
         android:text="@string/team_title"
-        android:textColor="#cec92f"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/summonerNameTitleLive" />
@@ -112,49 +73,95 @@
         android:id="@+id/TeamLive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
         android:text="@string/blue_team"
-        android:textColor="#cec92f"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/TeamTitleLive"
         app:layout_constraintTop_toBottomOf="@+id/summonerNameTitleLive" />
 
     <TextView
+        android:id="@+id/gameTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/game_time_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/TeamTitleLive" />
+
+    <TextView
         android:id="@+id/gameTimeNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
         android:text="00:00"
-        android:textColor="#cec92f"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/gameTime"
         app:layout_constraintTop_toBottomOf="@+id/TeamTitleLive" />
 
     <TextView
-        android:id="@+id/summonerNameLive"
+        android:id="@+id/summonerSpells"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="50dp"
-        android:text="garferm"
-        android:textColor="#cec92f"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/summoner_spells_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/summonerNameTitleLive"
-        app:layout_constraintTop_toBottomOf="@+id/championIcon" />
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/gameTime" />
+
+    <ImageView
+        android:id="@+id/summonerSpell1"
+        android:layout_width="41dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toEndOf="@+id/summonerSpells"
+        app:layout_constraintTop_toBottomOf="@+id/gameTimeNumber"
+        app:srcCompat="@drawable/ajustes" />
 
     <ImageView
         android:id="@+id/summonerSpell2"
         android:layout_width="41dp"
         android:layout_height="36dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toEndOf="@+id/summonerSpell1"
         app:layout_constraintTop_toBottomOf="@+id/gameTimeNumber"
+        app:srcCompat="@drawable/ajustes" />
+
+    <TextView
+        android:id="@+id/RunesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/runes_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/summonerSpells" />
+
+    <ImageView
+        android:id="@+id/mainRune"
+        android:layout_width="41dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toEndOf="@+id/RunesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/summonerSpells"
         app:srcCompat="@drawable/ajustes" />
 
     <ImageView
@@ -162,29 +169,22 @@
         android:layout_width="41dp"
         android:layout_height="36dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toEndOf="@+id/mainRune"
         app:layout_constraintTop_toBottomOf="@+id/summonerSpells"
         app:srcCompat="@drawable/ajustes" />
 
-    <ImageView
-        android:id="@+id/summonerSpell1"
-        android:layout_width="41dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="35dp"
-        app:layout_constraintStart_toEndOf="@+id/summonerSpells"
-        app:layout_constraintTop_toBottomOf="@+id/gameTimeNumber"
-        app:srcCompat="@drawable/ajustes" />
-
-    <ImageView
-        android:id="@+id/mainRune"
-        android:layout_width="41dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="35dp"
-        app:layout_constraintStart_toEndOf="@+id/RunesTitle"
-        app:layout_constraintTop_toBottomOf="@+id/summonerSpells"
-        app:srcCompat="@drawable/ajustes" />
+    <TextView
+        android:id="@+id/championName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="56dp"
+        android:text="Aatrox"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#cec92f"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/championIcon"
+        app:layout_constraintTop_toTopOf="@+id/background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
