@@ -351,8 +351,21 @@ public class RiotApiService
                     Observable<PlayerStatsInfo> playerStatsObservable = Observable.zip(leagueEntriesObservable, championMasteriesObservable.subscribeOn(Schedulers.io()),
                             (leagueEntriesResult, championMasteriesResult) -> {
 
-                        PlayerStatsInfo playerStats = createPlayerStatsInfoObject(summoner, summonerName, leagueEntriesResult, championMasteriesResult);
+                        //PlayerStatsInfo playerStats = createPlayerStatsInfoObject(summoner, summonerName, leagueEntriesResult, championMasteriesResult);
+                        List<LeagueEntryDTO> leagueEntries = new ArrayList<>(leagueEntriesResult);
+                        String tier = leagueEntries.get(0).getTier();
+                        String rank = leagueEntries.get(0).getRank();
+                        int leaguePoints = leagueEntries.get(0).getLeaguePoints();
+                        int wins = leagueEntries.get(0).getWins();
+                        int losses = leagueEntries.get(0).getLosses();
 
+                        long summonerLevel = summoner.getSummonerLevel();
+
+                        long top1ChampPlayed = championMasteriesResult.get(0).getChampionId();
+                        long top2ChampPlayed = championMasteriesResult.get(1).getChampionId();
+                        long top3ChampPlayed = championMasteriesResult.get(2).getChampionId();
+
+                        PlayerStatsInfo playerStats = new PlayerStatsInfo(summonerName, tier, rank, leaguePoints, wins, losses, summonerLevel, top1ChampPlayed, top2ChampPlayed, top3ChampPlayed);
                         return playerStats;
                     });
 
@@ -362,6 +375,7 @@ public class RiotApiService
                 .subscribe(fragment::getPlayerStatsRest
                         , throwable -> {
                     Log.d("ERROR_REST", "Data not found!");
+                    Log.d("ERROR", throwable.getMessage());
                 });
     }
 

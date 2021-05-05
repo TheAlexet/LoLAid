@@ -77,25 +77,31 @@ public class StatsActivity extends Fragment {
         Log.d("CHAMP1", champ1 + "");
         Log.d("CHAMP2", champ2 + "");
         Log.d("CHAMP3", champ3 + "");
-        Champion championTop1 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ1);
-        Champion championTop2 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ2);
-        Champion championTop3 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ3);
+        Thread championsThread = new Thread(() -> {
+            Champion championTop1 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ1);
+            Champion championTop2 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ2);
+            Champion championTop3 = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(champ3);
 
-        mainChampion1image = getView().findViewById(R.id.statsMainChampion1Image);
+            getActivity().runOnUiThread(() -> {
+                mainChampion1image = getView().findViewById(R.id.statsMainChampion1Image);
 
-        mainChampion1image.setImageResource(championTop1.getChampionIconId());
-        mainChampion1value = getView().findViewById(R.id.statsMainChampion1Value);
-        mainChampion1value.setText(championTop1.getName());
+                mainChampion1image.setImageResource(championTop1.getChampionIconId());
+                mainChampion1value = getView().findViewById(R.id.statsMainChampion1Value);
+                mainChampion1value.setText(championTop1.getName());
 
-        mainChampion2image = getView().findViewById(R.id.statsMainChampion2Image);
-        mainChampion2image.setImageResource(championTop2.getChampionIconId());
-        mainChampion2value = getView().findViewById(R.id.statsMainChampion2Value);
-        mainChampion2value.setText(championTop2.getName());
+                mainChampion2image = getView().findViewById(R.id.statsMainChampion2Image);
+                mainChampion2image.setImageResource(championTop2.getChampionIconId());
+                mainChampion2value = getView().findViewById(R.id.statsMainChampion2Value);
+                mainChampion2value.setText(championTop2.getName());
 
-        mainChampion3image = getView().findViewById(R.id.statsMainChampion3Image);
-        mainChampion3image.setImageResource(championTop3.getChampionIconId());
-        mainChampion3value = getView().findViewById(R.id.statsMainChampion3Value);
-        mainChampion3value.setText(championTop3.getName());
+                mainChampion3image = getView().findViewById(R.id.statsMainChampion3Image);
+                mainChampion3image.setImageResource(championTop3.getChampionIconId());
+                mainChampion3value = getView().findViewById(R.id.statsMainChampion3Value);
+                mainChampion3value.setText(championTop3.getName());
+            });
+        });
+
+        championsThread.start();
     }
 
     private int selectChampionIcon(String champ) {

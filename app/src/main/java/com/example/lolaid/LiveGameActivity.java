@@ -20,6 +20,8 @@ import java.util.Date;
 import adapters.LiveGameAdapter;
 import business_logic.data_models.custom_pojo.LiveMatchInfo;
 import business_logic.services.RiotApiService;
+import databases.LoLAidDatabase;
+import databases.models.Champion;
 
 public class LiveGameActivity extends Fragment {
 
@@ -54,7 +56,7 @@ public class LiveGameActivity extends Fragment {
         subRune = view.findViewById(R.id.subRune);
         championName = view.findViewById(R.id.championName);
         summonerName = view.findViewById(R.id.summonerNameLive);
-        gameTime = view.findViewById(R.id.gameTime);
+        gameTime = view.findViewById(R.id.gameTimeNumber);
         team = view.findViewById(R.id.TeamLive);
         summName = sharedPrefs.getString("summonerName", "Jose");
         apiService.getCurrentMatchInfo(summName, this);
@@ -62,13 +64,13 @@ public class LiveGameActivity extends Fragment {
     }
 
     public void getLiveMatchInfo(LiveMatchInfo matchInfo){
-        championName.setText(matchInfo.getSummonerName());
         summonerName.setText(matchInfo.getSummonerName());
         Timestamp gameStartTime = new Timestamp(matchInfo.getGameStartTime());
         long gameDurationMilliseconds = System.currentTimeMillis() - gameStartTime.getTime();
         int gameMinutes = (int) (gameDurationMilliseconds/1000)/60;
         int gameSeconds = (int) (gameDurationMilliseconds/1000)%60;
-        String gameLength = Integer.toString(gameMinutes) + ":" + Integer.toString(gameSeconds);
+        String secondsFormatted = gameSeconds >= 10 ? Integer.toString(gameSeconds) : "0" + Integer.toString(gameSeconds);
+        String gameLength = Integer.toString(gameMinutes) + ":" + secondsFormatted;
         gameTime.setText(gameLength);
         String teamName = "Team";
         if(matchInfo.getTeamId() == 100){
@@ -77,6 +79,16 @@ public class LiveGameActivity extends Fragment {
             teamName = getString(R.string.red_team);
         }
         team.setText(teamName);
+
+        Thread championThread = new Thread(() -> {
+            Champion currentChampionInfo = LoLAidDatabase.getInstance(getActivity()).ChampionDAO().getChampion(matchInfo.getChampionId());
+            getActivity().runOnUiThread(() -> {
+                championName.setText(currentChampionInfo.getName());
+                championIcon.setImageResource(currentChampionInfo.getChampionIconId());
+            });
+        });
+
+        championThread.start();
         //championIcon.setImageResource();
         //summSpell1.setImageResource();
         //summSpell2.setImageResource();
