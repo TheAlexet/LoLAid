@@ -38,7 +38,7 @@
     <string name="rec1_master">La teua divisió és master+. Eres dels millors jugadors. Seguix així.</string>
     <string name="rec2_negative">Tens menys de 49% de winrate. Deixa de jugar després de perdre i mantin el cap gelat.</string>
     <string name="rec2_positive">Tens més de 51% de winrate. Bons resultats! Mantin la consistència de posició i campeons.</string>
-    <string name="rec2_neutral">. No està mal. Dodgea les partides perdudes en selecció de campeó.</string>
+    <string name="rec2_neutral">Tens un winrate neutral. No està mal. Dodgea les partides perdudes en selecció de campeó.</string>
     <string name="rec3_no_champs">No tens ningún campeó en més de 100k punts. Intenta dominar al menys un.</string>
     <string name="rec3_one_champs">Tens un campeó en més de 100k punts. Juga més campeons d\'ixa posició.</string>
     <string name="rec3_two_champs">Tens dos campeons en més de 100k punts. Aprén altra posició per a cobrir el teu equip.</string>

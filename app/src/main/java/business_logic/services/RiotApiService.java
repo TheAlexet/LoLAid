@@ -498,7 +498,7 @@ public class RiotApiService
     {
         if (fragment == null) return;
 
-        int MAX_ENTRIES = 3; //20, LoL Standard Nº Entries
+        int MAX_ENTRIES = 20; //20, LoL Standard Nº Entries
 
         Call<SummonerDTO> callSummonerDTO =  service.getSummonerByNameRetrofit(summonerName, RIOT_API_KEY);
 

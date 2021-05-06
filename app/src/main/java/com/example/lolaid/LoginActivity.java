@@ -186,20 +186,18 @@ public class LoginActivity  extends AppCompatActivity {
 
     private void populateLatestChamps()
     {
-        //Populate Viego
-        Champion championViego = new Champion();
-        String championNameViego = "Viego";
-        String formattedNameViego = formatStringToDB(championNameViego);
-        Log.d("FORMATTED_VIEGO", formattedNameViego);
-        championViego.setName(championNameViego);
-        long championKeyViego = 264;
-        championViego.setKey(championKeyViego);
-        Log.d("CHAMPION_KEY", championKeyViego + "");
-        int championIconIdViego = getResources().getIdentifier(formattedNameViego, "drawable", getPackageName());
-        championViego.setChampionIconId(championIconIdViego);
-        Log.d("CHAMP_ICON_ID", championIconIdViego + "");
-
-        LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championViego);
+        //Populate Gwen
+        Champion championGwen = new Champion();
+        String championNameGwen = "Gwen";
+        String formattedNameGwen = formatStringToDB(championNameGwen);
+        Log.d("FORMATTED_GWEN", championNameGwen);
+        championGwen.setName(championNameGwen);
+        long championKeyGwen = 887;
+        championGwen.setKey(championKeyGwen);
+        Log.d("CHAMPION_KEY", championKeyGwen + "");
+        int championIconIdGwen = getResources().getIdentifier(formattedNameGwen, "drawable", getPackageName());
+        championGwen.setChampionIconId(championIconIdGwen);
+        Log.d("CHAMP_ICON_ID", championIconIdGwen + "");
 
         //Populate Rell
         Champion championRell = new Champion();
@@ -214,21 +212,25 @@ public class LoginActivity  extends AppCompatActivity {
         championRell.setChampionIconId(championIconIdRell);
         Log.d("CHAMP_ICON_ID", championIconIdRell + "");
 
+        //Populate Viego
+        Champion championViego = new Champion();
+        String championNameViego = "Viego";
+        String formattedNameViego = formatStringToDB(championNameViego);
+        Log.d("FORMATTED_VIEGO", formattedNameViego);
+        championViego.setName(championNameViego);
+        long championKeyViego = 234;
+        championViego.setKey(championKeyViego);
+        Log.d("CHAMPION_KEY", championKeyViego + "");
+        int championIconIdViego = getResources().getIdentifier(formattedNameViego, "drawable", getPackageName());
+        championViego.setChampionIconId(championIconIdViego);
+        Log.d("CHAMP_ICON_ID", championIconIdViego + "");
+
+        LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championViego);
+        LoLAidDatabase.getInstance(this).ChampionDAO().deleteChampion(championViego);
+        LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championViego);
+        LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championGwen);
         LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championRell);
 
-        //Populate Gwen
-        Champion championGwen = new Champion();
-        String championNameGwen = "Gwen";
-        String formattedNameGwen = formatStringToDB(championNameGwen);
-        Log.d("FORMATTED_GWEN", championNameGwen);
-        championGwen.setName(championNameGwen);
-        long championKeyGwen = 887;
-        championGwen.setKey(championKeyGwen);
-        Log.d("CHAMPION_KEY", championKeyGwen + "");
-        int championIconIdGwen = getResources().getIdentifier(formattedNameGwen, "drawable", getPackageName());
-        championGwen.setChampionIconId(championIconIdGwen);
-        Log.d("CHAMP_ICON_ID", championIconIdGwen + "");
 
-        LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championGwen);
     }
 }

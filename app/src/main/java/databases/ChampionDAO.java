@@ -1,6 +1,7 @@
 package databases;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -19,6 +20,9 @@ public interface ChampionDAO {
 
     @Query("SELECT * FROM " + DatabaseContract.CHAMPION_TABLE_NAME + " WHERE " + DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONID + "= :championId")
     Champion getChampion(long championId);
+
+    @Delete
+    void deleteChampion(Champion champion);
 
     @Query("DELETE FROM " + DatabaseContract.CHAMPION_TABLE_NAME)
     void deleteAllChampions();

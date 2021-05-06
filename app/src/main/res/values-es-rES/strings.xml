@@ -37,7 +37,7 @@
     <string name="rec1_diamond">Tu división es diamante. Ya eres un buen jugador pero podrías hacerlo mejor. Centrate en tus errores y mantén la calma.</string>
     <string name="rec1_master">Tu división es master+. Eres de los mejores jugadores. Sigue así.</string>
     <string name="rec2_negative">Tienes menos de 49% de winrate. Deja de jugar después de perder y mantén la mente fría.</string>
-    <string name="rec2_positive">. ¡Buenos resultados! Manten la consistencia de posición y campeones.</string>
+    <string name="rec2_positive">Tienes más de 51% de winrate. ¡Buenos resultados! Manten la consistencia de posición y campeones.</string>
     <string name="rec2_neutral">Tienes un winrate neutral.. No está mal. Dodgea las partidas perdidas en champ select.</string>
     <string name="rec3_no_champs">No tienes ningún campeón con más de 100k puntos. Intenta dominar al menos uno.</string>
     <string name="rec3_one_champs">Tienes un campeón con más de 100k puntos. Juega más campeones de esa posición.</string>
