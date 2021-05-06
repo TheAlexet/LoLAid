@@ -136,6 +136,18 @@ public class StatsActivity extends Fragment {
 
     private void dataLoaded(boolean loaded)
     {
+        summonerName =  getView().findViewById(R.id.statsSummonerNameValue);
+        summonerLevel =  getView().findViewById(R.id.statsSummonerLevelValue);
+        summonerRank =  getView().findViewById(R.id.statsSummonerRankValue);
+        summonerWinRate =  getView().findViewById(R.id.statsSummonerWinRateValue);
+        mainChampion1image = getView().findViewById(R.id.statsMainChampion1Image);
+        mainChampion1value = getView().findViewById(R.id.statsMainChampion1Value);
+        mainChampion2image = getView().findViewById(R.id.statsMainChampion2Image);
+        mainChampion2value = getView().findViewById(R.id.statsMainChampion2Value);
+        mainChampion3image = getView().findViewById(R.id.statsMainChampion3Image);
+        mainChampion3value = getView().findViewById(R.id.statsMainChampion3Value);
+        errorMessage = getView().findViewById(R.id.errorMessage);
+
         if(loaded)
         {
             errorMessage.setVisibility(View.INVISIBLE);
