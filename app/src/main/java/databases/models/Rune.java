@@ -12,44 +12,61 @@ public class Rune {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DatabaseContract.RUNE_COLUMN_NAME_ID)
-    private int id;
+    private int _ID;
 
     @ColumnInfo(name = DatabaseContract.RUNE_COLUMN_NAME_RUNEID)
     @NonNull
-    private long runeId;
+    private long id;
+
+    @ColumnInfo(name = DatabaseContract.RUNE_COLUMN_NAME_RUNENAME)
+    @NonNull
+    private String name;
 
     @ColumnInfo(name = DatabaseContract.RUNE_COLUMN_NAME_RUNEICON)
     @NonNull
-    private int runeIcon;
+    private int iconId;
 
-    public Rune() {
+    public Rune()
+    {
 
     }
 
-    public Rune(long runeId, int runeIcon) {
-        this.runeId = runeId;
-        this.runeIcon = runeIcon;
+    public Rune(int _ID, long id, String name, int iconId) {
+        this._ID = _ID;
+        this.id = id;
+        this.name = name;
+        this.iconId = iconId;
     }
 
-    public int getId() {
+    public int get_ID() {
+        return _ID;
+    }
+
+    public void set_ID(int _ID) {
+        this._ID = _ID;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int newId) {
-        id = newId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public long getRuneId() {
-        return runeId;
+    public String getName() {
+        return name;
     }
 
-    public void setRuneId(long newChampionId) {
-        runeId = newChampionId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getRuneIcon() {
-        return runeIcon;
+    public int getIconId() {
+        return iconId;
     }
 
-    public void setRuneIcon(int newRuneIcon) { runeIcon = newRuneIcon; }
+    public void setIconId(int iconId) {
+        this.iconId = iconId;
+    }
 }

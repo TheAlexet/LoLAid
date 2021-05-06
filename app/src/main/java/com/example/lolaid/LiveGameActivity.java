@@ -25,6 +25,7 @@ import business_logic.services.RiotApiService;
 import databases.LoLAidDatabase;
 import databases.models.Champion;
 import databases.models.Rune;
+import databases.models.SummonerSpell;
 
 public class LiveGameActivity extends Fragment {
 
@@ -78,9 +79,10 @@ public class LiveGameActivity extends Fragment {
         progressBar = view.findViewById(R.id.progressBarLive);
         errorMessage = view.findViewById(R.id.playerNotLive);
         summName = sharedPrefs.getString("summonerName", "Jose");
-        apiService.getCurrentMatchInfo(summName, this);
 
         hideAll();
+
+        apiService.getCurrentMatchInfo(summName, this);
 
         return view;
     }
@@ -167,22 +169,25 @@ public class LiveGameActivity extends Fragment {
                 championIcon.setImageResource(currentChampionInfo.getChampionIconId());
             });
         });
-       /* Thread runesThread = new Thread(() -> {
-            Rune currentMainRuneInfo = LoLAidDatabase.getInstance(getActivity().RuneDAO().getRune(matchInfo.getPerkStyle()));
-            Rune currentSubRuneInfo = LoLAidDatabase.getInstance(getActivity().RuneDAO().getRune(matchInfo.getPerkSubStyle()));
+
+        Thread runesThread = new Thread(() -> {
+            Rune currentMainRuneInfo = LoLAidDatabase.getInstance(getActivity()).RuneDAO().getRune(matchInfo.getPerkStyle());
+            Rune currentSubRuneInfo = LoLAidDatabase.getInstance(getActivity()).RuneDAO().getRune(matchInfo.getPerkSubStyle());
+
             getActivity().runOnUiThread(() -> {
-                mainRune.setImageResource(currentMainRuneInfo.getRuneIcon());
-                subRune.setImageResource(currentSubRuneInfo.getRuneIcon());
+                mainRune.setImageResource(currentMainRuneInfo.getIconId());
+                subRune.setImageResource(currentSubRuneInfo.getIconId());
             });
         });
+
         Thread summSpellsThread = new Thread(() -> {
-            Rune currentSummSpell1Info = LoLAidDatabase.getInstance(getActivity().SummonerSpellDAO().getSummonerSpell(matchInfo.getSpell1Id()));
-            Rune currentSummSpell2Info = LoLAidDatabase.getInstance(getActivity().SummonerSpellDAO().getSummonerSpell(matchInfo.getSpell2Id()));
+            SummonerSpell currentSummSpell1Info = LoLAidDatabase.getInstance(getActivity()).SummonerSpellDAO().getSummonerSpell(matchInfo.getSpell1Id());
+            SummonerSpell currentSummSpell2Info = LoLAidDatabase.getInstance(getActivity()).SummonerSpellDAO().getSummonerSpell(matchInfo.getSpell2Id());
             getActivity().runOnUiThread(() -> {
-                summSpell1.setImageResource(currentSummSpell1Info.getRuneIcon());
-                subRune.setImageResource(currentSummSpell2Info.getRuneIcon());
+                summSpell1.setImageResource(currentSummSpell1Info.getIconId());
+                summSpell2.setImageResource(currentSummSpell2Info.getIconId());
             });
-        });*/
+        });
 
 
         championThread.start();

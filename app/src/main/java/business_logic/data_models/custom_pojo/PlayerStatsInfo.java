@@ -13,7 +13,7 @@ public class PlayerStatsInfo
     //SummonerDTO
     private long summonerLevel;
 
-    //Filtering ChampionMasteryDTO list
+    //Filtering ChampionMasteryDTO list to get the top 3 champions most played
     private long top1ChampPlayed;
     private long top2ChampPlayed;
     private long top3ChampPlayed;

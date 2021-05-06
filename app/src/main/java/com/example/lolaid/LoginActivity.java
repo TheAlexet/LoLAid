@@ -37,6 +37,8 @@ import java.util.Locale;
 
 import databases.LoLAidDatabase;
 import databases.models.Champion;
+import databases.models.Rune;
+import databases.models.SummonerSpell;
 
 
 public class LoginActivity  extends AppCompatActivity {
@@ -50,22 +52,15 @@ public class LoginActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        summonerName = findViewById(R.id.loginSummonerNameBox);
-        region = findViewById(R.id.loginRegionSpinner);
-
         //Sets language of the app at the starting point based on our sharedprefs
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-        switch(sharedPrefs.getInt("language", 0)) {
-            case 0:
-                setLocale(Locale.getDefault().toLanguageTag());
-                break;
-            case 1:
-                setLocale("es");
-                break;
-            case 2:
-                setLocale("ca");
-                break;
-        }
+
+
+        /*new Thread(() -> {
+            populateSummonerSpells();
+            populateRunes();
+        }).start();*/
+
         Thread populateDBThread = new Thread(() -> {
             populateDataBase();
         });
@@ -77,6 +72,24 @@ public class LoginActivity  extends AppCompatActivity {
             populateDBThread.start();
             sharedPrefs.edit().putInt("dbPopulatedID", 1).apply();
         }
+
+        summonerName = findViewById(R.id.loginSummonerNameBox);
+        region = findViewById(R.id.loginRegionSpinner);
+
+        switch(sharedPrefs.getInt("language", 0)) {
+            case 0:
+                setLocale(Locale.getDefault().toLanguageTag());
+                break;
+            case 1:
+                setLocale("es");
+                break;
+            case 2:
+                setLocale("ca");
+                break;
+        }
+        //populateDBThread.start();
+
+        //new Thread(() -> populateLatestChamps()).start();
 
     }
 
@@ -111,7 +124,15 @@ public class LoginActivity  extends AppCompatActivity {
     private void populateDataBase()
     {
         //LoLAidDatabase.getInstance(this).ChampionDAO().deleteAllChampions();
+        populateChampions();
+        populateSummonerSpells();
+        populateRunes();
+        populateLatestChamps();
+    }
 
+
+    private void populateChampions()
+    {
         Gson gson = new Gson();
         String championsJSON = readChampionsJSON();
 
@@ -122,7 +143,7 @@ public class LoginActivity  extends AppCompatActivity {
             String championName = champion.getName();
             Log.d("CHAMPION_NAME", championName);
             String formattedName = formatStringToDB(championName);
-            Log.d("FORMATTED_NAME", formattedName);
+            Log.d("CHAMPION_FORMATTED_NAME", formattedName);
             champion.setName(championName);
             long championKey = champion.getKey();
             Log.d("CHAMPION_KEY", championKey + "");
@@ -132,8 +153,54 @@ public class LoginActivity  extends AppCompatActivity {
 
             LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(champion);
         }
+    }
 
-        //populateLatestChamps();
+    private void populateRunes()
+    {
+        Gson gson = new Gson();
+        String runesJSON = readRunesJSON();
+
+        Rune[] runes = gson.fromJson(runesJSON, Rune[].class);
+
+        for (Rune rune : runes)
+        {
+            String runeName = rune.getName();
+            Log.d("RUNE_NAME", runeName);
+            String formattedName = formatStringToDB(runeName);
+            Log.d("RUNE_FORMATTED_NAME", formattedName);
+            rune.setName(runeName);
+            long runeKey = rune.getId();
+            Log.d("RUNE_KEY", runeKey + "");
+            int runeIconId = getResources().getIdentifier(formattedName, "drawable", getPackageName());
+            Log.d("RUNE_ICON_ID", runeIconId + "");
+            rune.setIconId(runeIconId);
+
+            LoLAidDatabase.getInstance(this).RuneDAO().insertRune(rune);
+        }
+    }
+
+    private void populateSummonerSpells()
+    {
+        Gson gson = new Gson();
+        String summonerSpellsJSON = readSummonerSpellsJSON();
+
+        SummonerSpell[] summonerSpells = gson.fromJson(summonerSpellsJSON, SummonerSpell[].class);
+
+        for (SummonerSpell summonerSpell : summonerSpells)
+        {
+            String summonerSpellName = summonerSpell.getName();
+            Log.d("SUMMONER_SPELL_NAME", summonerSpellName);
+            String formattedName = formatStringToDB(summonerSpellName);
+            Log.d("SUMMONER_SPELL_FORMATTED_NAME", formattedName);
+            summonerSpell.setName(summonerSpellName);
+            long summonerSpellKey = summonerSpell.getKey();
+            Log.d("SUMMONER_SPELL_KEY", summonerSpellKey + "");
+            int summonerSpellIconId = getResources().getIdentifier(formattedName, "drawable", getPackageName());
+            Log.d("SUMMONER_SPELL_ICON_ID", summonerSpellIconId + "");
+            summonerSpell.setIconId(summonerSpellIconId);
+
+            LoLAidDatabase.getInstance(this).SummonerSpellDAO().insertSummonerSpell(summonerSpell);
+        }
     }
 
     private String formatStringToDB(String stringNotFormatted)
@@ -182,8 +249,96 @@ public class LoginActivity  extends AppCompatActivity {
         return jsonString;
     }
 
+    private String readSummonerSpellsJSON()
+    {
+        InputStream is = getResources().openRawResource(R.raw.summoner_spells);
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+
+        try
+        {
+            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            int n;
+            while ((n = reader.read(buffer)) != -1)
+            {
+                writer.write(buffer, 0, n);
+            }
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                is.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        String jsonString = writer.toString();
+
+        return jsonString;
+    }
+
+    private String readRunesJSON()
+    {
+        InputStream is = getResources().openRawResource(R.raw.runes);
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+
+        try
+        {
+            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            int n;
+            while ((n = reader.read(buffer)) != -1)
+            {
+                writer.write(buffer, 0, n);
+            }
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                is.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        String jsonString = writer.toString();
+
+        return jsonString;
+    }
+
     private void populateLatestChamps()
     {
+        try
+        {
+            Thread.sleep(100);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         //Populate Gwen
         Champion championGwen = new Champion();
         String championNameGwen = "Gwen";
@@ -228,7 +383,5 @@ public class LoginActivity  extends AppCompatActivity {
         LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championViego);
         LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championGwen);
         LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championRell);
-
-
     }
 }

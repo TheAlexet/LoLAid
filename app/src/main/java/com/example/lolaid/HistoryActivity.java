@@ -43,13 +43,16 @@ public class HistoryActivity extends Fragment {
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         riotApiService = new RiotApiService();
+
         summName = sharedPrefs.getString("summonerName","");
 
         List<MatchInfo> provisionalList = new ArrayList<>();
 
         matchHistoryAdapter = new MatchHistoryAdapter(provisionalList, this.getActivity());
 
+
         RecyclerView recycler = view.findViewById(R.id.rvMatchHistory);
+
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recycler.setLayoutManager(manager);
         recycler.addItemDecoration(new DividerItemDecoration(getActivity(),1));

@@ -18,6 +18,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import business_logic.data_models.custom_pojo.PlayerStatsInfo;
+import business_logic.data_models.custom_pojo.RecomendationsInfo;
 import business_logic.services.RiotApiService;
 
 public class RecommendationsActivity extends Fragment {
@@ -59,59 +60,55 @@ public class RecommendationsActivity extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dataLoaded(false);
-        //apiService.getPlayerStatsInfo(sharedPrefs.getString("summonerName", ""), this, view);
+        apiService.getRecomendationsInfo(sharedPrefs.getString("summonerName", ""), this, view);
     }
 
-    public void getRecommendationsRest(PlayerStatsInfo playerInfo) {
+    public void getRecommendationsRest(RecomendationsInfo recomendationsInfo) {
         dataLoaded(true);
 
-        String tier = playerInfo.getTier();
-        showRecommentation1(tier);
+        String tier = recomendationsInfo.getTier();
+        showRecommendation(tier);
 
-        float winRate = (float) playerInfo.getWins() / (playerInfo.getWins() + playerInfo.getLosses()) * 100;
-        showRecommentation2(winRate);
+        float winRate = (float) recomendationsInfo.getWins() / (recomendationsInfo.getWins() + recomendationsInfo.getLosses()) * 100;
+        showRecommendation(winRate);
 
-        int mastery1 = 0;
-        int mastery2 = 0;
-        int mastery3 = 0;
-        showRecommentation3(mastery1, mastery2, mastery3);
+        int masteryPoints1 = recomendationsInfo.getTop1championPoints();
+        int masteryPoints2 = recomendationsInfo.getTop2championPoints();
+        int masteryPoints3 = recomendationsInfo.getTop3championPoints();
+
+        showRecommendation(masteryPoints1, masteryPoints2, masteryPoints3);
     }
 
-    private void showRecommentation1(String tier)
+    private void showRecommendation(String tier)
     {
         switch (tier)
         {
-            case "Iron":
+            case "IRON":
                 rec1.setText(R.string.rec1_iron);
                 break;
-            case "Bronze":
+            case "BRONZE":
                 rec1.setText(R.string.rec1_bronze);
                 break;
-            case "Silver":
+            case "SILVER":
                 rec1.setText(R.string.rec1_silver);
                 break;
-            case "Gold":
+            case "GOLD":
                 rec1.setText(R.string.rec1_gold);
                 break;
-            case "Platinum":
+            case "PLATINUM":
                 rec1.setText(R.string.rec1_platinum);
                 break;
-            case "Diamond":
+            case "DIAMOND":
                 rec1.setText(R.string.rec1_diamond);
                 break;
-            case "Master":
-                rec1.setText(R.string.rec1_master);
-                break;
-            case "GrandMaster":
-                rec1.setText(R.string.rec1_master);
-                break;
-            case "Challenger":
+
+            default:
                 rec1.setText(R.string.rec1_master);
                 break;
         }
     }
 
-    private void showRecommentation2(float winRate)
+    private void showRecommendation(float winRate)
     {
         if(winRate > 51)
         {
@@ -127,7 +124,7 @@ public class RecommendationsActivity extends Fragment {
         }
     }
 
-    private void showRecommentation3(int mastery1, int mastery2, int mastery3)
+    private void showRecommendation(int mastery1, int mastery2, int mastery3)
     {
         if(mastery1 < 100000)
         {

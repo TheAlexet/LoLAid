@@ -12,44 +12,61 @@ public class SummonerSpell {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DatabaseContract.SUMMONER_SPELL_COLUMN_NAME_ID)
-    private int id;
+    private int _ID;
 
     @ColumnInfo(name = DatabaseContract.SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLID)
     @NonNull
-    private long summonerSpellId;
+    private long key;
+
+    @ColumnInfo(name = DatabaseContract.SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLNAME)
+    @NonNull
+    private String name;
 
     @ColumnInfo(name = DatabaseContract.SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLICON)
     @NonNull
-    private int summonerSpellIcon;
+    private int iconId;
 
     public SummonerSpell() {
 
     }
 
-    public SummonerSpell(long summonerSpellId, int summonerSpellIcon) {
-        this.summonerSpellId = summonerSpellId;
-        this.summonerSpellIcon = summonerSpellIcon;
+    public SummonerSpell(int _ID, long key, @NonNull String name, int iconId) {
+        this._ID = _ID;
+        this.key = key;
+        this.name = name;
+        this.iconId = iconId;
     }
 
-    public int getId() {
-        return id;
+    public int get_ID() {
+        return _ID;
     }
 
-    public void setId(int newId) {
-        id = newId;
+    public void set_ID(int _ID) {
+        this._ID = _ID;
     }
 
-    public long getSummonerSpellId() {
-        return summonerSpellId;
+    public long getKey() {
+        return key;
     }
 
-    public void setSummonerSpellId(long newSummonerSpellId) {
-        summonerSpellId = newSummonerSpellId;
+    public void setKey(long key) {
+        this.key = key;
     }
 
-    public int getSummonerSpellIcon() {
-        return summonerSpellIcon;
+    @NonNull
+    public String getName() {
+        return name;
     }
 
-    public void setSummonerSpellIcon(int newSummonerSpellIcon) { summonerSpellIcon = newSummonerSpellIcon; }
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    public int getIconId() {
+        return iconId;
+    }
+
+    public void setIconId(int iconId) {
+        this.iconId = iconId;
+    }
 }

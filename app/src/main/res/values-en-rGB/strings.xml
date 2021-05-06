@@ -37,7 +37,7 @@
     <string name="rec1_diamond">" Your rank is diamond. Nice! Focus on improving from your mistakes and stay calm."</string>
     <string name="rec1_master">" Your current rank is master+. You are at the top already. Keep working hard."</string>
     <string name="rec2_negative">" You have less than 49% winrate. Stop playing after a losing streak and keep a cool head."</string>
-    <string name="rec2_positive">" You have more than 51% winrate. Keep playing a concrete position and champions."</string>
+    <string name="rec2_positive">" You have more than 51% winrate. Keep playing a specific position and champions."</string>
     <string name="rec2_neutral">" You have a neutral winrate. Not bad! Try to dodge games already lost in champ select."</string>
     <string name="rec3_no_champs">You don\'t have any champion with +100k points. Try to master at least one.</string>
     <string name="rec3_one_champs">You have one champion with +100k points. Play more champions of that position.</string>

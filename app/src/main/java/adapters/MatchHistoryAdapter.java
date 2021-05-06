@@ -31,16 +31,12 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
     public MatchHistoryAdapter(List<MatchInfo> list, Activity activity){
         matchesList = list;
-        Log.d("LIST_LENGTH_ADAPTER", matchesList.size() + "");
         historyActivity = activity;
-        Log.d("INFO", "Constructor is getting called");
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("INFO", "onCreateViewHolder is getting called");
-        Log.d("LIST_LENGTH_onCreateVH", matchesList.size() + "");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.match_history_row, parent, false);
         MatchHistoryAdapter.ViewHolder holder = new ViewHolder(view);
@@ -54,20 +50,25 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
         int gameMinutes = (int) matchInfo.getGameDuration()/60;
         int gameSeconds = (int) matchInfo.getGameDuration()%60;
-        String secondsFormatted = gameSeconds >= 10 ? Integer.toString(gameSeconds) : "0" + Integer.toString(gameSeconds);
+
+        String secondsFormatted = gameSeconds >= 10 ? Integer.toString(gameSeconds) : "0" + gameSeconds;
         String gameDuration = gameMinutes + ":" + secondsFormatted;
+
         holder.tvDuration.setText(gameDuration);
         holder.tvScore.setText(matchInfo.getScore());
         holder.tvLevel.setText(String.valueOf(matchInfo.getChampLevel()));
         holder.tvGold.setText(String.valueOf(matchInfo.getGoldEarned()));
         holder.tvMinions.setText(String.valueOf(matchInfo.getTotalMinionsKilled()));
+
         if(matchesList.get(position).getWinnerTeam().equals("WIN")){
             holder.tvWin.setText(R.string.victory_text);
         } else{
             holder.tvWin.setText(R.string.defeat_text);
         }
+
         Date date = new Date(matchInfo.getGameCreation());
         holder.tvDate.setText(date.toString());
+
         setChampionIcon(holder, matchInfo);
     }
 

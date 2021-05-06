@@ -13,11 +13,13 @@ public class DatabaseContract {
     public static final String RUNE_TABLE_NAME = "rune_table";
     public static final String RUNE_COLUMN_NAME_ID = "_ID";
     public static final String RUNE_COLUMN_NAME_RUNEID = "rune_id";
+    public static final String RUNE_COLUMN_NAME_RUNENAME = "rune_name";
     public static final String RUNE_COLUMN_NAME_RUNEICON = "rune_icon";
 
     public static final String SUMMONER_SPELL_TABLE_NAME = "summoner_spell_table";
     public static final String SUMMONER_SPELL_COLUMN_NAME_ID = "_ID";
     public static final String SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLID = "summoner_spell_id";
+    public static final String SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLNAME = "summoner_spell_name";
     public static final String SUMMONER_SPELL_COLUMN_NAME_SUMMONERSPELLICON = "summoner_spell_icon";
 
 }
