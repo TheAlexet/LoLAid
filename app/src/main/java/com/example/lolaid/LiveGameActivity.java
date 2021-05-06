@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,13 @@ public class LiveGameActivity extends Fragment {
     private LiveMatchInfo matchInfo;
     private SharedPreferences sharedPrefs;
     private String summName;
+    private TextView summNameTitle;
+    private TextView gameTimeTitle;
+    private TextView teamTitle;
+    private TextView summSpellsTitle;
+    private TextView runesTitle;
+    private TextView errorMessage;
+    private ProgressBar progressBar;
 
     public LiveGameActivity() {
 
@@ -58,9 +66,73 @@ public class LiveGameActivity extends Fragment {
         summonerName = view.findViewById(R.id.summonerNameLive);
         gameTime = view.findViewById(R.id.gameTimeNumber);
         team = view.findViewById(R.id.TeamLive);
+        summNameTitle = view.findViewById(R.id.summonerNameTitleLive);
+        gameTimeTitle = view.findViewById(R.id.gameTime);
+        teamTitle = view.findViewById(R.id.TeamTitleLive);
+        summSpellsTitle = view.findViewById(R.id.summonerSpells);
+        runesTitle = view.findViewById(R.id.RunesTitle);
+        progressBar = view.findViewById(R.id.progressBarLive);
+        errorMessage = view.findViewById(R.id.playerNotLive);
         summName = sharedPrefs.getString("summonerName", "Jose");
         apiService.getCurrentMatchInfo(summName, this);
+        hideAll();
         return view;
+    }
+
+    private void hideAll(){
+        championName.setVisibility(View.INVISIBLE);
+        championIcon.setVisibility(View.INVISIBLE);
+        summSpell1.setVisibility(View.INVISIBLE);
+        summSpell2.setVisibility(View.INVISIBLE);
+        mainRune.setVisibility(View.INVISIBLE);
+        subRune.setVisibility(View.INVISIBLE);
+        summonerName.setVisibility(View.INVISIBLE);
+        gameTime.setVisibility(View.INVISIBLE);
+        team.setVisibility(View.INVISIBLE);
+        summNameTitle.setVisibility(View.INVISIBLE);
+        gameTimeTitle.setVisibility(View.INVISIBLE);
+        teamTitle.setVisibility(View.INVISIBLE);
+        summSpellsTitle.setVisibility(View.INVISIBLE);
+        runesTitle.setVisibility(View.INVISIBLE);
+        errorMessage.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void errorNotLive(){
+        championName.setVisibility(View.INVISIBLE);
+        championIcon.setVisibility(View.INVISIBLE);
+        summSpell1.setVisibility(View.INVISIBLE);
+        summSpell2.setVisibility(View.INVISIBLE);
+        mainRune.setVisibility(View.INVISIBLE);
+        subRune.setVisibility(View.INVISIBLE);
+        summonerName.setVisibility(View.INVISIBLE);
+        gameTime.setVisibility(View.INVISIBLE);
+        team.setVisibility(View.INVISIBLE);
+        summNameTitle.setVisibility(View.INVISIBLE);
+        gameTimeTitle.setVisibility(View.INVISIBLE);
+        teamTitle.setVisibility(View.INVISIBLE);
+        summSpellsTitle.setVisibility(View.INVISIBLE);
+        runesTitle.setVisibility(View.INVISIBLE);
+        errorMessage.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void showAll(){
+        championName.setVisibility(View.VISIBLE);
+        championIcon.setVisibility(View.VISIBLE);
+        summSpell1.setVisibility(View.VISIBLE);
+        summSpell2.setVisibility(View.VISIBLE);
+        mainRune.setVisibility(View.VISIBLE);
+        subRune.setVisibility(View.VISIBLE);
+        summonerName.setVisibility(View.VISIBLE);
+        gameTime.setVisibility(View.VISIBLE);
+        team.setVisibility(View.VISIBLE);
+        summNameTitle.setVisibility(View.VISIBLE);
+        gameTimeTitle.setVisibility(View.VISIBLE);
+        teamTitle.setVisibility(View.VISIBLE);
+        summSpellsTitle.setVisibility(View.VISIBLE);
+        runesTitle.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public void getLiveMatchInfo(LiveMatchInfo matchInfo){
@@ -89,6 +161,7 @@ public class LiveGameActivity extends Fragment {
         });
 
         championThread.start();
+        showAll();
         //championIcon.setImageResource();
         //summSpell1.setImageResource();
         //summSpell2.setImageResource();

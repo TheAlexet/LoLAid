@@ -28,4 +28,5 @@
     <string name="victory_text">Victòria</string>
     <string name="defeat_text">Derrota</string>
     <string name="error_text">No s\'han pogut carregar les dades. Intenteu més tard, per favor.</string>
+    <string name="player_not_live">Aquest jugador no està en una partida ara mateix. Per favor intenta-ho més tard.</string>
 </resources>
