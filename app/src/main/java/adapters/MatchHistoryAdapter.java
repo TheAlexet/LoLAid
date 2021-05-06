@@ -3,7 +3,6 @@ package adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,63 +47,34 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MatchHistoryAdapter.ViewHolder holder, int position) {
-        MatchInfo matchInfo = matchesList.get(position);
-        Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
-        Log.d("GAME_CREATION", String.valueOf(matchInfo.getGameCreation()));
-        Log.d("WINNER_TEAM", String.valueOf(matchInfo.getWinnerTeam()));
-        Log.d("CHAMPION_ID", String.valueOf(matchInfo.getChampionId()));
-        Log.d("KILLS", String.valueOf(matchInfo.getKills()));
-        Log.d("DEATHS", String.valueOf(matchInfo.getDeaths()));
-        Log.d("ASSISTS", String.valueOf(matchInfo.getAssists()));
-        Log.d("CHAMP_LEVEL", String.valueOf(matchInfo.getChampLevel()));
-        Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
-        Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
-        int gameMinutes = (int) (matchInfo.getGameDuration()/1000)/60;
-        int gameSeconds = (int) (matchInfo.getGameDuration()/1000)%60;
+        int gameMinutes = (int) (matchesList.get(position).getGameDuration()/1000)/60;
+        int gameSeconds = (int) (matchesList.get(position).getGameDuration()/1000)%60;
         String gameDuration = gameMinutes + ":" + gameSeconds;
         holder.tvDuration.setText(gameDuration);
-        holder.tvScore.setText(matchInfo.getScore());
-        holder.tvLevel.setText(matchInfo.getChampLevel());
-        holder.tvGold.setText(matchInfo.getGoldEarned());
-        holder.tvMinions.setText(matchInfo.getTotalMinionsKilled());
+        holder.tvScore.setText(matchesList.get(position).getScore());
+        holder.tvLevel.setText(matchesList.get(position).getChampLevel());
+        holder.tvGold.setText(matchesList.get(position).getGoldEarned());
+        holder.tvMinions.setText(matchesList.get(position).getTotalMinionsKilled());
         if(matchesList.get(position).getWinnerTeam().equals("Win")){
             holder.tvWin.setText(R.string.victory_text);
         } else{
             holder.tvWin.setText(R.string.defeat_text);
         }
-        Date date = new Date(matchInfo.getGameCreation());
+        Date date = new Date(matchesList.get(position).getGameCreation());
         holder.tvDate.setText(date.toString());
-        setChampionIcon(holder, matchInfo);
+        setChampionIcon(holder, position);
+
+
     }
 
-    private void setChampionIcon(@NonNull ViewHolder holder, MatchInfo matchInfo){
-        Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
-        Log.d("GAME_CREATION", String.valueOf(matchInfo.getGameCreation()));
-        Log.d("WINNER_TEAM", String.valueOf(matchInfo.getWinnerTeam()));
-        Log.d("CHAMPION_ID", String.valueOf(matchInfo.getChampionId()));
-        Log.d("KILLS", String.valueOf(matchInfo.getKills()));
-        Log.d("DEATHS", String.valueOf(matchInfo.getDeaths()));
-        Log.d("ASSISTS", String.valueOf(matchInfo.getAssists()));
-        Log.d("CHAMP_LEVEL", String.valueOf(matchInfo.getChampLevel()));
-        Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
-        Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
-        //Thread championsThread = new Thread(() -> {
-            Champion champion = LoLAidDatabase.getInstance(historyActivity).ChampionDAO().getChampion(matchInfo.getChampionId());
-            //historyActivity.runOnUiThread(() -> {
+    private void setChampionIcon(@NonNull ViewHolder holder, int position){
+        Thread championsThread = new Thread(() -> {
+            Champion champion = LoLAidDatabase.getInstance(historyActivity).ChampionDAO().getChampion(matchesList.get(position).getChampionId());
+            historyActivity.runOnUiThread(() -> {
                 holder.imChampion.setImageResource(champion.getChampionIconId());
-            //+});
-        //});
-
-        //championsThread.start();
-        /*
-        try
-        {
-            championsThread.join();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }*/
+            });
+        });
+        championsThread.start();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
