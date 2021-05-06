@@ -35,8 +35,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/statsSummonerLevelTitle"
                 app:layout_constraintTop_toBottomOf="@+id/statsSummonerNameValue"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsMainChampionsTitle"
@@ -46,13 +45,12 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/main_champions_title"
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#cec92f"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/statsSummonerWinRateTitle"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsSummonerRankTitle"
@@ -67,8 +65,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/statsSummonerLevelValue"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsSummonerLevelTitle"
@@ -78,13 +75,12 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/summoner_level_title"
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#cec92f"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/statsSummonerNameValue"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsMainChampion1Value"
@@ -94,13 +90,12 @@
                 android:layout_marginTop="40dp"
                 android:text=""
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#cec92f"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/statsMainChampion1Image"
                 app:layout_constraintTop_toBottomOf="@+id/statsMainChampionsTitle"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsSummonerNameValue"
@@ -110,13 +105,12 @@
                 android:layout_marginTop="10dp"
                 android:text=""
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#cec92f"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/statsSummonerNameTitle"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <ImageView
                 android:id="@+id/statsMainChampion1Image"
@@ -125,8 +119,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/statsMainChampionsTitle"
-                tools:visibility="invisible" />
+                app:layout_constraintTop_toBottomOf="@+id/statsMainChampionsTitle" />
 
             <TextView
                 android:id="@+id/statsMainChampion2Value"
@@ -136,13 +129,12 @@
                 android:layout_marginTop="65dp"
                 android:text=""
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#cec92f"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/statsMainChampion2Image"
                 app:layout_constraintTop_toBottomOf="@+id/statsMainChampion1Value"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <ImageView
                 android:id="@+id/statsMainChampion3Image"
@@ -151,8 +143,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/statsMainChampion2Image"
-                tools:visibility="invisible" />
+                app:layout_constraintTop_toBottomOf="@+id/statsMainChampion2Image" />
 
             <ImageView
                 android:id="@+id/statsMainChampion2Image"
@@ -161,8 +152,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/statsMainChampion1Image"
-                tools:visibility="invisible" />
+                app:layout_constraintTop_toBottomOf="@+id/statsMainChampion1Image" />
 
             <TextView
                 android:id="@+id/statsMainChampion3Value"
@@ -172,13 +162,12 @@
                 android:layout_marginTop="65dp"
                 android:text=""
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#cec92f"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/statsMainChampion3Image"
                 app:layout_constraintTop_toBottomOf="@+id/statsMainChampion2Value"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsSummonerNameTitle"
@@ -188,13 +177,12 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/summoner_name_title"
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#cec92f"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/background"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsSummonerRankValue"
@@ -209,8 +197,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/statsSummonerLevelTitle"
                 app:layout_constraintTop_toBottomOf="@+id/statsSummonerLevelValue"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsSummonerWinRateTitle"
@@ -220,13 +207,12 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/summoner_winrate_title"
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#cec92f"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/statsSummonerRankValue"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/statsSummonerWinRateValue"
@@ -241,25 +227,21 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/statsSummonerWinRateTitle"
                 app:layout_constraintTop_toBottomOf="@+id/statsSummonerRankValue"
-                tools:text="History Tab:"
-                tools:visibility="invisible" />
+                tools:text="History Tab:" />
 
             <TextView
                 android:id="@+id/errorMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/error_text"
-                android:textAlignment="center"
                 android:textColor="#cec92f"
-                android:textSize="30dp"
                 android:textStyle="bold"
+                android:textSize="30sp"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/background"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/background"
-                app:layout_constraintTop_toTopOf="@+id/background"
-                app:layout_constraintVertical_bias="0.252"
-                tools:visibility="invisible" />
+                app:layout_constraintTop_toTopOf="@+id/background" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

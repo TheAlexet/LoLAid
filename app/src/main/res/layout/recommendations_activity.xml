@@ -8,14 +8,110 @@
 
     <ImageView
         android:id="@+id/background"
-        android:contentDescription="@string/background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/background_image"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background" />
+
+    <ImageView
+        android:id="@+id/rec1_circle"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/background_image"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rec_circle" />
+
+    <TextView
+        android:id="@+id/rec1"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="@string/rec1_platinum"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/rec1_circle"
+        app:layout_constraintEnd_toEndOf="@+id/rec1_circle"
+        app:layout_constraintStart_toStartOf="@+id/rec1_circle"
+        app:layout_constraintTop_toTopOf="@+id/rec1_circle" />
+
+    <ImageView
+        android:id="@+id/rec2_circle"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/background_image"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rec1_circle"
+        app:srcCompat="@drawable/rec_circle" />
+
+    <TextView
+        android:id="@+id/rec2"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="25dp"
+        android:text="@string/rec2_neutral"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/rec2_circle"
+        app:layout_constraintEnd_toEndOf="@+id/rec2_circle"
+        app:layout_constraintStart_toStartOf="@+id/rec2_circle"
+        app:layout_constraintTop_toTopOf="@+id/rec2_circle" />
+
+    <ImageView
+        android:id="@+id/rec3_circle"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/background_image"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rec2_circle"
+        app:srcCompat="@drawable/rec_circle" />
+
+    <TextView
+        android:id="@+id/rec3"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="25dp"
+        android:text="@string/rec3_two_champs"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/rec3_circle"
+        app:layout_constraintEnd_toEndOf="@+id/rec3_circle"
+        app:layout_constraintStart_toStartOf="@+id/rec3_circle"
+        app:layout_constraintTop_toTopOf="@+id/rec3_circle" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

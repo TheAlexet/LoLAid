@@ -29,4 +29,18 @@
     <string name="defeat_text">Derrota</string>
     <string name="error_text">No s\'han pogut carregar les dades. Intenteu més tard, per favor.</string>
     <string name="player_not_live">Aquest jugador no està en una partida ara mateix. Per favor intenta-ho més tard.</string>
+    <string name="rec1_iron">La teua divisió és ferro. Presta atenció al farm i no et tiltees.</string>
+    <string name="rec1_bronze">La teua divisió és bronze. Mira el minimapa més a sovint i wardeja sempre que pugues.</string>
+    <string name="rec1_silver">La teua divisió és plata. Seguix les indicacions del teu equip i mantin-te positiu.</string>
+    <string name="rec1_gold">La teua divisió és or. Juga un màxim de 3 campions i 1 posició, i sigues consistent.</string>
+    <string name="rec1_platinum">La teua divisió és platino. No et centres massa en aconseguir assessinats. Millora la visió del mapa.</string>
+    <string name="rec1_diamond">La teua divisió és diamant. Ja eres un bon jugador però podries fer-ho millor. Centrat en els teus errors i mantin-te calmat.</string>
+    <string name="rec1_master">La teua divisió és master+. Eres dels millors jugadors. Seguix així.</string>
+    <string name="rec2_negative">Tens menys de 49% de winrate. Deixa de jugar després de perdre i mantin el cap gelat.</string>
+    <string name="rec2_positive">Tens més de 51% de winrate. Bons resultats! Mantin la consistència de posició i campeons.</string>
+    <string name="rec2_neutral">. No està mal. Dodgea les partides perdudes en selecció de campeó.</string>
+    <string name="rec3_no_champs">No tens ningún campeó en més de 100k punts. Intenta dominar al menys un.</string>
+    <string name="rec3_one_champs">Tens un campeó en més de 100k punts. Juga més campeons d\'ixa posició.</string>
+    <string name="rec3_two_champs">Tens dos campeons en més de 100k punts. Aprén altra posició per a cobrir el teu equip.</string>
+    <string name="rec3_three_champs">Tens tres campeons en més de 100k punts. Juga\'ls en partides clasificatòries.</string>
 </resources>

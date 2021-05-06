@@ -3,7 +3,6 @@ package business_logic.services;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.util.Log;
-import android.view.View;
 
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
@@ -57,6 +56,7 @@ import retrofit2.http.Query;
 public class RiotApiService
 {
     private final String RIOT_API_KEY = "RGAPI-bc5e00bc-a611-46d8-bb80-d0cc759cc314";
+
     private final String RANKED_SOLO = "RANKED_SOLO_5x5";
     private final String RANKED_FLEX = "RANKED_FLEX_SR";
 
@@ -274,8 +274,19 @@ public class RiotApiService
                     return Observable.just(liveMatch);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(fragment::getLiveMatchInfo
-                , fragment::errorNotLive);
+                .subscribe(liveMatchInfo -> fragment.getLiveMatchInfo(liveMatchInfo)
+                        /*
+                        liveMatchInfo -> {
+                    Log.d("NAME", liveMatchInfo.getSummonerName());
+                    Log.d("CHAMPION_ID", String.valueOf(liveMatchInfo.getChampionId()));
+                    Log.d("SPELL1_ID", String.valueOf(liveMatchInfo.getSpell1Id()));
+                    Log.d("SPEEL2_ID", String.valueOf(liveMatchInfo.getSpell2Id()));
+                    Log.d("PERKS_STYLE", String.valueOf(liveMatchInfo.getPerkStyle()));
+                    Log.d("PERKS_SUBSTYLE", String.valueOf(liveMatchInfo.getPerkSubStyle()));
+                }*/
+                , throwable -> {
+                    Log.d("ERROR_REST", "Data not found!");
+                });
     }
 
     private LiveMatchInfo createLiveMatchInfoObject(CurrentGameInfo currentGameInfo, String summonerName)
@@ -297,7 +308,7 @@ public class RiotApiService
 
 
     @SuppressLint("CheckResult")
-    public void getPlayerStatsInfo(String summonerName, StatsActivity fragment, View view)
+    public void getPlayerStatsInfo(String summonerName, StatsActivity fragment)
     {
         if (fragment == null) return;
         //if (statsFragmentReference.get() == null) return;
@@ -364,7 +375,10 @@ public class RiotApiService
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(fragment::getPlayerStatsRest
-                        , throwable -> fragment.onErrorThrown(throwable, view));
+                        , throwable -> {
+                    Log.d("ERROR_REST", "Data not found!");
+                    Log.d("ERROR", throwable.getMessage());
+                });
     }
 
     private PlayerStatsInfo createPlayerStatsInfoObject(SummonerDTO summoner, String summonerName, Set<LeagueEntryDTO> leagueEntriesResult, List<ChampionMasteryDto> championMasteriesResult)
@@ -559,6 +573,7 @@ public class RiotApiService
 
                                 for (MatchDto matchDto : matches)
                                 {
+                                    Log.d("MATCH_DTO", matchDto.toString());
                                     long gameDuration = matchDto.getGameDuration();
                                     long gameCreation = matchDto.getGameDuration();
 
@@ -593,7 +608,7 @@ public class RiotApiService
                                 }
 
                                 fragment.getActivity().runOnUiThread(() -> {
-                                    /*for (MatchInfo matchInfo : matchesInfo)
+                                    for (MatchInfo matchInfo : matchesInfo)
                                     {
                                         Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
                                         Log.d("GAME_CREATION", String.valueOf(matchInfo.getGameCreation()));
@@ -605,16 +620,14 @@ public class RiotApiService
                                         Log.d("CHAMP_LEVEL", String.valueOf(matchInfo.getChampLevel()));
                                         Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
                                         Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
-                                    }*/
-
-                                    fragment.getMatchHistoryList(matchesInfo);
+                                    }
                                 });
                             }
                         }
 
                         @Override
                         public void onFailure(Call<MatchlistDto> call, Throwable t) {
-                            Log.d("ERROR", t.getMessage());
+
                         }
                     });
                 }
@@ -622,7 +635,7 @@ public class RiotApiService
 
             @Override
             public void onFailure(Call<SummonerDTO> call, Throwable t) {
-                Log.d("ERROR", t.getMessage());
+
             }
         });
     }
