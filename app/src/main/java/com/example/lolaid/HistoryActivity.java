@@ -26,6 +26,8 @@ public class HistoryActivity extends Fragment {
     public RiotApiService riotApiService;
     public MatchHistoryAdapter matchHistoryAdapter;
     public List<MatchInfo> matchesList = new ArrayList<MatchInfo>();
+    private SharedPreferences sharedPrefs;
+    private String summName;
 
     public HistoryActivity() {
 
@@ -35,9 +37,12 @@ public class HistoryActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_activity, container, false);
+
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         riotApiService = new RiotApiService();
-        //riotApiService.getMatchInfo("pabletefest", this);
-        matchHistoryAdapter = new MatchHistoryAdapter(matchesList);
+        summName = sharedPrefs.getString("summonerName", "Jose");
+        riotApiService.getMatchesHistoryInfo(summName, this);
+        matchHistoryAdapter = new MatchHistoryAdapter(matchesList, this.getActivity());
 
         RecyclerView recycler = view.findViewById(R.id.rvMatchHistory);
 
@@ -46,14 +51,12 @@ public class HistoryActivity extends Fragment {
         recycler.addItemDecoration(new DividerItemDecoration(getActivity(),1));
         recycler.setAdapter(matchHistoryAdapter);
 
-        riotApiService.getMatchesHistoryInfo("pabletefest", this);
-
         return view;
     }
 
-    public void getMatchHistoryInfo(MatchInfo matchInfo)
+    public void getMatchHistoryList(List<MatchInfo> matchHistory)
     {
-
+        matchesList = matchHistory;
     }
 
 }

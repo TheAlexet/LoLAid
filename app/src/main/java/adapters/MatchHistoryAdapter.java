@@ -1,5 +1,7 @@
 package adapters;
 
+import android.app.Activity;
+import android.content.Context;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +21,16 @@ import java.util.List;
 
 import business_logic.data_models.MatchDto;
 import business_logic.data_models.custom_pojo.MatchInfo;
+import databases.LoLAidDatabase;
+import databases.models.Champion;
 
 public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapter.ViewHolder>{
     private List<MatchInfo> matchesList;
+    private Activity historyActivity;
 
-    public MatchHistoryAdapter(List<MatchInfo> list){
+    public MatchHistoryAdapter(List<MatchInfo> list, Activity activity){
         matchesList = list;
+        historyActivity = activity;
     }
 
     @NonNull
@@ -56,7 +62,19 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         }
         Date date = new Date(matchesList.get(position).getGameCreation());
         holder.tvDate.setText(date.toString());
-        //holder.imChampion.setImageResource();
+        setChampionIcon(holder, position);
+
+
+    }
+
+    private void setChampionIcon(@NonNull ViewHolder holder, int position){
+        Thread championsThread = new Thread(() -> {
+            Champion champion = LoLAidDatabase.getInstance(historyActivity).ChampionDAO().getChampion(matchesList.get(position).getChampionId());
+            historyActivity.runOnUiThread(() -> {
+                holder.imChampion.setImageResource(champion.getChampionIconId());
+            });
+        });
+        championsThread.start();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
