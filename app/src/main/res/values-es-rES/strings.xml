@@ -29,4 +29,18 @@
     <string name="defeat_text">Derrota</string>
     <string name="error_text">No se han podido cargar los datos. Inténtelo más tarde, por favor.</string>
     <string name="player_not_live">Este jugador no está en una partida ahora mismo. Inténtalo de nuevo más tarde.</string>
+    <string name="rec1_iron">Tu división es hierro. Presta atención al farmeo y no te tiltees.</string>
+    <string name="rec1_bronze">Tu división es bronce. Mira el minimapa más seguido y pon wards siempre que puedas.</string>
+    <string name="rec1_silver">Tu división es plata. Sigue las indicaciones de tu equipo y mantente positivo.</string>
+    <string name="rec1_gold">Tu división es oro. Juega un máximo de 3 campeones y 1 posición, y sé más consistente.</string>
+    <string name="rec1_platinum">Tu división es platino. No te centres demasiado en conseguir asesinatos. Mejora la visión de mapa.</string>
+    <string name="rec1_diamond">Tu división es diamante. Ya eres un buen jugador pero podrías hacerlo mejor. Centrate en tus errores y mantén la calma.</string>
+    <string name="rec1_master">Tu división es master+. Eres de los mejores jugadores. Sigue así.</string>
+    <string name="rec2_negative">Tienes menos de 49% de winrate. Deja de jugar después de perder y mantén la mente fría.</string>
+    <string name="rec2_positive">. ¡Buenos resultados! Manten la consistencia de posición y campeones.</string>
+    <string name="rec2_neutral">Tienes un winrate neutral.. No está mal. Dodgea las partidas perdidas en champ select.</string>
+    <string name="rec3_no_champs">No tienes ningún campeón con más de 100k puntos. Intenta dominar al menos uno.</string>
+    <string name="rec3_one_champs">Tienes un campeón con más de 100k puntos. Juega más campeones de esa posición.</string>
+    <string name="rec3_two_champs">Tienes dos campeones con más de 100k puntos. Aprende otra posición para cubrir a tu equipo.</string>
+    <string name="rec3_three_champs">Tienes tres campeones con más de 100k puntos. Juegalos en partidas clasificatorias.</string>
 </resources>

@@ -42,4 +42,21 @@
     <string name="defeat_text">Defeat</string>
     <string name="error_text">Data could not be loaded. Please try again later.</string>
     <string name="player_not_live">This player is not in a game right now. Please try again later.</string>
+
+    <string name="rec1_iron"> Your current rank is iron. Try to pay attention to farm and dont tilt.</string>
+    <string name="rec1_bronze"> Your current rank is bronze. Look at the minimap more often and ward when possible.</string>
+    <string name="rec1_silver"> Your current rank is silver. Follow your team calls and stay positive.</string>
+    <string name="rec1_gold"> Your current rank is gold. Play a max. of 3 champs and 1 position and be consistent.</string>
+    <string name="rec1_platinum"> Your rank is platinum. Dont focus too much on getting kills. Improve map awareness.</string>
+    <string name="rec1_diamond"> Your rank is diamond. Nice! Focus on improving from your mistakes and stay calm.</string>
+    <string name="rec1_master"> Your current rank is master+. You are at the top already. Keep working hard.</string>
+
+    <string name="rec2_negative"> You have less than 49% winrate. Stop playing after losing and keep a cool head.</string>
+    <string name="rec2_positive">" You have more than 51% winrate. Keep playing a concrete position and champions."</string>
+    <string name="rec2_neutral"> You have a neutral winrate. Not bad! Try to dodge games already lost in champ select.</string>
+
+    <string name="rec3_no_champs">You dont have any champion with +100k points. Try to master at least one.</string>
+    <string name="rec3_one_champs">You have one champion with +100k points. Play more champions of that  position.</string>
+    <string name="rec3_two_champs">You have two champions with +100k points. Learn another position to cover your team.</string>
+    <string name="rec3_three_champs">"You have three champions with +100k points. Play them in ranked games!</string>
 </resources>

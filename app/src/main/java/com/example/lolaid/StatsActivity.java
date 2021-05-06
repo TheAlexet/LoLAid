@@ -25,10 +25,15 @@ import databases.models.Champion;
 public class StatsActivity extends Fragment {
 
     private SharedPreferences sharedPrefs;
+    private TextView summonerNameTitle;
     private TextView summonerName;
+    private TextView summonerLevelTitle;
     private TextView summonerLevel;
+    private TextView summonerRankTitle;
     private TextView summonerRank;
+    private TextView summonerWinRateTitle;
     private TextView summonerWinRate;
+    private TextView summonerMainChampionsTitle;
     private ImageView mainChampion1image;
     private ImageView mainChampion2image;
     private ImageView mainChampion3image;
@@ -107,9 +112,13 @@ public class StatsActivity extends Fragment {
 
     public void DataLoaded(boolean loaded)
     {
+        summonerNameTitle = getView().findViewById(R.id.statsSummonerNameTitle);
         summonerName =  getView().findViewById(R.id.statsSummonerNameValue);
+        summonerLevelTitle =  getView().findViewById(R.id.statsSummonerLevelValue);
         summonerLevel =  getView().findViewById(R.id.statsSummonerLevelValue);
+        summonerRankTitle = getView().findViewById(R.id.statsSummonerRankTitle);
         summonerRank =  getView().findViewById(R.id.statsSummonerRankValue);
+        summonerWinRateTitle = getView().findViewById(R.id.statsSummonerWinRateValue);
         summonerWinRate =  getView().findViewById(R.id.statsSummonerWinRateValue);
         mainChampion1image = getView().findViewById(R.id.statsMainChampion1Image);
         mainChampion1value = getView().findViewById(R.id.statsMainChampion1Value);
