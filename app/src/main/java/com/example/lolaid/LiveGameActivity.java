@@ -167,7 +167,7 @@ public class LiveGameActivity extends Fragment {
                 championIcon.setImageResource(currentChampionInfo.getChampionIconId());
             });
         });
-        Thread runesThread = new Thread(() -> {
+       /* Thread runesThread = new Thread(() -> {
             Rune currentMainRuneInfo = LoLAidDatabase.getInstance(getActivity().RuneDAO().getRune(matchInfo.getPerkStyle()));
             Rune currentSubRuneInfo = LoLAidDatabase.getInstance(getActivity().RuneDAO().getRune(matchInfo.getPerkSubStyle()));
             getActivity().runOnUiThread(() -> {
@@ -182,12 +182,12 @@ public class LiveGameActivity extends Fragment {
                 summSpell1.setImageResource(currentSummSpell1Info.getRuneIcon());
                 subRune.setImageResource(currentSummSpell2Info.getRuneIcon());
             });
-        });
+        });*/
 
 
         championThread.start();
-        runesThread.start();
-        summSpellsThread.start();
+        //runesThread.start();
+        //summSpellsThread.start();
         showAll();
         //championIcon.setImageResource();
         //summSpell1.setImageResource();

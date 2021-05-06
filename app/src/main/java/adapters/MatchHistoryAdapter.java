@@ -52,15 +52,16 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MatchInfo matchInfo = matchesList.get(position);
 
-        int gameMinutes = (int) (matchInfo.getGameDuration()/1000)/60;
-        int gameSeconds = (int) (matchInfo.getGameDuration()/1000)%60;
-        String gameDuration = gameMinutes + ":" + gameSeconds;
+        int gameMinutes = (int) matchInfo.getGameDuration()/60;
+        int gameSeconds = (int) matchInfo.getGameDuration()%60;
+        String secondsFormatted = gameSeconds >= 10 ? Integer.toString(gameSeconds) : "0" + Integer.toString(gameSeconds);
+        String gameDuration = gameMinutes + ":" + secondsFormatted;
         holder.tvDuration.setText(gameDuration);
         holder.tvScore.setText(matchInfo.getScore());
         holder.tvLevel.setText(String.valueOf(matchInfo.getChampLevel()));
         holder.tvGold.setText(String.valueOf(matchInfo.getGoldEarned()));
         holder.tvMinions.setText(String.valueOf(matchInfo.getTotalMinionsKilled()));
-        if(matchesList.get(position).getWinnerTeam().equals("Win")){
+        if(matchesList.get(position).getWinnerTeam().equals("WIN")){
             holder.tvWin.setText(R.string.victory_text);
         } else{
             holder.tvWin.setText(R.string.defeat_text);

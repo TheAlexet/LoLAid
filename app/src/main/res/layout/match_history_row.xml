@@ -9,49 +9,91 @@
         android:id="@+id/tGold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="28dp"
+        android:text="Gold"
+        android:textColor="#cec92f"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iChampion"
+        app:layout_constraintTop_toBottomOf="@+id/tScore" />
 
     <ImageView
         android:id="@+id/iChampion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/aatrox"
-        tools:layout_editor_absoluteX="192dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/aatrox" />
 
     <TextView
         android:id="@+id/tScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="28dp"
+        android:text="Score"
+        android:textColor="#cec92f"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iChampion"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
+        android:text="Duration"
+        android:textColor="#cec92f"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tScore"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="44dp"
+        android:text="Level"
+        android:textColor="#cec92f"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tWin"
+        app:layout_constraintTop_toBottomOf="@+id/iChampion" />
 
     <TextView
         android:id="@+id/tMinions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
+        android:text="Minions"
+        android:textColor="#cec92f"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tGold"
+        app:layout_constraintTop_toBottomOf="@+id/tDuration" />
 
     <TextView
         android:id="@+id/tDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="36dp"
+        android:text="Date"
+        android:textColor="#cec92f"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iChampion"
+        app:layout_constraintTop_toBottomOf="@+id/tMinions" />
 
     <TextView
         android:id="@+id/tWin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="16dp"
+        android:text="Win"
+        android:textColor="#cec92f"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/iChampion"
+        app:layout_constraintTop_toBottomOf="@+id/iChampion" />
 </androidx.constraintlayout.widget.ConstraintLayout>

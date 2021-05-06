@@ -69,17 +69,15 @@ public class LoginActivity  extends AppCompatActivity {
         Thread populateDBThread = new Thread(() -> {
             populateDataBase();
         });
-        /*
+
         int dbPopulatedID = sharedPrefs.getInt("dbPopulatedID", 0);
 
         if (dbPopulatedID == 0)
         {
             populateDBThread.start();
             sharedPrefs.edit().putInt("dbPopulatedID", 1).apply();
-        }*/
-        populateDBThread.start();
+        }
 
-        new Thread(() -> populateLatestChamps()).start();
     }
 
     public void startButtonHandler(View v) {
@@ -112,7 +110,7 @@ public class LoginActivity  extends AppCompatActivity {
 
     private void populateDataBase()
     {
-        LoLAidDatabase.getInstance(this).ChampionDAO().deleteAllChampions();
+        //LoLAidDatabase.getInstance(this).ChampionDAO().deleteAllChampions();
 
         Gson gson = new Gson();
         String championsJSON = readChampionsJSON();

@@ -43,15 +43,13 @@ public class HistoryActivity extends Fragment {
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         riotApiService = new RiotApiService();
-        summName = sharedPrefs.getString("summonerName", "Jose");
+        summName = sharedPrefs.getString("summonerName","");
 
         List<MatchInfo> provisionalList = new ArrayList<>();
 
         matchHistoryAdapter = new MatchHistoryAdapter(provisionalList, this.getActivity());
-        Log.d("ADAPTER", matchHistoryAdapter.toString());
 
         RecyclerView recycler = view.findViewById(R.id.rvMatchHistory);
-        Log.d("RECYCLER", recycler.toString());
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recycler.setLayoutManager(manager);
         recycler.addItemDecoration(new DividerItemDecoration(getActivity(),1));
@@ -73,9 +71,6 @@ public class HistoryActivity extends Fragment {
         matchesList = new ArrayList<>(matchHistory);
 
         matchHistoryAdapter.setMatches(matchHistory);
-
-        Log.d("MATCHINFO_LIST", matchHistory.toString());
-        Log.d("LIST_SIZE_API_RETURNED", matchHistory.size() + "");
     }
 
 }
