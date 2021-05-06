@@ -78,6 +78,8 @@ public class LoginActivity  extends AppCompatActivity {
             sharedPrefs.edit().putInt("dbPopulatedID", 1).apply();
         }*/
         populateDBThread.start();
+
+        new Thread(() -> populateLatestChamps()).start();
     }
 
     public void startButtonHandler(View v) {
@@ -111,37 +113,9 @@ public class LoginActivity  extends AppCompatActivity {
     private void populateDataBase()
     {
         LoLAidDatabase.getInstance(this).ChampionDAO().deleteAllChampions();
-        //List<Champion> champions = new ArrayList<>();
+
         Gson gson = new Gson();
         String championsJSON = readChampionsJSON();
-        /*
-        try
-        {
-            JSONObject jsonObject = new JSONObject(championsJSON);
-            JSONArray dataArray = (JSONArray) jsonObject.get("data");
-
-
-
-
-            for (int i = 0; i < dataArray.length(); i++)
-            {
-                JSONObject championJson = (JSONObject) dataArray.get(i);
-                Champion champion = new Champion();
-
-                champion.setChampionId(Long.parseLong(championJson.getString("key")));
-                String championName = championJson.getString("name");
-                champion.setChampionName(championName);
-                String formattedName = formatStringToDB(championName);
-                champion.setChampionIcon(getResources().getIdentifier(formattedName, "drawable", getPackageName()));
-
-                champions.add(champion);
-            }
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-        */
 
         Champion[] champions = gson.fromJson(championsJSON, Champion[].class);
 
@@ -160,8 +134,8 @@ public class LoginActivity  extends AppCompatActivity {
 
             LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(champion);
         }
-        //R.id.background;
-        //LoLAidDatabase.getInstance(this).ChampionDAO().
+
+        //populateLatestChamps();
     }
 
     private String formatStringToDB(String stringNotFormatted)
@@ -210,4 +184,51 @@ public class LoginActivity  extends AppCompatActivity {
         return jsonString;
     }
 
+    private void populateLatestChamps()
+    {
+        //Populate Viego
+        Champion championViego = new Champion();
+        String championNameViego = "Viego";
+        String formattedNameViego = formatStringToDB(championNameViego);
+        Log.d("FORMATTED_VIEGO", formattedNameViego);
+        championViego.setName(championNameViego);
+        long championKeyViego = 264;
+        championViego.setKey(championKeyViego);
+        Log.d("CHAMPION_KEY", championKeyViego + "");
+        int championIconIdViego = getResources().getIdentifier(formattedNameViego, "drawable", getPackageName());
+        championViego.setChampionIconId(championIconIdViego);
+        Log.d("CHAMP_ICON_ID", championIconIdViego + "");
+
+        LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championViego);
+
+        //Populate Rell
+        Champion championRell = new Champion();
+        String championNameRell = "Rell";
+        String formattedNameRell = formatStringToDB(championNameRell);
+        Log.d("FORMATTED_RELL", formattedNameRell);
+        championRell.setName(championNameRell);
+        long championKeyRell = 526;
+        championRell.setKey(championKeyRell);
+        Log.d("CHAMPION_KEY", championKeyRell + "");
+        int championIconIdRell = getResources().getIdentifier(formattedNameRell, "drawable", getPackageName());
+        championRell.setChampionIconId(championIconIdRell);
+        Log.d("CHAMP_ICON_ID", championIconIdRell + "");
+
+        LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championRell);
+
+        //Populate Gwen
+        Champion championGwen = new Champion();
+        String championNameGwen = "Gwen";
+        String formattedNameGwen = formatStringToDB(championNameGwen);
+        Log.d("FORMATTED_GWEN", championNameGwen);
+        championGwen.setName(championNameGwen);
+        long championKeyGwen = 887;
+        championGwen.setKey(championKeyGwen);
+        Log.d("CHAMPION_KEY", championKeyGwen + "");
+        int championIconIdGwen = getResources().getIdentifier(formattedNameGwen, "drawable", getPackageName());
+        championGwen.setChampionIconId(championIconIdGwen);
+        Log.d("CHAMP_ICON_ID", championIconIdGwen + "");
+
+        LoLAidDatabase.getInstance(this).ChampionDAO().insertChampion(championGwen);
+    }
 }
