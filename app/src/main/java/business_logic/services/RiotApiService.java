@@ -592,23 +592,7 @@ public class RiotApiService
                                     matchesInfo.add(matchInfo);
                                 }
 
-                                fragment.getActivity().runOnUiThread(() -> {
-                                    /*for (MatchInfo matchInfo : matchesInfo)
-                                    {
-                                        Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
-                                        Log.d("GAME_CREATION", String.valueOf(matchInfo.getGameCreation()));
-                                        Log.d("WINNER_TEAM", String.valueOf(matchInfo.getWinnerTeam()));
-                                        Log.d("CHAMPION_ID", String.valueOf(matchInfo.getChampionId()));
-                                        Log.d("KILLS", String.valueOf(matchInfo.getKills()));
-                                        Log.d("DEATHS", String.valueOf(matchInfo.getDeaths()));
-                                        Log.d("ASSISTS", String.valueOf(matchInfo.getAssists()));
-                                        Log.d("CHAMP_LEVEL", String.valueOf(matchInfo.getChampLevel()));
-                                        Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
-                                        Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
-                                    }*/
-
-                                    fragment.getMatchHistoryList(matchesInfo);
-                                });
+                                fragment.getActivity().runOnUiThread(() -> fragment.getMatchHistoryList(matchesInfo));
                             }
                         }
 
