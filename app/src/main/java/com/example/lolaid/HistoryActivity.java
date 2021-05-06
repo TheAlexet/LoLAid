@@ -36,7 +36,7 @@ public class HistoryActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_activity, container, false);
         riotApiService = new RiotApiService();
-        riotApiService.getMatchInfo("pabletefest", this);
+        //riotApiService.getMatchInfo("pabletefest", this);
         matchHistoryAdapter = new MatchHistoryAdapter(matchesList);
 
         RecyclerView recycler = view.findViewById(R.id.rvMatchHistory);
@@ -45,10 +45,14 @@ public class HistoryActivity extends Fragment {
         recycler.setLayoutManager(manager);
         recycler.addItemDecoration(new DividerItemDecoration(getActivity(),1));
         recycler.setAdapter(matchHistoryAdapter);
+
+        riotApiService.getMatchesHistoryInfo("pabletefest", this);
+
         return view;
     }
 
-    public void getMatchHistoryInfo(MatchInfo matchInfo){
+    public void getMatchHistoryInfo(MatchInfo matchInfo)
+    {
 
     }
 

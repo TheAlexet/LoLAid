@@ -39,4 +39,25 @@ public interface IRiotApiServiceREST
 
     @GET("/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}")
     Observable<CurrentGameInfo> getCurrentGameInfoWithSummonerId(@Path("encryptedSummonerId") String encryptedSummonerId, @Query("api_key") String apiKey);
+
+    @GET("/lol/summoner/v4/summoners/by-name/{summonerName}")
+    Call<SummonerDTO> getSummonerByNameRetrofit(@Path("summonerName") String summonerName, @Query("api_key") String apiKey);
+
+    @GET("/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}")
+    Call<List<ChampionMasteryDto>> getChampionsMasteryBySummonerIdRetrofit(@Path("encryptedSummonerId") String summonerId, @Query("api_key") String apiKey);
+
+    @GET("/lol/league/v4/challengerleagues/by-queue/{queue}")
+    Call<LeagueListDTO> getChallengerLeagueByGivenQueueRetrofit(@Path("queue") String queue, @Query("api_key") String apiKey);
+
+    @GET("/lol/league/v4/entries/by-summoner/{encryptedSummonerId}")
+    Call<Set<LeagueEntryDTO>> getLeagueEntriesWithSummonerIdRetrofit(@Path("encryptedSummonerId") String encryptedSummonerId, @Query("api_key") String apiKey);
+
+    @GET("/lol/match/v4/matchlists/by-account/{encryptedAccountId}")
+    Call<MatchlistDto> getMatchlistWithEncryptedAccountIdRetrofit(@Path("encryptedAccountId") String encryptedAccountId, @Query("api_key") String apiKey);
+
+    @GET("/lol/match/v4/matches/{matchId}")
+    Call<MatchDto> getMatchByMatchIdRetrofit(@Path("matchId") String matchId, @Query("api_key") String apiKey);
+
+    @GET("/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}")
+    Call<CurrentGameInfo> getCurrentGameInfoWithSummonerIdRetrofit(@Path("encryptedSummonerId") String encryptedSummonerId, @Query("api_key") String apiKey);
 }

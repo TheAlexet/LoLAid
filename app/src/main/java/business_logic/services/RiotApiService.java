@@ -32,6 +32,7 @@ import business_logic.data_models.CurrentGameInfo;
 import business_logic.data_models.LeagueEntryDTO;
 import business_logic.data_models.MatchDto;
 import business_logic.data_models.MatchReferenceDto;
+import business_logic.data_models.MatchlistDto;
 import business_logic.data_models.ParticipantDto;
 import business_logic.data_models.ParticipantIdentityDto;
 import business_logic.data_models.SummonerDTO;
@@ -54,7 +55,7 @@ import retrofit2.http.Query;
 
 public class RiotApiService
 {
-    private final String RIOT_API_KEY = "RGAPI-8fc8b245-0f74-4263-a8f4-8f0d0f665b53";
+    private final String RIOT_API_KEY = "RGAPI-c7e7fcf6-4115-4019-9c2d-401ce91d5407";
     private final String RANKED_SOLO = "RANKED_SOLO_5x5";
     private final String RANKED_FLEX = "RANKED_FLEX_SR";
 
@@ -411,18 +412,16 @@ public class RiotApiService
                     String summonerAccountId = summoner.getAccountId();
                     return service.getMatchlistWithEncryptedAccountId(summonerAccountId, RIOT_API_KEY);
                 })
-                //.delay(1, TimeUnit.SECONDS)
                 .flatMap(matchListDto -> {
                     List<MatchReferenceDto> matches = matchListDto.getMatches();
                     return Observable.fromIterable(matches)
-                            //.delay(1, TimeUnit.SECONDS)
                             .flatMap(matchReferenceDto -> {
                                 //Observable<Long> gameIdObservable = Observable.just(matchReferenceDto.getGameId());
-                                Observable<MatchDto> matchObservable = service.getMatchByMatchId(String.valueOf(matchReferenceDto.getGameId()), RIOT_API_KEY);//.delay(1, TimeUnit.SECONDS);
-                                return matchObservable.zipWith(Observable.interval(50, TimeUnit.MILLISECONDS), (observable, timer) -> observable);
+                                Observable<MatchDto> matchObservable = service.getMatchByMatchId(String.valueOf(matchReferenceDto.getGameId()), RIOT_API_KEY);
+                                return matchObservable;//.zipWith(Observable.interval(50, TimeUnit.MILLISECONDS), (observable, timer) -> observable);
                                 //return Observable.zip(gameIdObservable, matchObservable, (gameId, matchDto) -> new Pair<Long, MatchDto>(gameId, matchDto));
                             }).toList()
-                            .toObservable().zipWith(Observable.interval(50, TimeUnit.MILLISECONDS), (observable, timer) -> observable);//.delay(1, TimeUnit.SECONDS);
+                            .toObservable();//.zipWith(Observable.interval(50, TimeUnit.MILLISECONDS), (observable, timer) -> observable);
                 })
                 .flatMap(matchesList -> {
                     List<MatchInfo> matchesInfo = new ArrayList<>();
@@ -473,7 +472,7 @@ public class RiotApiService
                         matchesInfo.add(matchInfo);
                     }
 
-                    return Observable.just(matchesInfo);//.delay(1, TimeUnit.SECONDS);
+                    return Observable.just(matchesInfo);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(matchesInfo -> {
@@ -507,4 +506,262 @@ public class RiotApiService
 
                 });
     }
+
+    public void getMatchesHistoryInfo(String summonerName, HistoryActivity fragment)
+    {
+        int MAX_ENTRIES = 20;
+
+        Call<SummonerDTO> callSummonerDTO =  service.getSummonerByNameRetrofit(summonerName, RIOT_API_KEY);
+
+        callSummonerDTO.enqueue(new Callback<SummonerDTO>() {
+            @Override
+            public void onResponse(Call<SummonerDTO> call, Response<SummonerDTO> response) {
+                if (response.isSuccessful())
+                {
+                    SummonerDTO summoner = response.body();
+
+                    Call<MatchlistDto>  callMatchlistDTO = service.getMatchlistWithEncryptedAccountIdRetrofit(summoner.getAccountId(), RIOT_API_KEY);
+
+                    callMatchlistDTO.enqueue(new Callback<MatchlistDto>() {
+                        @Override
+                        public void onResponse(Call<MatchlistDto> call, Response<MatchlistDto> response) {
+                            if (response.isSuccessful())
+                            {
+                                List<MatchDto> matches = new ArrayList<>();
+                                MatchlistDto matchlistDto = response.body();
+                                List<MatchReferenceDto> matchesReferences = matchlistDto.getMatches();
+
+                                Thread multipleRequestsThread = new Thread(() ->
+                                {
+
+                                    for (int i = 0; i < MAX_ENTRIES; i++)
+                                    {
+                                        Call<MatchDto> callMatchDto = service.getMatchByMatchIdRetrofit(String.valueOf(matchesReferences.get(i).getGameId()), RIOT_API_KEY);
+
+                                        try
+                                        {
+                                            Response<MatchDto> matchResponse = callMatchDto.execute();
+
+                                            if (response.isSuccessful())
+                                            {
+                                                MatchDto match = matchResponse.body();
+                                                matches.add(match);
+                                            }
+                                        }
+                                        catch (IOException e)
+                                        {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+
+                                multipleRequestsThread.start();
+
+                                try
+                                {
+                                    multipleRequestsThread.join();
+                                }
+                                catch (InterruptedException e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+                                List<MatchInfo> matchesInfo = new ArrayList<>();
+
+                                for (MatchDto matchDto : matches)
+                                {
+                                    Log.d("MATCH_DTO", matchDto.toString());
+                                    long gameDuration = matchDto.getGameDuration();
+                                    long gameCreation = matchDto.getGameDuration();
+
+                                    List<TeamStatsDto> teamStatsToFilter = matchDto.getTeams();
+                                    Collection filteredTeamsCollection = teamStatsToFilter.stream().filter(teamStatsDto -> teamStatsDto.getWin().equals("Win")).collect(Collectors.toList());
+                                    List<TeamStatsDto> winnerTeamStatsFiltered  = new ArrayList<>(filteredTeamsCollection);
+
+                                    List<ParticipantIdentityDto> participantIdentities = matchDto.getParticipantIdentities();
+                                    Collection filteredParticipantIdentity = participantIdentities.stream().filter(participantIdentity -> participantIdentity.getPlayer().getSummonerName().equals(summonerName)).collect(Collectors.toList());
+                                    List<ParticipantIdentityDto> participantIdentityFiltered  = new ArrayList<>(filteredParticipantIdentity);
+
+                                    List<ParticipantDto> participants = matchDto.getParticipants();
+                                    Collection filteredParticipantDto = participants.stream().filter(participantDto -> participantDto.getParticipantId() == participantIdentityFiltered.get(0).getParticipantId()).collect(Collectors.toList());
+                                    List<ParticipantDto> participantDtoFiltered  = new ArrayList<>(filteredParticipantDto);
+
+                                    boolean isWinnerTeam = participantDtoFiltered.stream().anyMatch(filteredParticipant -> filteredParticipant.getTeamId() == winnerTeamStatsFiltered.get(0).getTeamId());
+
+                                    String winnerTeam = isWinnerTeam ? "WIN" : "LOSE";
+
+                                    int championId = participantDtoFiltered.get(0).getChampionId();
+
+                                    int kills = participantDtoFiltered.get(0).getStats().getKills();
+                                    int deaths = participantDtoFiltered.get(0).getStats().getDeaths();
+                                    int assists = participantDtoFiltered.get(0).getStats().getAssists();
+                                    int champLevel = participantDtoFiltered.get(0).getStats().getChampLevel();
+                                    int goldEarned = participantDtoFiltered.get(0).getStats().getGoldEarned();
+                                    int totalMinionsKilled = participantDtoFiltered.get(0).getStats().getTotalMinionsKilled();
+
+                                    MatchInfo matchInfo = new MatchInfo(gameDuration, gameCreation, winnerTeam, championId, kills, deaths, assists, champLevel, goldEarned, totalMinionsKilled);
+
+                                    matchesInfo.add(matchInfo);
+                                }
+
+                                fragment.getActivity().runOnUiThread(() -> {
+                                    for (MatchInfo matchInfo : matchesInfo)
+                                    {
+                                        Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
+                                        Log.d("GAME_CREATION", String.valueOf(matchInfo.getGameCreation()));
+                                        Log.d("WINNER_TEAM", String.valueOf(matchInfo.getWinnerTeam()));
+                                        Log.d("CHAMPION_ID", String.valueOf(matchInfo.getChampionId()));
+                                        Log.d("KILLS", String.valueOf(matchInfo.getKills()));
+                                        Log.d("DEATHS", String.valueOf(matchInfo.getDeaths()));
+                                        Log.d("ASSISTS", String.valueOf(matchInfo.getAssists()));
+                                        Log.d("CHAMP_LEVEL", String.valueOf(matchInfo.getChampLevel()));
+                                        Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
+                                        Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<MatchlistDto> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SummonerDTO> call, Throwable t) {
+
+            }
+        });
+    }
+
+    /*
+    @SuppressLint("CheckResult")
+    public void getMatchInfoModular(String summonerName, HistoryActivity fragment)
+    {
+        if (fragment == null) return;
+
+        Observable<SummonerDTO> summonerObservable = getSummonerByNameObservable(summonerName);
+
+        summonerObservable.subscribeOn(Schedulers.io())
+                .flatMap(summoner -> {
+                    String summonerAccountId = summoner.getAccountId();
+                    return getMatchListObservable(summonerAccountId).delay(1, TimeUnit.SECONDS);
+                })
+                .flatMap(matchListDto -> {
+                    return getMatchReferenceObservable(matchListDto).delay(1, TimeUnit.SECONDS);
+                    //.zipWith(Observable.interval(50, TimeUnit.MILLISECONDS), (observable, timer) -> observable);
+                })
+                .flatMap(matchesList -> {
+                    return getMatchInfoObservable(matchesList, summonerName).delay(1, TimeUnit.SECONDS);
+                    //List<MatchDto> matchesDto = new ArrayList<>();
+                    /*
+                    for (Pair pair : pairsList)
+                    {
+                        Log.d("SECOND_PAIR", pair.second.toString());
+                        matchesDto.add((MatchDto) pair.second);
+                    }*/
+
+
+
+                /*
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(matchesInfo -> {
+
+                    Log.d("GAME_DURATION", String.valueOf(matchesInfo.get(0).getGameDuration()));
+                    Log.d("GAME_CREATION", String.valueOf(matchesInfo.get(0).getGameCreation()));
+                    Log.d("WINNER_TEAM", String.valueOf(matchesInfo.get(0).getWinnerTeam()));
+                    Log.d("CHAMPION_ID", String.valueOf(matchesInfo.get(0).getChampionId()));
+                    Log.d("KILLS", String.valueOf(matchesInfo.get(0).getKills()));
+                    Log.d("DEATHS", String.valueOf(matchesInfo.get(0).getDeaths()));
+                    Log.d("ASSISTS", String.valueOf(matchesInfo.get(0).getAssists()));
+                    Log.d("CHAMP_LEVEL", String.valueOf(matchesInfo.get(0).getChampLevel()));
+                    Log.d("GOLD_EARNED", String.valueOf(matchesInfo.get(0).getGoldEarned()));
+                    Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchesInfo.get(0).getTotalMinionsKilled()));
+
+
+                    for (MatchInfo matchInfo : matchesInfo)
+                    {
+                        Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
+                        Log.d("GAME_CREATION", String.valueOf(matchInfo.getGameCreation()));
+                        Log.d("WINNER_TEAM", String.valueOf(matchInfo.getWinnerTeam()));
+                        Log.d("CHAMPION_ID", String.valueOf(matchInfo.getChampionId()));
+                        Log.d("KILLS", String.valueOf(matchInfo.getKills()));
+                        Log.d("DEATHS", String.valueOf(matchInfo.getDeaths()));
+                        Log.d("ASSISTS", String.valueOf(matchInfo.getAssists()));
+                        Log.d("CHAMP_LEVEL", String.valueOf(matchInfo.getChampLevel()));
+                        Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
+                        Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
+                    }
+
+
+                });
+    }
+    */
+
+    private Observable<MatchlistDto> getMatchListObservable(String summonerAccountId)
+    {
+        return service.getMatchlistWithEncryptedAccountId(summonerAccountId, RIOT_API_KEY);
+    }
+
+    private Observable<List<MatchDto>> getMatchReferenceObservable(MatchlistDto matchListDto)
+    {
+        List<MatchReferenceDto> matches = matchListDto.getMatches();
+        return Observable.fromIterable(matches)
+                .flatMap(matchReferenceDto -> {
+                    //Observable<Long> gameIdObservable = Observable.just(matchReferenceDto.getGameId());
+                    Observable<MatchDto> matchObservable = service.getMatchByMatchId(String.valueOf(matchReferenceDto.getGameId()), RIOT_API_KEY);
+                    return matchObservable.zipWith(Observable.interval(50, TimeUnit.MILLISECONDS), (observable, timer) -> observable);
+                    //return Observable.zip(gameIdObservable, matchObservable, (gameId, matchDto) -> new Pair<Long, MatchDto>(gameId, matchDto));
+                }).toList()
+                .toObservable();
+    }
+
+    private Observable<List<MatchInfo>> getMatchInfoObservable(List<MatchDto> matchesList, String summonerName)
+    {
+        List<MatchInfo> matchesInfo = new ArrayList<>();
+
+        for (MatchDto matchDto : matchesList)
+        {
+            long gameDuration = matchDto.getGameDuration();
+            long gameCreation = matchDto.getGameDuration();
+
+            List<TeamStatsDto> teamStatsToFilter = matchDto.getTeams();
+            Collection filteredTeamsCollection = teamStatsToFilter.stream().filter(teamStatsDto -> teamStatsDto.getWin().equals("Win")).collect(Collectors.toList());
+            List<TeamStatsDto> winnerTeamStatsFiltered  = new ArrayList<>(filteredTeamsCollection);
+
+            List<ParticipantIdentityDto> participantIdentities = matchDto.getParticipantIdentities();
+            Collection filteredParticipantIdentity = participantIdentities.stream().filter(participantIdentity -> participantIdentity.getPlayer().getSummonerName().equals(summonerName)).collect(Collectors.toList());
+            List<ParticipantIdentityDto> participantIdentityFiltered  = new ArrayList<>(filteredParticipantIdentity);
+
+            List<ParticipantDto> participants = matchDto.getParticipants();
+            Collection filteredParticipantDto = participants.stream().filter(participantDto -> participantDto.getParticipantId() == participantIdentityFiltered.get(0).getParticipantId()).collect(Collectors.toList());
+            List<ParticipantDto> participantDtoFiltered  = new ArrayList<>(filteredParticipantDto);
+
+            boolean isWinnerTeam = participantDtoFiltered.stream().anyMatch(filteredParticipant -> filteredParticipant.getTeamId() == winnerTeamStatsFiltered.get(0).getTeamId());
+                        /*boolean isWinnerTeam = participants.stream().anyMatch(participantDto -> participantDto.getTeamId() == winnerTeamStatsFiltered.get(0).getTeamId()
+                                && participantDto.getParticipantId() == participantFiltered.get(0).getParticipantId());*/
+
+            String winnerTeam = isWinnerTeam ? "WIN" : "LOSE";
+
+            int championId = participantDtoFiltered.get(0).getChampionId();
+
+            int kills = participantDtoFiltered.get(0).getStats().getKills();
+            int deaths = participantDtoFiltered.get(0).getStats().getDeaths();
+            int assists = participantDtoFiltered.get(0).getStats().getAssists();
+            int champLevel = participantDtoFiltered.get(0).getStats().getChampLevel();
+            int goldEarned = participantDtoFiltered.get(0).getStats().getGoldEarned();
+            int totalMinionsKilled = participantDtoFiltered.get(0).getStats().getTotalMinionsKilled();
+
+            MatchInfo matchInfo = new MatchInfo(gameDuration, gameCreation, winnerTeam, championId, kills, deaths, assists, champLevel, goldEarned, totalMinionsKilled);
+            Log.d("MATCH_INFO", matchInfo.toString());
+            matchesInfo.add(matchInfo);
+        }
+
+        return Observable.just(matchesInfo);
+    }
+
 }
