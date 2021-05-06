@@ -56,7 +56,7 @@ import retrofit2.http.Query;
 
 public class RiotApiService
 {
-    private final String RIOT_API_KEY = "RGAPI-005ff1d9-c6f4-4455-94b5-ba728096c7a1";
+    private final String RIOT_API_KEY = "RGAPI-bc5e00bc-a611-46d8-bb80-d0cc759cc314";
     private final String RANKED_SOLO = "RANKED_SOLO_5x5";
     private final String RANKED_FLEX = "RANKED_FLEX_SR";
 
@@ -496,7 +496,9 @@ public class RiotApiService
 
     public void getMatchesHistoryInfo(String summonerName, HistoryActivity fragment)
     {
-        int MAX_ENTRIES = 20;
+        if (fragment == null) return;
+
+        int MAX_ENTRIES = 3; //20, LoL Standard Nº Entries
 
         Call<SummonerDTO> callSummonerDTO =  service.getSummonerByNameRetrofit(summonerName, RIOT_API_KEY);
 
