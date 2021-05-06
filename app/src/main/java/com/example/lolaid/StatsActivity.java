@@ -35,6 +35,7 @@ public class StatsActivity extends Fragment {
     private TextView mainChampion1value;
     private TextView mainChampion2value;
     private TextView mainChampion3value;
+    private TextView errorMessage;
 
     private RiotApiService apiService;
 
@@ -44,6 +45,7 @@ public class StatsActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        DataLoaded(false);
         apiService = new RiotApiService();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         apiService.getPlayerStatsInfo(sharedPrefs.getString("summonerName", ""), this);
@@ -51,7 +53,7 @@ public class StatsActivity extends Fragment {
     }
 
     public void getPlayerStatsRest(PlayerStatsInfo playerInfo) {
-
+        DataLoaded(true);
         summonerName =  getView().findViewById(R.id.statsSummonerNameValue);
         summonerName.setText(playerInfo.getSummonerName());
 
@@ -84,7 +86,6 @@ public class StatsActivity extends Fragment {
 
             getActivity().runOnUiThread(() -> {
                 mainChampion1image = getView().findViewById(R.id.statsMainChampion1Image);
-
                 mainChampion1image.setImageResource(championTop1.getChampionIconId());
                 mainChampion1value = getView().findViewById(R.id.statsMainChampion1Value);
                 mainChampion1value.setText(championTop1.getName());
@@ -102,6 +103,70 @@ public class StatsActivity extends Fragment {
         });
 
         championsThread.start();
+    }
+
+    public void DataLoaded(boolean loaded)
+    {
+        summonerName =  getView().findViewById(R.id.statsSummonerNameValue);
+        summonerLevel =  getView().findViewById(R.id.statsSummonerLevelValue);
+        summonerRank =  getView().findViewById(R.id.statsSummonerRankValue);
+        summonerWinRate =  getView().findViewById(R.id.statsSummonerWinRateValue);
+        mainChampion1image = getView().findViewById(R.id.statsMainChampion1Image);
+        mainChampion1value = getView().findViewById(R.id.statsMainChampion1Value);
+        mainChampion2image = getView().findViewById(R.id.statsMainChampion2Image);
+        mainChampion2value = getView().findViewById(R.id.statsMainChampion2Value);
+        mainChampion3image = getView().findViewById(R.id.statsMainChampion3Image);
+        mainChampion3value = getView().findViewById(R.id.statsMainChampion3Value);
+        errorMessage = getView().findViewById(R.id.errorMessage);
+
+        if(loaded)
+        {
+            summonerName.setVisibility(View.VISIBLE);
+
+            summonerLevel.setVisibility(View.VISIBLE);
+
+            summonerRank.setVisibility(View.VISIBLE);
+
+            summonerWinRate.setVisibility(View.VISIBLE);
+
+            mainChampion1image.setVisibility(View.VISIBLE);
+
+            mainChampion1value.setVisibility(View.VISIBLE);
+
+            mainChampion2image.setVisibility(View.VISIBLE);
+
+            mainChampion2value.setVisibility(View.VISIBLE);
+
+            mainChampion3image.setVisibility(View.VISIBLE);
+
+            mainChampion3value.setVisibility(View.VISIBLE);
+
+            errorMessage.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            summonerName.setVisibility(View.INVISIBLE);
+
+            summonerLevel.setVisibility(View.INVISIBLE);
+
+            summonerRank.setVisibility(View.INVISIBLE);
+
+            summonerWinRate.setVisibility(View.INVISIBLE);
+
+            mainChampion1image.setVisibility(View.INVISIBLE);
+
+            mainChampion1value.setVisibility(View.INVISIBLE);
+
+            mainChampion2image.setVisibility(View.INVISIBLE);
+
+            mainChampion2value.setVisibility(View.INVISIBLE);
+
+            mainChampion3image.setVisibility(View.INVISIBLE);
+
+            mainChampion3value.setVisibility(View.INVISIBLE);
+
+            errorMessage.setVisibility(View.VISIBLE);
+        }
     }
 
     private int selectChampionIcon(String champ) {

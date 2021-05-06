@@ -27,4 +27,5 @@
     <string name="runes_title">Runas:</string>
     <string name="victory_text">Victoria</string>
     <string name="defeat_text">Derrota</string>
+    <string name="error_text">No se han podido cargar los datos. Inténtelo más tarde, por favor.</string>
 </resources>
