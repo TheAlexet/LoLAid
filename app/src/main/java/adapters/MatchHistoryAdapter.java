@@ -80,25 +80,14 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         //}
         //Date date = new Date(matchInfo.getGameCreation());
         //holder.tvDate.setText(date.toString());
-        //setChampionIcon(holder, matchInfo);
+        setChampionIcon(holder, matchInfo);
     }
 
     @Override
     public int getItemCount() { return matchesList.size(); }
 
 
-    /*private void setChampionIcon(@NonNull ViewHolder holder, MatchInfo matchInfo){
-        Log.d("INFO", "setChampionIcon is getting called");
-        Log.d("GAME_DURATION", String.valueOf(matchInfo.getGameDuration()));
-        Log.d("GAME_CREATION", String.valueOf(matchInfo.getGameCreation()));
-        Log.d("WINNER_TEAM", String.valueOf(matchInfo.getWinnerTeam()));
-        Log.d("CHAMPION_ID", String.valueOf(matchInfo.getChampionId()));
-        Log.d("KILLS", String.valueOf(matchInfo.getKills()));
-        Log.d("DEATHS", String.valueOf(matchInfo.getDeaths()));
-        Log.d("ASSISTS", String.valueOf(matchInfo.getAssists()));
-        Log.d("CHAMP_LEVEL", String.valueOf(matchInfo.getChampLevel()));
-        Log.d("GOLD_EARNED", String.valueOf(matchInfo.getGoldEarned()));
-        Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
+    private void setChampionIcon(@NonNull ViewHolder holder, MatchInfo matchInfo){
         Thread championsThread = new Thread(() -> {
             Champion champion = LoLAidDatabase.getInstance(historyActivity).ChampionDAO().getChampion(matchInfo.getChampionId());
             historyActivity.runOnUiThread(() -> {
@@ -106,7 +95,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
             });
         });
 
-        //championsThread.start();
+        championsThread.start();
 
         try
         {
@@ -116,7 +105,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         {
             e.printStackTrace();
         }
-    }*/
+    }
 
     public void setMatches(List<MatchInfo> matches)
     {
@@ -144,7 +133,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
             //tvMinions = (TextView) view.findViewById(R.id.tMinions);
             //tvWin = (TextView) view.findViewById(R.id.tWin);
             //tvDate = (TextView) view.findViewById(R.id.tDate);
-            //imChampion = (ImageView) view.findViewById(R.id.iChampion);
+            imChampion = (ImageView) view.findViewById(R.id.iChampion);
         }
 
     }

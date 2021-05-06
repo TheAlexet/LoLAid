@@ -19,4 +19,8 @@ public interface ChampionDAO {
 
     @Query("SELECT * FROM " + DatabaseContract.CHAMPION_TABLE_NAME + " WHERE " + DatabaseContract.CHAMPION_COLUMN_NAME_CHAMPIONID + "= :championId")
     Champion getChampion(long championId);
+
+    @Query("DELETE FROM " + DatabaseContract.CHAMPION_TABLE_NAME)
+    void deleteAllChampions();
+
 }
