@@ -49,7 +49,6 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
     }
 
     @Override
-
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d("INFO", "onBindViewHolder is getting called");
         Log.d("LIST_LENGTH_onBindVH", matchesList.size() + "");
@@ -102,13 +101,6 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         Log.d("TOTAL_MINIONS_KILLED", String.valueOf(matchInfo.getTotalMinionsKilled()));
         Thread championsThread = new Thread(() -> {
             Champion champion = LoLAidDatabase.getInstance(historyActivity).ChampionDAO().getChampion(matchInfo.getChampionId());
-    }
-    public int getItemCount() { return matchesList.size(); }
-
-
-    /*private void setChampionIcon(@NonNull ViewHolder holder, int position){
-        Thread championsThread = new Thread(() -> {
-            Champion champion = LoLAidDatabase.getInstance(historyActivity).ChampionDAO().getChampion(matchesList.get(position).getChampionId());
             historyActivity.runOnUiThread(() -> {
                 holder.imChampion.setImageResource(champion.getChampionIconId());
             });

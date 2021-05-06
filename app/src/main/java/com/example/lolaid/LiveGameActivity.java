@@ -3,6 +3,7 @@ package com.example.lolaid;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +56,10 @@ public class LiveGameActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.live_game__one_player_activity, container, false);
+
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         apiService = new RiotApiService();
+
         championIcon = view.findViewById(R.id.championIcon);
         summSpell1 = view.findViewById(R.id.summonerSpell1);
         summSpell2 = view.findViewById(R.id.summonerSpell2);
@@ -75,7 +78,9 @@ public class LiveGameActivity extends Fragment {
         errorMessage = view.findViewById(R.id.playerNotLive);
         summName = sharedPrefs.getString("summonerName", "Jose");
         apiService.getCurrentMatchInfo(summName, this);
+
         hideAll();
+
         return view;
     }
 
@@ -98,7 +103,7 @@ public class LiveGameActivity extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    private void errorNotLive(){
+    public void errorNotLive(Throwable throwable){
         championName.setVisibility(View.INVISIBLE);
         championIcon.setVisibility(View.INVISIBLE);
         summSpell1.setVisibility(View.INVISIBLE);
@@ -115,6 +120,8 @@ public class LiveGameActivity extends Fragment {
         runesTitle.setVisibility(View.INVISIBLE);
         errorMessage.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
+
+        Log.d("ERROR", throwable.getMessage());
     }
 
     public void showAll(){
