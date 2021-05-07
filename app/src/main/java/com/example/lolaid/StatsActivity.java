@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class StatsActivity extends Fragment {
     private TextView mainChampion2value;
     private TextView mainChampion3value;
     private TextView errorMessage;
+    private ProgressBar progressBarStats;
 
     private RiotApiService apiService;
 
@@ -71,6 +73,7 @@ public class StatsActivity extends Fragment {
         summonerWinRateTitle =  view.findViewById(R.id.statsSummonerWinRateTitle);
         summonerMainChampionsTitle = view.findViewById(R.id.statsMainChampionsTitle);
         errorMessage = view.findViewById(R.id.errorMessage);
+        progressBarStats = view.findViewById(R.id.progressBarStats);
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
@@ -176,9 +179,11 @@ public class StatsActivity extends Fragment {
             summonerRankTitle.setVisibility(View.VISIBLE);
             summonerWinRateTitle.setVisibility(View.VISIBLE);
             summonerMainChampionsTitle.setVisibility(View.VISIBLE);
+            progressBarStats.setVisibility(View.INVISIBLE);
         }
         else
         {
+            progressBarStats.setVisibility(View.VISIBLE);
             errorMessage.setVisibility(View.INVISIBLE);
 
             summonerName.setVisibility(View.INVISIBLE);

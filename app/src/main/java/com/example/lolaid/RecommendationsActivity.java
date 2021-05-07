@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class RecommendationsActivity extends Fragment {
     private TextView rec3;
     private ImageView rec3Circle;
     private TextView errorMessage;
+    private ProgressBar progressBarRecommendations;
 
     private RiotApiService apiService;
 
@@ -51,6 +53,7 @@ public class RecommendationsActivity extends Fragment {
         rec3 =  view.findViewById(R.id.rec3);
         rec3Circle =  view.findViewById(R.id.rec3_circle);
         errorMessage = view.findViewById(R.id.errorMessageRecommendations);
+        progressBarRecommendations = view.findViewById(R.id.progressBarRecommendations);
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
@@ -149,6 +152,7 @@ public class RecommendationsActivity extends Fragment {
         if(loaded)
         {
             errorMessage.setVisibility(View.INVISIBLE);
+            progressBarRecommendations.setVisibility(View.INVISIBLE);
             rec1.setVisibility(View.VISIBLE);
 
             rec1Circle.setVisibility(View.VISIBLE);
@@ -164,6 +168,7 @@ public class RecommendationsActivity extends Fragment {
         else
         {
             errorMessage.setVisibility(View.INVISIBLE);
+            progressBarRecommendations.setVisibility(View.VISIBLE);
 
             rec1.setVisibility(View.INVISIBLE);
 
