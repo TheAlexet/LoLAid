@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lolaid.HistoryActivity;
 import com.example.lolaid.R;
 
 import org.w3c.dom.Text;
@@ -30,11 +31,13 @@ import databases.models.Champion;
 
 public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapter.ViewHolder>{
     private List<MatchInfo> matchesList;
+    private HistoryActivity historyClass;
     private Activity historyActivity;
 
-    public MatchHistoryAdapter(List<MatchInfo> list, Activity activity){
+    public MatchHistoryAdapter(List<MatchInfo> list, Activity activity, HistoryActivity historyActivityClass){
         matchesList = list;
         historyActivity = activity;
+        historyClass = historyActivityClass;
     }
 
     @NonNull
@@ -105,6 +108,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         matchesList.clear();
         matchesList.addAll(matches);
         notifyDataSetChanged();
+        historyClass.showAll();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

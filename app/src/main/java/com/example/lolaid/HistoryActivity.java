@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,8 @@ public class HistoryActivity extends Fragment {
     private SharedPreferences sharedPrefs;
     private String summName;
     private View fragmentView;
+    private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
     public HistoryActivity() {
 
@@ -40,7 +43,8 @@ public class HistoryActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_activity, container, false);
-
+        recyclerView = view.findViewById(R.id.rvMatchHistory);
+        progressBar = view.findViewById(R.id.progressBarHistory);
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         riotApiService = new RiotApiService();
 
@@ -48,7 +52,7 @@ public class HistoryActivity extends Fragment {
 
         List<MatchInfo> provisionalList = new ArrayList<>();
 
-        matchHistoryAdapter = new MatchHistoryAdapter(provisionalList, this.getActivity());
+        matchHistoryAdapter = new MatchHistoryAdapter(provisionalList, this.getActivity(),this);
 
 
         RecyclerView recycler = view.findViewById(R.id.rvMatchHistory);
@@ -59,6 +63,7 @@ public class HistoryActivity extends Fragment {
         recycler.setAdapter(matchHistoryAdapter);
 
         //riotApiService.getMatchesHistoryInfo(summName, this);
+        hideAll();
         return view;
     }
 
@@ -74,6 +79,16 @@ public class HistoryActivity extends Fragment {
         matchesList = new ArrayList<>(matchHistory);
 
         matchHistoryAdapter.setMatches(matchHistory);
+    }
+
+    private void hideAll(){
+        recyclerView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void showAll(){
+        recyclerView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
 }
