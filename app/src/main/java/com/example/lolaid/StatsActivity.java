@@ -53,7 +53,10 @@ public class StatsActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.stats_activity, container, false);
-        apiService = new RiotApiService();
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        int regionSelected = sharedPrefs.getInt("region", 0);
+        apiService = new RiotApiService(regionSelected);
 
         summonerName =  view.findViewById(R.id.statsSummonerNameValue);
         summonerLevel =  view.findViewById(R.id.statsSummonerLevelValue);
@@ -75,7 +78,6 @@ public class StatsActivity extends Fragment {
         errorMessage = view.findViewById(R.id.errorMessage);
         progressBarStats = view.findViewById(R.id.progressBarStats);
 
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
     }
 

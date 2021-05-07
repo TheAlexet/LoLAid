@@ -44,7 +44,10 @@ public class RecommendationsActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recommendations_activity, container, false);
-        apiService = new RiotApiService();
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        int regionSelected = sharedPrefs.getInt("region", 0);
+        apiService = new RiotApiService(regionSelected);
 
         rec1 =  view.findViewById(R.id.rec1);
         rec1Circle =  view.findViewById(R.id.rec1_circle);
@@ -55,7 +58,6 @@ public class RecommendationsActivity extends Fragment {
         errorMessage = view.findViewById(R.id.errorMessageRecommendations);
         progressBarRecommendations = view.findViewById(R.id.progressBarRecommendations);
 
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
     }
 
