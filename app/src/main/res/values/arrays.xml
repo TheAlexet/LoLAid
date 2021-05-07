@@ -15,12 +15,10 @@
         <item>@string/region_euw</item>
         <item>@string/region_na</item>
         <item>@string/region_kr</item>
-        <item>@string/region_chi</item>
     </string-array>
     <string-array name="regions_list_value">
         <item>@string/region_euw</item>
         <item>@string/region_na</item>
         <item>@string/region_kr</item>
-        <item>@string/region_chi</item>
     </string-array>
 </resources>

@@ -60,6 +60,10 @@ public class RiotApiService
     private final String RIOT_API_KEY = "RGAPI-bc5e00bc-a611-46d8-bb80-d0cc759cc314";
     private final String RANKED_SOLO = "RANKED_SOLO_5x5";
     private final String RANKED_FLEX = "RANKED_FLEX_SR";
+    private final String EUW_REGION = "euw1";
+    private final String NA_REGION = "na1";
+    private final String KR_REGION = "kr";
+    private String selectedRegion;
 
     private IRiotApiServiceREST service;
     //private WeakReference<FragmentActivity> activityReference;
@@ -68,15 +72,31 @@ public class RiotApiService
     private WeakReference<HistoryActivity> historyFragmentReference;
     private WeakReference<RecommendationsActivity> recomendationsFragmentReference;
 
-    public RiotApiService()
+    public RiotApiService(int regionSelected)
     {
+        checkRegionSelected(regionSelected);
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://euw1.api.riotgames.com")
+                .baseUrl("https://" + selectedRegion + ".api.riotgames.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         service = retrofit.create(IRiotApiServiceREST.class);
+    }
+
+    private void checkRegionSelected(int regionSelected)
+    {
+        switch (regionSelected)
+        {
+            case 0: selectedRegion = EUW_REGION;
+                break;
+
+            case 1: selectedRegion = NA_REGION;
+                break;
+            case 2: selectedRegion = KR_REGION;
+                break;
+        }
     }
 
     private Observable<SummonerDTO> getSummonerByNameObservable(String summonerName)

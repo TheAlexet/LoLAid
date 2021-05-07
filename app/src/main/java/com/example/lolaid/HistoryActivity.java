@@ -46,7 +46,9 @@ public class HistoryActivity extends Fragment {
         recyclerView = view.findViewById(R.id.rvMatchHistory);
         progressBar = view.findViewById(R.id.progressBarHistory);
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        riotApiService = new RiotApiService();
+
+        int regionSelected = sharedPrefs.getInt("region", 0);
+        riotApiService = new RiotApiService(regionSelected);
 
         summName = sharedPrefs.getString("summonerName","");
 

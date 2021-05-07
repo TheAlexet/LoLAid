@@ -65,41 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 setLocale("ca");
                 break;
         }
-
-        //WrapperRiotAPI riotAPI = new WrapperRiotAPI();
-        //riotAPI.printSummonerInfoTest();
-        //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
-        /*new Thread(() -> {
-            WrapperRiotAPI riotAPI = new WrapperRiotAPI();
-            riotAPI.printSummonerInfoTest();
-            riotAPI.printChamps();
-            riotAPI.printSummonerSpells();
-            //WrapperRiotApi2 wrapper2 = new WrapperRiotApi2();
-        }).start();*/
-        /*
-        //ASYNC WAY (AUTO CREATION CREATION)
-        RiotApiService riotApiServiceAsync = new RiotApiService();
-        riotApiServiceAsync.printSummonerByNameTestAsync();
-
-        //SYNC WAY (MANUAL THREAD CREATION)
-        new Thread(() ->
-        {
-            RiotApiService riotApiService = new RiotApiService();
-            riotApiService.printSummonerByNameTest();
-        }).start();
-        */
-        //Intent intent = new Intent(this, TestJobIntentService.class);
-        //startService(intent);
-        RiotApiService riotApiService = new RiotApiService();
-        Log.d("INFO", "I'm getting called");
-        //riotApiService.printSummonerByNameTest();
-        //riotApiService.getLeagueEntriesWithSummonerId("");
-        //riotApiService.getMatchByMatchId("");
-        //riotApiService.getSummonerByName("");
-        //riotApiService.getCurrentMatchInfo("pabletefest");
-        //riotApiService.getPlayerStatsInfo("pabletefest");
-        //riotApiService.getMatchInfo("pabletefest");
-        Log.d("INFO", "I got called");
     }
 
     //Action bar buttons set-up

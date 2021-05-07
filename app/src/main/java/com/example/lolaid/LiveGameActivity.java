@@ -60,7 +60,9 @@ public class LiveGameActivity extends Fragment {
         View view = inflater.inflate(R.layout.live_game__one_player_activity, container, false);
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        apiService = new RiotApiService();
+
+        int regionSelected = sharedPrefs.getInt("region", 0);
+        apiService = new RiotApiService(regionSelected);
 
         championIcon = view.findViewById(R.id.championIcon);
         summSpell1 = view.findViewById(R.id.summonerSpell1);
