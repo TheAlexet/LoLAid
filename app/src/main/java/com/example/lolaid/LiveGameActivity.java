@@ -191,8 +191,8 @@ public class LiveGameActivity extends Fragment {
 
 
         championThread.start();
-        //runesThread.start();
-        //summSpellsThread.start();
+        runesThread.start();
+        summSpellsThread.start();
         showAll();
         //championIcon.setImageResource();
         //summSpell1.setImageResource();
