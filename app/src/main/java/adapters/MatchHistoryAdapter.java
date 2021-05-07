@@ -17,6 +17,9 @@ import com.example.lolaid.R;
 
 import org.w3c.dom.Text;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -55,20 +58,21 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         String gameDuration = gameMinutes + ":" + secondsFormatted;
 
         holder.tvDuration.setText(gameDuration);
-        holder.tvScore.setText(matchInfo.getScore());
-        holder.tvLevel.setText(String.valueOf(matchInfo.getChampLevel()));
-        holder.tvGold.setText(String.valueOf(matchInfo.getGoldEarned()));
-        holder.tvMinions.setText(String.valueOf(matchInfo.getTotalMinionsKilled()));
+        holder.tvScore.setText("KDA: " + matchInfo.getScore());
+        holder.tvLevel.setText("Level: " + String.valueOf(matchInfo.getChampLevel()));
+        holder.tvGold.setText("Gold: " + String.valueOf(matchInfo.getGoldEarned()));
+        holder.tvMinions.setText("CS: " + String.valueOf(matchInfo.getTotalMinionsKilled()));
 
         if(matchesList.get(position).getWinnerTeam().equals("WIN")){
             holder.tvWin.setText(R.string.victory_text);
         } else{
             holder.tvWin.setText(R.string.defeat_text);
         }
-
-        Date date = new Date(matchInfo.getGameCreation());
-        holder.tvDate.setText(date.toString());
-
+        Timestamp ts=new Timestamp(matchInfo.getGameCreation());
+        Date date = new Date(ts.getTime());
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = formatter.format(date);
+        holder.tvDate.setText(formattedDate);
         setChampionIcon(holder, matchInfo);
     }
 

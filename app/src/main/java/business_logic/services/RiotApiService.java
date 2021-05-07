@@ -256,7 +256,7 @@ public class RiotApiService
                     for (MatchDto matchDto : matchesList)
                     {
                         long gameDuration = matchDto.getGameDuration();
-                        long gameCreation = matchDto.getGameDuration();
+                        long gameCreation = matchDto.getGameCreation();
 
                         List<TeamStatsDto> teamStatsToFilter = matchDto.getTeams();
                         Collection filteredTeamsCollection = teamStatsToFilter.stream().filter(teamStatsDto -> teamStatsDto.getWin().equals("Win")).collect(Collectors.toList());
@@ -372,7 +372,7 @@ public class RiotApiService
                                 for (MatchDto matchDto : matches)
                                 {
                                     long gameDuration = matchDto.getGameDuration();
-                                    long gameCreation = matchDto.getGameDuration();
+                                    long gameCreation = matchDto.getGameCreation();
 
                                     List<TeamStatsDto> teamStatsToFilter = matchDto.getTeams();
                                     Collection filteredTeamsCollection = teamStatsToFilter.stream().filter(teamStatsDto -> teamStatsDto.getWin().equals("Win")).collect(Collectors.toList());
