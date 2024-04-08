@@ -1,1 +1,1 @@
-# LoLAid
+LoLAid is an Android application developed with Java for the course "Desarrollo de Aplicaciones para Dispositivos Móviles" (DADM) of the bachelor's degree Ingeniería Informática (Computer Science) at the Universitat Politècnica de València (UPV). The Riot Game's API was used to get data from the videogame League of Legends and represent it in this application.
