@@ -12,6 +12,6 @@ Before you begin, ensure you have met the following requirements:
 - Android device or emulator running Android OS
 
 You can clone the repository to your local machine with:
-    ```bash
+    ```
     git clone https://github.com/TheAlexet/LoLAid.git
     ```
